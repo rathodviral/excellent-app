@@ -1,0 +1,90 @@
+<div class="white-box">
+  <div class="row">
+    <div class="col s12">
+      <div class="table-responsive">
+        <!--<table id="tblSearch" class="table sourced-data" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+          <thead>
+          <tr>
+            <th>
+              <input type="checkbox" class="filled-in" id="chk" />
+              <label for="chk"></label>
+            </th>
+            <th class="text-left" width="150">Radio Station</th>
+            <th>Frequency</th>
+            <th>City</th>
+            <th>Language</th>
+            <th>Rank</th>
+            <th class="nosort"><span class="hide-on-small-only">Rate per second</span><span
+              class="show-on-small hide-on-med-and-up">Rate</span></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of filteredData; let i = index">
+            <td>
+              <input type="checkbox" class="filled-in" id="chk{{i}}"/>
+              <label for="chk{{i}}"></label>
+            </td>
+            <td class="text-left st-name"><a href="javascript:void(0)">{{data?.radiostation}}</a></td>
+            <td>98.3</td>
+            <td>{{data?.city}}</td>
+            <td>{{data?.language}}</td>
+            <td>2</td>
+            <td>
+              &lt;!&ndash;<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to Plan</a><br> &ndash;&gt;
+              <a href="javascript:void(0)">Login to View Rates</a>
+            </td>
+          </tr>
+          <tr *ngIf="filteredData?.length === 0">
+            <td colspan="8">
+              No Data Found
+            </td>
+          </tr>
+          </tbody>
+        </table>-->
+        <p-table [value]="filteredData" [(selection)]="selectedData">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 2.25em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th class="text-left" width="150">Radio Station</th>
+              <th>Frequency</th>
+              <th [pSortableColumn]="cityName">City<p-sortIcon [field]="cityName"></p-sortIcon></th>
+              <th class="nosort"><span class="hide-on-small-only">Rate per second</span><span
+                class="show-on-small hide-on-med-and-up">Rate</span></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-data>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="data"></p-tableCheckbox>
+              </td>
+              <td class="text-left st-name"><a href="javascript:void(0)">{{data?.productName}}</a></td>
+              <td>{{data?.attribute['1']['value']}}</td>
+              <td>{{data?.cityName}}</td>
+              <td>
+                <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
+                  Plan</a><br>-->
+                <p *ngIf="isTokenAvailable(); else tokenNot">data</p>
+                <ng-template #tokenNot>
+                  <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
+
+                </ng-template>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <ul>
+              <li *ngFor="let item of selectedData" style="text-align: left">
+                {{item.cityName}}
+              </li>
+            </ul>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog [(visible)]="isLoginPopupDisplay" [showHeader]="false" [contentStyle]="{'padding':'0'}" [style]="{left:0}">
+  <app-login (closeLoginPopup)="closeLoginDialog($event)"></app-login>
+</p-dialog>

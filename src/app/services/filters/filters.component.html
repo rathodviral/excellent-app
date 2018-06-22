@@ -1,0 +1,94 @@
+<div class="filter">
+  <ul class="collapsible active" data-collapsible="expandable">
+    <li class="collapse">
+      <div class="collapsible-header active">
+        <i class="material-icons">place</i> Geography <i class="material-icons dp48 right">expand_more</i>
+      </div>
+
+      <div class="collapsible-body">
+        <div class="search-input-box">
+          <i class="material-icons">search</i>
+          <!--<input type="text" #searchLocation name="Search" class="search-input" placeholder="Search Location"
+                 (keyup)="geographyDataChange(searchLocation.value)"/>-->
+
+          <p-autoComplete [(ngModel)]="searchLocation"
+                          [suggestions]="searchResults" (completeMethod)="geographyDataSearch($event)"
+                          [multiple]="true" field="LocationName" (onSelect)="geographyDataChange()" (onUnselect)="geographyDataChange()"></p-autoComplete>
+        </div>
+      </div>
+    </li>
+    <li class="collapse active">
+      <div class="collapsible-header active">
+        <i class="fa fa-language "></i> Language <i class="material-icons dp48 right">expand_more</i>
+      </div>
+      <div class="collapsible-body ">
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Language" [(ngModel)]="language"/>
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.language | filter:{name : language}">
+            <input type="checkbox" class="filled-in" id="language{{item.filterValueId}}" [value]="item.filterValueId"
+                   (change)="otherFilterDataChange($event,'languages', item.filterValueId)"/>
+            <label for="language{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li class="collapse active">
+      <div class="collapsible-header active">
+        <i class="fa fa-rss "></i> Station <i class="material-icons dp48 right">expand_more</i>
+      </div>
+      <div class="collapsible-body ">
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Station"
+                 [(ngModel)]="radioStation"/>
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.radiostation | filter:{name : radioStation}">
+            <input type="checkbox" class="filled-in" id="station{{item.filterValueId}}" [value]="item.filterValueId"
+                   (change)="otherFilterDataChange($event,'station', item.filterValueId)"/>
+            <label for="station{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li class="collapse active">
+      <div class="collapsible-header active">
+        <i class="fa fa-rss "></i> Tier <i class="material-icons dp48 right">expand_more</i>
+      </div>
+      <div class="collapsible-body ">
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Tier" [(ngModel)]="searchTier"/>
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.tier | filter:{name : searchTier}">
+            <input type="checkbox" class="filled-in" id="tier{{item.filterValueId}}" [value]="item.filterValueId"
+                   (change)="otherFilterDataChange($event,'tier', item.filterValueId)"/>
+            <label for="tier{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li class="collapse active">
+      <div class="collapsible-header active">
+        <i class="fa fa-rss "></i> Zone <i class="material-icons dp48 right">expand_more</i>
+      </div>
+      <div class="collapsible-body ">
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Zone" [(ngModel)]="searchZone"/>
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.zone | filter:{name : searchZone}">
+            <input type="checkbox" class="filled-in" id="zone{{item.filterValueId}}" [value]="item.filterValueId"
+                   (change)="otherFilterDataChange($event,'zone', item.filterValueId)"/>
+            <label for="zone{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
