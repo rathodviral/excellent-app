@@ -1,5 +1,7 @@
 <div id="login-register" class="side-nav" style="">
-  <a href="javascript:void(0)" class="closebtn" (click)="closePopup()"><i class="material-icons dp48">close</i></a>
+  <a href="javascript:void(0)" class="closebtn" (click)="closePopup()">
+    <i class="material-icons dp48">close</i>
+  </a>
   <div class="container">
     <div class="row">
       <div class="col l5">
@@ -7,23 +9,23 @@
       <div class="col l7  s12">
         <div class="row">
           <div class="col l6 s12 login-box">
-            <h4 class="login-title">Login Here!</h4>
+            <h4 class="login-title">{{isForgotPasswordShow ? 'Forgot Password' : 'Login'}} Here!</h4>
             <form [formGroup]="userLoginForm" (ngSubmit)="loginFormSubmit()">
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input type="email" class="validate" placeholder="Email" formControlName="email" >
+                  <input type="email" class="validate" placeholder="Email" formControlName="email">
                 </div>
               </div>
-              <div class="col s12 m12 l12">
+              <div class="col s12 m12 l12" *ngIf="!isForgotPasswordShow">
                 <div class="input-field">
-                  <input  type="password" class="validate" placeholder="Password"  formControlName="password">
+                  <input type="password" class="validate" placeholder="Password" formControlName="password">
                 </div>
               </div>
               <div class="col s12 m12 l12 center forgot-pwd">
-                <a href="javascript:void(0)" class="forgot-pwd">Forgot Password?</a>
+                <a href="javascript:void(0)" class="forgot-pwd" (click)="changeStateIsForgotPassword()">{{!isForgotPasswordShow ? 'Forgot Password?' : 'Login Again?'}}</a>
               </div>
               <div class="col s12 m12 l12 center">
-                <button type="submit" class="waves-effect waves-light btn-large btn login-button">Login</button>
+                <button type="submit" class="waves-effect waves-light btn-large btn login-button">{{isForgotPasswordShow ? 'Send Mail' : 'Login'}}</button>
               </div>
             </form>
 
@@ -33,7 +35,7 @@
             <form [formGroup]="userRegistrationForm" (ngSubmit)="registrationFormSubmit()">
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input  type="text" class="validate" placeholder="Name"  formControlName="name">
+                  <input type="text" class="validate" placeholder="Name" formControlName="name">
                 </div>
               </div>
               <!--<div class="col s12 m12 l12">
@@ -43,27 +45,27 @@
               </div>-->
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input  type="email" class="validate" placeholder="Email" formControlName="email">
+                  <input type="email" class="validate" placeholder="Email" formControlName="email">
                 </div>
               </div>
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input  type="password" class="validate" placeholder="Password"  formControlName="password">
+                  <input type="password" class="validate" placeholder="Password" formControlName="password">
                 </div>
               </div>
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input  type="text" class="validate" placeholder="Phone"  formControlName="phone">
+                  <input type="text" class="validate" placeholder="Phone" formControlName="phone">
                 </div>
               </div>
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input  type="text" class="validate" placeholder="Company"  formControlName="company">
+                  <input type="text" class="validate" placeholder="Company" formControlName="company">
                 </div>
               </div>
               <div class="col s12 m12 l12">
                 <div class="input-field">
-                  <input  type="text" class="validate" placeholder="City"  formControlName="city">
+                  <input type="text" class="validate" placeholder="City" formControlName="city">
                 </div>
               </div>
               <div class="col s12 m12 l12 center mt-20">

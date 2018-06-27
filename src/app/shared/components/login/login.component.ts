@@ -1,33 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AfterViewInit} from "@angular/core";
-import {Output} from "@angular/core";
-import {EventEmitter} from "@angular/core";
-import {UserService} from "../../services/user.service";
-import {User} from "../../modal/user";
-import {CommonService} from "../../services/common.service";
-import {LocalStorage} from "../../constant/local-storage";
-import {Utilities} from "../../services/utilities";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AfterViewInit } from "@angular/core";
+import { Output } from "@angular/core";
+import { EventEmitter } from "@angular/core";
+import { UserService } from "../../services/user.service";
+import { User } from "../../modal/user";
+import { CommonService } from "../../services/common.service";
+import { LocalStorage } from "../../constant/local-storage";
+import { Utilities } from "../../services/utilities";
 
-declare var jQuery:any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  userLoginForm:FormGroup;
-  userRegistrationForm:FormGroup;
+  userLoginForm: FormGroup;
+  userRegistrationForm: FormGroup;
+  isForgotPasswordShow: boolean;
 
   @Output('closeLoginPopup') closeLoginPopup = new EventEmitter<any>();
 
 
-  constructor(private formBuilder:FormBuilder,
-              private userService:UserService,
-              private commonService:CommonService) {
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private commonService: CommonService
+  ) { }
 
   private createForm() {
     this.userLoginForm = this.formBuilder.group({
@@ -46,30 +48,34 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.isForgotPasswordShow = false;
     this.createForm();
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() { }
 
   loginFormSubmit() {
-    if (this.userLoginForm.valid) {
+    const userData = this.userLoginForm.value;
 
-      const user:FormData = this.commonService.convertObjectToFormData(this.userLoginForm.value);
-      this.userService.userLogin(user).subscribe(data => {
-        console.log(data);
+    if (!Utilities.isEmptyObj(userData['email']) && !Utilities.isEmptyObj(userData['password']) && !this.isForgotPasswordShow) {
+      this.userService.userLogin(userData).subscribe(data => {
         if (!Utilities.isEmptyObj(data['token'])) {
           this.commonService.setLocalStorageObject(LocalStorage.UserData, this.commonService.convertObjectInCamelizeKeys(data));
           this.closePopup();
-
         }
+      });
+    } else if (!Utilities.isEmptyObj(userData['email']) && Utilities.isEmptyStr(userData['password']) && this.isForgotPasswordShow) {
+      const email = { email: userData['email'] };
+      this.userService.userForgotPassword(email).subscribe(data => {
+        this.closePopup();
       });
     }
   }
 
   registrationFormSubmit() {
     if (this.userRegistrationForm.valid) {
-      const user:FormData = this.commonService.convertObjectToFormData(this.userRegistrationForm.value);
+      // const user: FormData = this.commonService.convertObjectToFormData(this.userRegistrationForm.value);
+      const user = this.userRegistrationForm.value;
 
       this.userService.userRegistration(user).subscribe(data => {
         if (!Utilities.isEmptyObj(data['token'])) {
@@ -81,7 +87,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   closePopup() {
+    this.userLoginForm.reset();
+    this.userRegistrationForm.reset();
     this.closeLoginPopup.emit(null);
+  }
+
+  changeStateIsForgotPassword() {
+    this.isForgotPasswordShow = this.isForgotPasswordShow ? false : true;
+    this.userLoginForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.userLoginForm.reset();
+    this.userRegistrationForm.reset();
   }
 
 }

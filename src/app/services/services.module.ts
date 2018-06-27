@@ -20,6 +20,9 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { TableModule } from "primeng/table";
 import { DialogModule } from "primeng/dialog";
 import { DropdownModule } from "primeng/dropdown";
+import { SidebarModule } from 'primeng/sidebar';
+import { AccordionModule } from 'primeng/accordion';
+
 
 @NgModule({
   imports: [
@@ -33,7 +36,9 @@ import { DropdownModule } from "primeng/dropdown";
     AutoCompleteModule,
     TableModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    SidebarModule,
+    AccordionModule
   ],
   declarations: [
     ServicesComponent,

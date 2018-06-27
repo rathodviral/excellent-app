@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ServicesService} from "../services.service";
-import {Params, Filter, LocationFilter} from "../../shared/modal/filter-params";
-import {Filters, FilterData} from "../../shared/modal/filters";
-import {FilteredData} from "../../shared/modal/filtered-data";
-import {Utilities} from "../../shared/services/utilities";
-import {Router} from "@angular/router";
-import {Subject} from "rxjs";
-import {OnDestroy} from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { ServicesService } from "../services.service";
+import { Params, Filter, LocationFilter } from "../../shared/modal/filter-params";
+import { Filters, FilterData } from "../../shared/modal/filters";
+import { FilteredData } from "../../shared/modal/filtered-data";
+import { Utilities } from "../../shared/services/utilities";
+import { Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { OnDestroy } from "@angular/core";
 declare var humps;
 
 @Component({
@@ -16,14 +16,15 @@ declare var humps;
 })
 export class ServicePageComponent implements OnInit, OnDestroy {
 
-  filters:Filters;
-  filteredData:FilteredData[];
-  params:Params;
-  locationParams:LocationFilter;
-  servicePage:string = 'radio';
+  filters: Filters;
+  filteredData: FilteredData[];
+  params: Params;
+  locationParams: LocationFilter;
+  servicePage: string = 'radio';
+  // selectedData: FilterData[] = [];
 
   // dtOptions:DataTables.Settings = {};
-  dtTrigger:Subject<any> = new Subject();
+  dtTrigger: Subject<any> = new Subject();
 
   private modifyData(data) {
     const newData = humps.camelizeKeys(data, (key, convert) => {
@@ -33,7 +34,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
     return newData;
   }
 
-  constructor(private sr:ServicesService, private router:Router) {
+  constructor(private sr: ServicesService, private router: Router) {
     this.servicePage = this.router.url.split('/')[2];
   }
 
@@ -95,7 +96,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
     } else {
       this.params.filters[data.parent].splice(this.params.filters[data.parent].findIndex(x => x === data.value), 1);
     }
-    this.getFilteredData()
+    this.getFilteredData();
   }
 
   ngOnDestroy() {

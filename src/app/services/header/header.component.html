@@ -3,60 +3,69 @@
     <nav class="top-nav">
       <div class="container">
         <div class="nav-wrapper">
-          <a href="javascript:void(0)" data-activates="nav-mobile" class="button-collapse top-nav full "><i
-            class="material-icons">menu</i></a>
+          <a href="javascript:void(0)" data-activates="nav-mobile" class="button-collapse top-nav full ">
+            <i class="material-icons">menu</i>
+          </a>
           <div class="logo">
             <img src="assets/images/logo.png" class="responsive-img hide-on-small-only logo-desk" style="float:left;">
-            <img src="assets/images/logo-text.png" class="responsive-img mt-25 hide-on-med-and-up logo-mobile"
-                 style="float:left;">
+            <img src="assets/images/logo-text.png" class="responsive-img mt-25 hide-on-med-and-up logo-mobile" style="float:left;">
           </div>
           <div class="header-search">
-            <a data-activates="search-side" class="search-overly search-toggle"><i class="fa fa-search"></i></a>
+            <a data-activates="search-side" class="search-overly search-toggle">
+              <i class="fa fa-search"></i>
+            </a>
           </div>
           <ul class="right ">
-            <li class="hide-on-med-and-down"><a href="javascript:void(0)">About</a></li>
-            <li class="hide-on-med-and-down"><a href="javascript:void(0)">Clientle</a></li>
-            <li class="hide-on-med-and-down"><a href="javascript:void(0)">Team Excellent</a></li>
-            <li class="hide-on-med-and-down"><a href="javascript:void(0)">Contact</a></li>
+            <li class="hide-on-med-and-down">
+              <a href="javascript:void(0)">About</a>
+            </li>
+            <li class="hide-on-med-and-down">
+              <a href="javascript:void(0)">Clientle</a>
+            </li>
+            <li class="hide-on-med-and-down">
+              <a href="javascript:void(0)">Team Excellent</a>
+            </li>
+            <li class="hide-on-med-and-down">
+              <a href="javascript:void(0)">Contact</a>
+            </li>
             <li class="account hide-on-med-and-down">
-              <a class='dropdown-account-large hide-on-med-and-down' href='#' data-activates='dropdown1'
-                 data-alignment="right">Account <i class="material-icons dp48">arrow_drop_down</i></a>
+              <a class='dropdown-account-large hide-on-med-and-down' href="javascript:void(0)" data-activates='dropdown1' data-alignment="right">Account
+                <i class="material-icons dp48">arrow_drop_down</i>
+              </a>
 
               <ul id='dropdown1' class='dropdown-content'>
                 <div *ngIf="!isTokenAvailable();else tokenNotD">
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn"
-                     href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Login</a>
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn"
-                     href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Register</a>
-                  <hr>
-                  <li><a href="javascript:void(0)">Forgot Password ?</a></li>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Login</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Register</a>
                 </div>
                 <ng-template #tokenNotD>
-                  <li><span>{{userData?.buyerFullName}}</span></li>
-                  <li><a href="javascript:void(0)" (click)="userLogoutClick()">Logout</a></li>
+                  <li>
+                    <span>{{userData?.buyerFullName}}</span>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" (click)="userLogoutClick()">Logout</a>
+                  </li>
                 </ng-template>
               </ul>
-
             </li>
             <li class="">
-              <a class="waves-effect waves-light btn-border" href="media-plan.html">Media Plan</a>
+              <a class="waves-effect waves-light btn-border" href="javascript:void(0)">Media Plan</a>
             </li>
             <!--  Dropdown Only Mobile -->
             <li class=" hide-on-large-only">
-              <a class='dropdown-account-mobile' href='#' data-activates='dropdown2' data-alignment="left"><i
-                class="material-icons dp48">account_circle</i></a>
+              <a class='dropdown-account-mobile' href="javascript:void(0)" data-activates='dropdown2' data-alignment="left">
+                <i class="material-icons dp48">account_circle</i>
+              </a>
 
               <ul id='dropdown2' class='dropdown-content'>
                 <div *ngIf="!isTokenAvailable();else tokenNotM">
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn"
-                     href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Login</a>
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn"
-                     href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Register</a>
-                  <hr/>
-                  <li><a href="javascript:void(0)">Forgot Password ?</a></li>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Login</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Register</a>
                 </div>
                 <ng-template #tokenNotM>
-                  <li><a href="javascript:void(0)" (click)="userLogoutClick()">Logout</a></li>
+                  <li>
+                    <a href="javascript:void(0)" (click)="userLogoutClick()">Logout</a>
+                  </li>
                 </ng-template>
               </ul>
             </li>
@@ -77,15 +86,33 @@
           </svg>
         </div>
       </li>
-      <li class="first-list"><a href="radio.html">Radio</a></li>
-      <li><a href="cinema.html">Cinema</a></li>
-      <li><a href="auto-branding.html">Auto Branding</a></li>
-      <li><a href="outdoor.html">Outdoor</a></li>
-      <li><a href="television.html">Television</a></li>
-      <li><a href="magazine.html">Magazine</a></li>
-      <li><a href="digital.html">Digital</a></li>
-      <li><a href="airport.html">Airport</a></li>
-      <li><a href="non-traditional.html">Non Traditional</a></li>
+      <li class="first-list">
+        <a href="radio.html">Radio</a>
+      </li>
+      <li>
+        <a href="cinema.html">Cinema</a>
+      </li>
+      <li>
+        <a href="auto-branding.html">Auto Branding</a>
+      </li>
+      <li>
+        <a href="outdoor.html">Outdoor</a>
+      </li>
+      <li>
+        <a href="television.html">Television</a>
+      </li>
+      <li>
+        <a href="magazine.html">Magazine</a>
+      </li>
+      <li>
+        <a href="digital.html">Digital</a>
+      </li>
+      <li>
+        <a href="airport.html">Airport</a>
+      </li>
+      <li>
+        <a href="non-traditional.html">Non Traditional</a>
+      </li>
     </ul>
   </div>
   <!-- Right Sidebar Filter IN Mobile --->
@@ -94,44 +121,46 @@
       <ul class="collapsible filter-mobile" data-collapsible="expandable">
         <li class="collapse active">
           <div class="collapsible-header active">
-            <i class="material-icons">place</i> Geography <i class="material-icons dp48 right">expand_more</i>
+            <i class="material-icons">place</i> Geography
+            <i class="material-icons dp48 right">expand_more</i>
           </div>
 
           <div class="collapsible-body">
             <div class="search-input-box">
               <i class="material-icons">search</i>
-              <input type="text" name="Search" class="search-input" placeholder="Search Location"/>
+              <input type="text" name="Search" class="search-input" placeholder="Search Location" />
             </div>
           </div>
         </li>
         <li class="collapse">
           <div class="collapsible-header ">
-            <i class="fa fa-language "></i> Language <i class="material-icons dp48 right">expand_more</i>
+            <i class="fa fa-language "></i> Language
+            <i class="material-icons dp48 right">expand_more</i>
           </div>
           <div class="collapsible-body ">
             <div class="search-sidebar-small">
               <i class="material-icons">search</i>
-              <input type="text" name="Search" class="search-input" placeholder="Search Language"/>
+              <input type="text" name="Search" class="search-input" placeholder="Search Language" />
             </div>
             <div class="filter-data">
               <p>
-                <input type="checkbox" class="filled-in" id="a0"/>
+                <input type="checkbox" class="filled-in" id="a0" />
                 <label for="a0">Tamil</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a1"/>
+                <input type="checkbox" class="filled-in" id="a1" />
                 <label for="a1">Malayalam</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a2"/>
+                <input type="checkbox" class="filled-in" id="a2" />
                 <label for="a2">Hindi</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a3"/>
+                <input type="checkbox" class="filled-in" id="a3" />
                 <label for="a3"> English</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a4"/>
+                <input type="checkbox" class="filled-in" id="a4" />
                 <label for="a4">Gujarati</label>
               </p>
             </div>
@@ -139,32 +168,33 @@
         </li>
         <li class="collapse ">
           <div class="collapsible-header ">
-            <i class="fa fa-rss "></i> Station <i class="material-icons dp48 right">expand_more</i>
+            <i class="fa fa-rss "></i> Station
+            <i class="material-icons dp48 right">expand_more</i>
           </div>
           <div class="collapsible-body">
             <div class="search-sidebar-small">
               <i class="material-icons">search</i>
-              <input type="text" name="Search" class="search-input" placeholder="Search Station"/>
+              <input type="text" name="Search" class="search-input" placeholder="Search Station" />
             </div>
             <div class="filter-data">
               <p>
-                <input type="checkbox" class="filled-in" id="a5"/>
+                <input type="checkbox" class="filled-in" id="a5" />
                 <label for="a5">Radio Mirchi</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a6"/>
+                <input type="checkbox" class="filled-in" id="a6" />
                 <label for="a6">Red FM</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a7"/>
+                <input type="checkbox" class="filled-in" id="a7" />
                 <label for="a7">Radio Indigo</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a8"/>
+                <input type="checkbox" class="filled-in" id="a8" />
                 <label for="a8"> Radio One</label>
               </p>
               <p>
-                <input type="checkbox" class="filled-in" id="a9"/>
+                <input type="checkbox" class="filled-in" id="a9" />
                 <label for="a9">Suryan FM</label>
               </p>
             </div>
@@ -176,13 +206,15 @@
 </header>
 <!-- Add SEARCH  START -->
 <div id="search-side" class="side-nav side-out">
-  <a class="closebtn"><i class="material-icons dp48">close</i></a>
+  <a class="closebtn">
+    <i class="material-icons dp48">close</i>
+  </a>
   <div class="container">
     <div class="row">
       <div class="col s12 m12 l12">
         <div class="search-input-box">
           <i class="material-icons">search</i>
-          <input type="text" name="Search" class="search-input" placeholder="Search..."/>
+          <input type="text" name="Search" class="search-input" placeholder="Search..." />
         </div>
       </div>
     </div>

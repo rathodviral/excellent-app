@@ -8,4 +8,11 @@
   </section>
 </main>
 <app-footer></app-footer>
-<app-cart></app-cart>
+<div class="fixed-action-btn " style="bottom: 35px; right: 5px;">
+  <a data-activates="add-dashbord" class="button-collapse2 btn-floating btn-large" (click)="cartDisplay = true">
+    <i class="material-icons">add</i>
+  </a>
+</div>
+<p-sidebar [(visible)]="cartDisplay" position="right">
+  <app-cart></app-cart>
+</p-sidebar>

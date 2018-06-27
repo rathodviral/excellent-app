@@ -41,34 +41,36 @@
           </tr>
           </tbody>
         </table>-->
-        <p-table [value]="filteredData" [(selection)]="selectedData">
+        <p-table [columns]="cols" [value]="filteredData" [(selection)]="selectedData">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th style="width: 2.25em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th class="text-left" width="150">Radio Station</th>
-              <th>Frequency</th>
-              <th [pSortableColumn]="cityName">City<p-sortIcon [field]="cityName"></p-sortIcon></th>
-              <th class="nosort"><span class="hide-on-small-only">Rate per second</span><span
-                class="show-on-small hide-on-med-and-up">Rate</span></th>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th class="nosort">
+                <span class="hide-on-small-only">Rate per second</span>
+                <span class="show-on-small hide-on-med-and-up">Rate</span>
+              </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-data>
+          <ng-template pTemplate="body" let-data let-columns="columns">
             <tr>
               <td>
                 <p-tableCheckbox [value]="data"></p-tableCheckbox>
               </td>
-              <td class="text-left st-name"><a href="javascript:void(0)">{{data?.productName}}</a></td>
-              <td>{{data?.attribute['1']['value']}}</td>
-              <td>{{data?.cityName}}</td>
+              <td *ngFor="let col of columns">
+                {{data[col.field]}}
+              </td>
               <td>
                 <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
                   Plan</a><br>-->
                 <p *ngIf="isTokenAvailable(); else tokenNot">data</p>
                 <ng-template #tokenNot>
                   <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
-
                 </ng-template>
               </td>
             </tr>
