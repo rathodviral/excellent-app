@@ -15,19 +15,22 @@ import { FilterDeepDataPipe } from 'src/app/shared/pipes/filterDeepData.pipe';
   ],
   declarations: [
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    FilterDeepDataPipe
+
   ],
   exports: [
     PageNotFoundComponent,
     CommonModule,
     FormsModule,
     LoginComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterDeepDataPipe
+
   ],
   providers: [
     CommonService,
-    UserService,
-    FilterDeepDataPipe
+    UserService
   ]
 })
 export class SharedModule {

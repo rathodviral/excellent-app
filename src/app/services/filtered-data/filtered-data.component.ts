@@ -58,7 +58,7 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
     this.isLoginPopupDisplay = true;
   }
 
-  closeLoginDialog() {
+  closeLoginDialog(event) {
     this.isLoginPopupDisplay = false;
   }
 

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Utilities} from "../../shared/services/utilities";
-import {LocalStorage} from "../../shared/constant/local-storage";
-import {CommonService} from "../../shared/services/common.service";
+import { Component, OnInit } from '@angular/core';
+import { Utilities } from "../../shared/services/utilities";
+import { LocalStorage } from "../../shared/constant/local-storage";
+import { CommonService } from "../../shared/services/common.service";
 declare var jQuery;
 
 @Component({
@@ -11,10 +11,10 @@ declare var jQuery;
 })
 export class HeaderComponent implements OnInit {
 
-  isLoginPopupDisplay:boolean = false
-  userData:any = {};
+  isLoginPopupDisplay: boolean = false
+  userData: any = {};
 
-  constructor(private commonService:CommonService) {
+  constructor(private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
     this.userData = {};
   }
 
-  closeLoginDialog() {
+  closeLoginDialog(event) {
     this.isLoginPopupDisplay = false;
   }
 
