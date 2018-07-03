@@ -162,7 +162,7 @@
           <input type="text" name="Search" class="search-input" placeholder="Search Zone" [(ngModel)]="searchZone" />
         </div>
         <div class="filter-data">
-          <p *ngFor="let item of filters?.zone | filter:{name : searchZone}">
+          <p *ngFor="let item of filters?.zone | filter:{zoneName : searchZone}">
             <input type="checkbox" class="filled-in" id="zone{{item.zoneId}}" [value]="item.zoneId" (change)="otherFilterDataChange($event,'zone', item.zoneId, 'filter')"
             />
             <label for="zone{{item.zoneId}}">{{item.zoneName}}</label>
@@ -178,7 +178,7 @@
           <input type="text" name="Search" class="search-input" placeholder="Search Option" [(ngModel)]="optionType" />
         </div>
         <div class="filter-data">
-          <p *ngFor="let item of filters?.optionType | filter:{name : optionType}">
+          <p *ngFor="let item of filters?.optionType | filter:{optionName : optionType}">
             <input type="radio" name="optionType" class="filled-in" id="zone{{item.optionCode}}" [value]="item.optionCode" (change)="otherFilterDataChange($event,'optionType', item.optionCode, 'param')"
             />
             <label for="zone{{item.optionCode}}">{{item.optionName}}</label>
