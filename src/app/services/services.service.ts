@@ -29,7 +29,7 @@ export class ServicesService {
       );
   }
 
-  getFilters(page: string): Observable<any[]> {
+  getFilters(page: string): Observable<any> {
     const url = `${this.filterUrl}${page}`;
     return this.http.get<Filters[]>(url)
       .pipe(

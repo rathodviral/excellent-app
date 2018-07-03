@@ -66,10 +66,11 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         /* this.filters.language = data['LANGUAGE'];
          this.filters.radiostation = data['RADIOSTATION'];
          this.filters.tier = data['TIER'];*/
-        const newfilters = this.modifyData(data);
-        this.filters.language = newfilters.language;
-        this.filters.radiostation = newfilters.radiostation;
-        this.filters.tier = newfilters.tier;
+        // const newfilters = this.modifyData(data);
+        // this.filters.language = newfilters.language;
+        // this.filters.radiostation = newfilters.radiostation;
+        // this.filters.tier = newfilters.tier;
+        this.filters = data;
       });
   }
 
@@ -77,7 +78,8 @@ export class ServicePageComponent implements OnInit, OnDestroy {
     this.sr.getFilteredData(this.servicePage, this.params)
       .subscribe(data => {
         if (data.length > 0) {
-          this.filteredData = this.modifyData(data);
+          // this.filteredData = this.modifyData(data);
+          this.filteredData = data;
         } else {
           this.filteredData = [];
         }
@@ -92,9 +94,19 @@ export class ServicePageComponent implements OnInit, OnDestroy {
 
   getOtherFilteredData(data) {
     if (data.checked) {
-      this.params.filters[data.parent].push(data.value);
+      if (data.type === 'filter') {
+        this.params.filters[data.parent].push(data.value);
+      } else if (data.type === 'param') {
+        // this.params[data.parent].push(data.value);
+        this.params[data.parent] = data.value;
+      }
     } else {
-      this.params.filters[data.parent].splice(this.params.filters[data.parent].findIndex(x => x === data.value), 1);
+      if (data.type === 'filter') {
+        this.params.filters[data.parent].splice(this.params.filters[data.parent].findIndex(x => x === data.value), 1);
+      } else if (data.type === 'param') {
+        // this.params[data.parent].splice(this.params[data.parent].findIndex(x => x === data.value), 1);
+        this.params[data.parent] = data.value;
+      }
     }
     this.getFilteredData();
   }

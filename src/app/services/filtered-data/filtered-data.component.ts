@@ -43,7 +43,9 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
 
     this.cols = [
       { field: 'productName', header: 'Radio Station' },
-      { field: 'cityName', header: 'City' }
+      { field: 'cityName', header: 'City' },
+      { field: 'frequency', header: 'Frequency' },
+      { field: 'targetAudience', header: 'Audience' }
     ];
   }
 

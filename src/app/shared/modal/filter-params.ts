@@ -1,16 +1,16 @@
 export class Filter {
-  location:Location[];
-  station:string[];
-  languages:string[];
-  tier:string[];
-  zone:string[];
+  location: Location[];
+  station: string[];
+  languages: string[];
+  tier: string[];
+  zone: string[];
 
-  constructor(options:{
-    location?:Location[];
-    station?:string[];
-    languages?:string[];
-    tier?:string[];
-    zone?:string[];
+  constructor(options: {
+    location?: Location[];
+    station?: string[];
+    languages?: string[];
+    tier?: string[];
+    zone?: string[];
   } = {}) {
     this.location = options.location || [];
     this.station = options.station || [];
@@ -21,14 +21,14 @@ export class Filter {
 }
 
 export class Location {
-  LocationType:string;
-  LocationId:string;
-  LocationName:string;
+  LocationType: string;
+  LocationId: string;
+  LocationName: string;
 
-  constructor(options:{
-    LocationType?:string;
-    LocationId?:string;
-    LocationName?:string;
+  constructor(options: {
+    LocationType?: string;
+    LocationId?: string;
+    LocationName?: string;
   } = {}) {
     this.LocationType = options.LocationType || '';
     this.LocationId = options.LocationId || '';
@@ -37,34 +37,40 @@ export class Location {
 }
 
 export class Params {
-  filters:Filter;
-  offset:number;
-  sortBy:string;
-  orderBy:string;
-  limit:number;
+  filters: Filter;
+  offset: number;
+  sortBy: string;
+  orderBy: string;
+  limit: number;
+  // optionType: string[];
+  optionType: string;
 
-  constructor(options:{
-    filters?:Filter;
-    offset?:number;
-    sortBy?:string;
-    orderBy?:string;
-    limit?:number;
+  constructor(options: {
+    filters?: Filter;
+    offset?: number;
+    sortBy?: string;
+    orderBy?: string;
+    limit?: number;
+    // optionType?: string[];
+    optionType?: string;
   } = {}) {
     this.filters = options.filters || new Filter();
     this.offset = options.offset || 0;
     this.sortBy = options.sortBy || 'views';
     this.orderBy = options.orderBy || 'views';
-    this.limit = options.limit || 30;
+    this.limit = options.limit || 20;
+    // this.optionType = options.optionType || [];
+    this.optionType = options.optionType || '';
   }
 }
 
 export class LocationFilter {
-  q:string;
-  media:string;
+  q: string;
+  media: string;
 
-  constructor(options:{
-    q?:string;
-    media?:string;
+  constructor(options: {
+    q?: string;
+    media?: string;
   } = {}) {
     this.q = options.q || '';
     this.media = options.media || '';

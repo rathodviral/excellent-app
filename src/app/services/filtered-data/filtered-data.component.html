@@ -68,7 +68,7 @@
               <td>
                 <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
                   Plan</a><br>-->
-                <p *ngIf="isTokenAvailable(); else tokenNot">data</p>
+                <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption?.rjmentions?.optionPrice?.defaultPrice?.price}}</p>
                 <ng-template #tokenNot>
                   <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
                 </ng-template>

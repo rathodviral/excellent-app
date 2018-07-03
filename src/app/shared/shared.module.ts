@@ -6,6 +6,8 @@ import { LoginComponent } from "./components/login/login.component";
 import { CommonService } from "./services/common.service";
 import { UserService } from "./services/user.service";
 import { FilterDeepDataPipe } from 'src/app/shared/pipes/filterDeepData.pipe';
+import { DynamicPriceOptionsComponent } from './components/dynamic-price-options/dynamic-price-options.component';
+import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-price-options/dynamic-price-options.service';
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { FilterDeepDataPipe } from 'src/app/shared/pipes/filterDeepData.pipe';
   declarations: [
     PageNotFoundComponent,
     LoginComponent,
-    FilterDeepDataPipe
+    FilterDeepDataPipe,
+    DynamicPriceOptionsComponent
 
   ],
   exports: [
@@ -25,12 +28,14 @@ import { FilterDeepDataPipe } from 'src/app/shared/pipes/filterDeepData.pipe';
     FormsModule,
     LoginComponent,
     ReactiveFormsModule,
-    FilterDeepDataPipe
+    FilterDeepDataPipe,
+    DynamicPriceOptionsComponent
 
   ],
   providers: [
     CommonService,
-    UserService
+    UserService,
+    DynamicPriceOptionsService
   ]
 })
 export class SharedModule {

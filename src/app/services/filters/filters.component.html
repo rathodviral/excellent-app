@@ -86,7 +86,7 @@
         </div>
         <div class="filter-data">
           <p *ngFor="let item of filters?.zone | filter:{name : searchZone}">
-            <input type="checkbox" class="filled-in" id="zone{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'zone', item.filterValueId)"
+            <input type="checkbox" class="filled-in" id="zone{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'zone', item.filterValueId, 'filter')"
             />
             <label for="zone{{item.filterValueId}}">{{item.filterValueName}}</label>
           </p>
@@ -115,7 +115,7 @@
         </div>
         <div class="filter-data">
           <p *ngFor="let item of filters?.language | filter:{name : language}">
-            <input type="checkbox" class="filled-in" id="language{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'languages', item.filterValueId)"
+            <input type="checkbox" class="filled-in" id="language{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'languages', item.filterValueId, 'filter')"
             />
             <label for="language{{item.filterValueId}}">{{item.filterValueName}}</label>
           </p>
@@ -131,7 +131,7 @@
         </div>
         <div class="filter-data">
           <p *ngFor="let item of filters?.radiostation | filter:{name : radioStation}">
-            <input type="checkbox" class="filled-in" id="station{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'station', item.filterValueId)"
+            <input type="checkbox" class="filled-in" id="station{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'station', item.filterValueId, 'filter')"
             />
             <label for="station{{item.filterValueId}}">{{item.filterValueName}}</label>
           </p>
@@ -147,7 +147,7 @@
         </div>
         <div class="filter-data">
           <p *ngFor="let item of filters?.tier | filter:{name : searchTier}">
-            <input type="checkbox" class="filled-in" id="tier{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'tier', item.filterValueId)"
+            <input type="checkbox" class="filled-in" id="tier{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'tier', item.filterValueId, 'filter')"
             />
             <label for="tier{{item.filterValueId}}">{{item.filterValueName}}</label>
           </p>
@@ -163,9 +163,25 @@
         </div>
         <div class="filter-data">
           <p *ngFor="let item of filters?.zone | filter:{name : searchZone}">
-            <input type="checkbox" class="filled-in" id="zone{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'zone', item.filterValueId)"
+            <input type="checkbox" class="filled-in" id="zone{{item.zoneId}}" [value]="item.zoneId" (change)="otherFilterDataChange($event,'zone', item.zoneId, 'filter')"
             />
-            <label for="zone{{item.filterValueId}}">{{item.filterValueName}}</label>
+            <label for="zone{{item.zoneId}}">{{item.zoneName}}</label>
+          </p>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="true">
+        <p-header>
+          <i class="fa fa-rss "></i> Options Type
+        </p-header>
+        <div class="search-sidebar-small">
+          <i class="material-icons">option</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Option" [(ngModel)]="optionType" />
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.optionType | filter:{name : optionType}">
+            <input type="radio" name="optionType" class="filled-in" id="zone{{item.optionCode}}" [value]="item.optionCode" (change)="otherFilterDataChange($event,'optionType', item.optionCode, 'param')"
+            />
+            <label for="zone{{item.optionCode}}">{{item.optionName}}</label>
           </p>
         </div>
       </p-accordionTab>
