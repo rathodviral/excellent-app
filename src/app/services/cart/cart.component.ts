@@ -7,6 +7,8 @@ import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-pr
 import { PriceOptions } from '../../shared/components/dynamic-price-options/dynamic-price-options';
 import { FromControlTypes } from '../../shared/constant/form-control';
 import * as _ from 'lodash';
+import { CommonService } from 'src/app/shared/services/common.service';
+import { LocalStorage } from '../../shared/constant/local-storage';
 
 @Component({
   selector: 'app-cart',
@@ -33,6 +35,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(
     private servicesService: ServicesService,
+    private commonService: CommonService,
     private dynamicPriceOptionsService: DynamicPriceOptionsService) { }
 
   private filterProductOptionData() {
@@ -117,7 +120,6 @@ export class CartComponent implements OnInit, OnDestroy {
       variants.push({ field: element.name, value: element.value });
     });
     // const variants = product.productOption.variant.map(x => x.name === variant.name ? variant : x);
-    console.log(variants);
 
     // product['displayPrice'] = otherPrice.find(x => (x.variantId1 === variant.name && x.variantValueId1 === variant.value))['price'];
     // varCombination
@@ -133,6 +135,25 @@ export class CartComponent implements OnInit, OnDestroy {
     // console.log(otherPrice.find(x => x.varCobination.some(y => variants.some(z => z.name === y.field && z.value === y.value)))['price']);
 
   }
+  bulkChangeInProductPriceTextbox(event, data) {
+    this.addToCartData.forEach(product => {
+      product.productOption.priceUnit.forEach(price => {
+        price.value = data.value;
+      });
+    });
+  }
+
+  bulkChangeInProductPriceSelect(event, data) {
+    this.addToCartData.forEach(product => {
+      product.productOption.variant.forEach(variant => {
+        if (variant.name === data.name) {
+          variant.value = data.value;
+        }
+      });
+      this.changeInProductPriceSelect(event, null, product);
+    });
+  }
+
 
   displayTotalPrice() {
     let total = 0;
@@ -148,7 +169,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   saveCartData() {
-
+    this.commonService.setLocalStorageObject(LocalStorage.CartData, this.addToCartData);
   }
 
   isArrayEqual(x, y) {
