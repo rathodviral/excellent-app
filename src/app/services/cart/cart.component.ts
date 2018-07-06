@@ -40,11 +40,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private filterProductOptionData() {
     this.addToCartData.forEach((v, k) => {
-      // delete v['productOption'];
-      // if (v['productOption'].length > 0) {
       if (!Utilities.isEmptyObj(v['productOption']['rjmentions'])) {
         v['displayPrice'] = 0;
-        // v['productOption'] = v['productOption'].find(x => x['rjmentions'])['rjmentions'];
         v['productOption'] = v['productOption']['rjmentions'];
         let priceData = [];
         v['productOption']['priceUnit'].forEach(price => {
@@ -60,23 +57,7 @@ export class CartComponent implements OnInit, OnDestroy {
             value: 1,
             controlType: this.formControlTypes.Text
           });
-
-
-          // priceData.push(new PriceOptions({
-          //   key: price['unitName'].toLowerCase(),
-          //   label: price['unitName'],
-          //   step: price['unitStep'],
-          //   controlType: price['unitType'] === 'number' ? FromControlTypes.Text : FromControlTypes.Select,
-          //   type: price['unitType'],
-          //   placeholder: price['unitName'],
-          //   max: price['unitMax'],
-          //   min: price['unitMin']
-          // }));
-
         });
-
-
-        // v['productOption']['priceUnit'] = this.dynamicPriceOptionsService.getPriceOptions(priceData);
         v['productOption']['priceUnit'] = priceData;
 
         let variantData = [];
@@ -109,32 +90,22 @@ export class CartComponent implements OnInit, OnDestroy {
     this.selectedData.campaignName = 'Radio Campaign';
   }
 
-  changeInProductPriceTextbox(event, data, product) {
-    // product['displayPrice'] = product['displayPrice'] * data.value;
+  changeInProductPriceTextbox(event, data, product) { }
 
-  }
   changeInProductPriceSelect(event, variant, product) {
     const otherPrice = product.productOption.optionPrice.otherPrice;
     let variants = [];
     product.productOption.variant.forEach(element => {
       variants.push({ field: element.name, value: element.value });
     });
-    // const variants = product.productOption.variant.map(x => x.name === variant.name ? variant : x);
 
-    // product['displayPrice'] = otherPrice.find(x => (x.variantId1 === variant.name && x.variantValueId1 === variant.value))['price'];
-    // varCombination
-
-    // product['displayPrice'] = otherPrice.find(x => x.varCobination.some(y => y.field === variant.name && y.value === variant.value))['price'];
-    // product['displayPrice'] = otherPrice.find(x => x.varCobination.some(y => variants.some(z => z.name === y.field && z.value === y.value)))['price'];
     otherPrice.forEach(x => {
       if (this.isArrayEqual(x.varCobination, variants)) {
         product['displayPrice'] = x.price;
       }
     });
-
-    // console.log(otherPrice.find(x => x.varCobination.some(y => variants.some(z => z.name === y.field && z.value === y.value)))['price']);
-
   }
+
   bulkChangeInProductPriceTextbox(event, data) {
     this.addToCartData.forEach(product => {
       product.productOption.priceUnit.forEach(price => {
