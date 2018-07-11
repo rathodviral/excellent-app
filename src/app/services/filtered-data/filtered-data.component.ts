@@ -25,6 +25,9 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
 
 
   @Input('filteredData') filteredData: FilteredData[];
+  @Input('priceOption') priceOption: string;
+
+  @Output('loadMore') loadMore = new EventEmitter<any>();
   // @Input('selectedData') selectedData: FilteredData[];
   // @Input('dtOptions') dtOptions:DataTables.Settings;
   // @Input('dtTrigger') dtTrigger:Subject<any>;
@@ -52,7 +55,9 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
   ngDoCheck() {
     let changes = this.iterableDiffer.diff(this.selectedData);
     if (changes) {
-      this.servicesService.sendCartData(this.selectedData);
+      console.log(this.selectedData);
+
+      this.servicesService.sendCartData({ key: this.priceOption, data: this.selectedData });
     }
   }
 
@@ -72,6 +77,10 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
     console.log('ok');
 
     // this.servicesService.sendCartData(['Message from Child One Component!']);
+  }
+
+  loadFilterData() {
+    this.loadMore.emit(null);
   }
 
   ngOnDestroy() {

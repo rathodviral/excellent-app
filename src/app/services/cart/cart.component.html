@@ -29,9 +29,10 @@
               <!-- <form [formGroup]="orderForm" (ngSubmit)="saveCartData()">
                 
               </form> -->
+
               <div id="individual" class="col s12" *ngIf="isSelectIndividualTab;else bulkTab">
 
-                <div class="row mt-20 mb-none" style="margin-bottom:10px;">
+                <!-- <div class="row mt-20 mb-none" style="margin-bottom:10px;">
                   <div class="col s12 m5 l5">
                     <p>Campaign Name :</p>
                   </div>
@@ -40,8 +41,19 @@
                       <input type="text" class="validate" [(ngModel)]="filterObj.campaignName">
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="filter">
+                  <div class="row mt-20" style="margin-bottom:0px;">
+                    <div class="col s12 m5 l5">
+                      <p>Campaign Name :</p>
+                    </div>
+                    <div class="col s12 m7 l7">
+                      <div class="input-field">
+                        <input type="text" class="validate" [(ngModel)]="selectedData.campaignName">
+                      </div>
+                    </div>
+                  </div>
+                  <hr/>
                   <div class="row">
 
                     <div class="col s12" *ngIf="addToCartData.length > 0;else noCartData">
@@ -53,6 +65,7 @@
                             <span>{{product?.productName}}</span>
                           </p-header>
                           <div>
+
                             <div class="row" *ngFor="let price of product?.productOption?.priceUnit">
                               <div class="col s12 m6 l6">
                                 <p>{{price.name}}</p>
@@ -79,6 +92,18 @@
                                     <option *ngFor="let opt of variant.options" [value]="opt">{{opt}}</option>
                                   </select>
                                 </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col s6 m6 l6">
+                                <p>Rate
+                                  <!--  <i>{{product?.productOption?.optionUnit}}</i> -->
+                                </p>
+                              </div>
+                              <div class="col s6 m6 l6">
+                                <p>Rs. {{showProductPrice(product)}}
+                                  <i>{{product?.productOption?.optionUnit}}</i>
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -138,14 +163,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col s6 m6 l6">
                         <p>Card Rate {{bulkCartData?.productOption?.optionUnit}}</p>
                       </div>
                       <div class="col s6 m6 l6">
                         <p>Rs.5000</p>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </ng-template>
@@ -159,7 +184,7 @@
           <p>Total: Rs.{{displayTotalPrice()}}</p>
         </div>
         <!-- <a class="waves-effect waves-light btn-large btn mt-10" href="javascript:void(0)" (click)="saveCartData()">Apply</a> -->
-        <button type="submit" class="waves-effect waves-light btn-large btn mt-10">Apply</button>
+        <button class="waves-effect waves-light btn-large btn mt-10" (click)="saveCartData()">Apply</button>
       </div>
     </div>
   </div>

@@ -21,6 +21,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   params: Params;
   locationParams: LocationFilter;
   servicePage: string = 'radio';
+  priceOption: string;
   // selectedData: FilterData[] = [];
 
   // dtOptions:DataTables.Settings = {};
@@ -57,7 +58,6 @@ export class ServicePageComponent implements OnInit, OnDestroy {
     // };
 
     this.getFilters();
-    this.getFilteredData();
   }
 
   getFilters() {
@@ -70,7 +70,11 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         // this.filters.language = newfilters.language;
         // this.filters.radiostation = newfilters.radiostation;
         // this.filters.tier = newfilters.tier;
+        this.priceOption = data.optionType[0].optionCode;
+        this.params.optionType = data.optionType[0].optionCode;
         this.filters = data;
+        this.getFilteredData();
+
       });
   }
 
@@ -108,6 +112,11 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         this.params[data.parent] = data.value;
       }
     }
+    this.getFilteredData();
+  }
+
+  loadMoreData(data) {
+    this.params.limit = this.params.limit + 10;
     this.getFilteredData();
   }
 

@@ -41,7 +41,7 @@
           </tr>
           </tbody>
         </table>-->
-        <p-table [columns]="cols" [value]="filteredData" [(selection)]="selectedData">
+        <p-table *ngIf="filteredData?.length > 0;else noFilteredData" [columns]="cols" [value]="filteredData" [(selection)]="selectedData">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th style="width: 2.25em">
@@ -52,7 +52,7 @@
                 <p-sortIcon [field]="col.field"></p-sortIcon>
               </th>
               <th class="nosort">
-                <span class="hide-on-small-only">Rate per second</span>
+                <span class="hide-on-small-only">Rate</span>
                 <span class="show-on-small hide-on-med-and-up">Rate</span>
               </th>
             </tr>
@@ -68,21 +68,29 @@
               <td>
                 <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
                   Plan</a><br>-->
-                <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption?.rjmentions?.optionPrice?.defaultPrice?.price}}</p>
+                <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption[priceOption]?.optionPrice?.defaultPrice?.price || data?.productOption?.optionPrice?.defaultPrice?.price}}</p>
                 <ng-template #tokenNot>
                   <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
                 </ng-template>
               </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="summary">
+          <!-- <ng-template pTemplate="summary">
             <ul>
               <li *ngFor="let item of selectedData" style="text-align: left">
                 {{item.cityName}}
               </li>
             </ul>
-          </ng-template>
+          </ng-template> -->
         </p-table>
+        <div class="col s12">
+          <button style="text-align: center" (click)="loadFilterData()">Load More</button>
+        </div>
+        <ng-template #noFilteredData>
+          <div class="col s12">
+            <h5 style="text-align: center">No data found</h5>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

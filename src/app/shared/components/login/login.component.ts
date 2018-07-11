@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   closePopup() {
     this.userLoginForm.reset();
     this.userRegistrationForm.reset();
-    this.closeLoginPopup.emit(null);
+    this.closeLoginPopup.emit(false);
   }
 
   changeStateIsForgotPassword() {

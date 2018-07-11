@@ -178,9 +178,9 @@
           <input type="text" name="Search" class="search-input" placeholder="Search Option" [(ngModel)]="optionType" />
         </div>
         <div class="filter-data">
-          <p *ngFor="let item of filters?.optionType | filter:{optionName : optionType}">
-            <input type="radio" name="optionType" class="filled-in" id="zone{{item.optionCode}}" [value]="item.optionCode" (change)="otherFilterDataChange($event,'optionType', item.optionCode, 'param')"
-            />
+          <p *ngFor="let item of filters?.optionType | filter:{optionName : optionType}; let i=index">
+            <input type="radio" name="optionType" [checked]="i === 0" class="filled-in" id="zone{{item.optionCode}}" [value]="item.optionCode"
+              (change)="otherFilterDataChange($event,'optionType', item.optionCode, 'param')" />
             <label for="zone{{item.optionCode}}">{{item.optionName}}</label>
           </p>
         </div>

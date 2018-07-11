@@ -8,6 +8,7 @@ import { UserService } from "./services/user.service";
 import { FilterDeepDataPipe } from 'src/app/shared/pipes/filterDeepData.pipe';
 import { DynamicPriceOptionsComponent } from './components/dynamic-price-options/dynamic-price-options.component';
 import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-price-options/dynamic-price-options.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-pr
     PageNotFoundComponent,
     LoginComponent,
     FilterDeepDataPipe,
-    DynamicPriceOptionsComponent
+    DynamicPriceOptionsComponent,
+    ProfileComponent
 
   ],
   exports: [
@@ -29,7 +31,8 @@ import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-pr
     LoginComponent,
     ReactiveFormsModule,
     FilterDeepDataPipe,
-    DynamicPriceOptionsComponent
+    DynamicPriceOptionsComponent,
+    ProfileComponent
 
   ],
   providers: [

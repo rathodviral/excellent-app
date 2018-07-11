@@ -22,6 +22,7 @@ import { DialogModule } from "primeng/dialog";
 import { DropdownModule } from "primeng/dropdown";
 import { SidebarModule } from 'primeng/sidebar';
 import { AccordionModule } from 'primeng/accordion';
+import { MediaPlanComponent } from './media-plan/media-plan.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { AccordionModule } from 'primeng/accordion';
     FiltersComponent,
     FilteredDataComponent,
     FilterPipe,
-    ServicePageComponent
+    ServicePageComponent,
+    MediaPlanComponent
   ],
   providers: [
     ServicesService

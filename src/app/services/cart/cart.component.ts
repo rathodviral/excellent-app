@@ -19,17 +19,20 @@ export class CartComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   addToCartData: any[] = [];
+  storageCartData: any;
   bulkCartData: any = {};
   filterObj = {
     campaignName: ''
   };
   selectedData = {
-    campaignName: ''
+    campaignName: '',
+    cartData: []
   };
 
-  isSelectIndividualTab = false;
+  isSelectIndividualTab: boolean;
   orderForm: FormGroup;
   priceOptions: any[] = [];
+  priceOptionKey: string;
   formControlTypes = FromControlTypes;
   displayPrice: string = null;
 
@@ -40,21 +43,21 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private filterProductOptionData() {
     this.addToCartData.forEach((v, k) => {
-      if (!Utilities.isEmptyObj(v['productOption']['rjmentions'])) {
+      if (!Utilities.isEmptyObj(v['productOption'][this.priceOptionKey])) {
         v['displayPrice'] = 0;
-        v['productOption'] = v['productOption']['rjmentions'];
+        v['productOption'] = v['productOption'][this.priceOptionKey];
         let priceData = [];
         v['productOption']['priceUnit'].forEach(price => {
           priceData.push({
             key: price['unitName'].toLowerCase(),
             placeholder: price['unitName'],
             code: price['unitCode'],
-            max: price['unitMax'],
+            max: (price['unitMax'] === 0 || price['unitMax'] === null) ? 999 : price['unitMax'],
             min: price['unitMin'],
             name: price['unitName'],
             step: price['unitStep'],
             type: price['unitType'].toLowerCase(),
-            value: 1,
+            value: price['unitMin'] > 1 ? price['unitMin'] : 1,
             controlType: this.formControlTypes.Text
           });
         });
@@ -81,13 +84,23 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.storageCartData = this.commonService.getLocalStorageObject(LocalStorage.CartData);
     this.subscription = this.servicesService.getCartData().subscribe(x => {
       if (!Utilities.isEmptyObj(x)) {
-        this.addToCartData = x;
+        this.priceOptionKey = x.key;
+        this.addToCartData = x.data;
         this.filterProductOptionData();
+        this.bulkChangeInProductPriceSelect(null, this.bulkCartData.productOption.optionPrice.defaultPrice.varCobination);
       }
     });
-    this.selectedData.campaignName = 'Radio Campaign';
+
+    this.selectedData.campaignName = 'Campaign 1';
+    if (!Utilities.isEmptyObj(this.storageCartData)) {
+      this.selectedData = this.storageCartData;
+      this.addToCartData = this.storageCartData.cartData;
+      this.bulkCartData = this.addToCartData[0];
+    }
+    this.isSelectIndividualTab = false;
   }
 
   changeInProductPriceTextbox(event, data, product) { }
@@ -106,10 +119,29 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
+  showProductPrice(product) {
+    let display = 0;
+    const otherPrice = product.productOption.optionPrice.otherPrice;
+    let variants = [];
+    product.productOption.variant.forEach(element => {
+      variants.push({ field: element.name, value: element.value });
+    });
+
+    otherPrice.forEach(x => {
+      if (this.isArrayEqual(x.varCobination, variants)) {
+        display = x.price;
+      }
+    });
+
+    return display;
+  }
+
   bulkChangeInProductPriceTextbox(event, data) {
     this.addToCartData.forEach(product => {
       product.productOption.priceUnit.forEach(price => {
-        price.value = data.value;
+        if (price.key === data.key) {
+          price.value = data.value;
+        }
       });
     });
   }
@@ -140,7 +172,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   saveCartData() {
-    this.commonService.setLocalStorageObject(LocalStorage.CartData, this.addToCartData);
+    this.selectedData.cartData = this.addToCartData;
+    this.commonService.setLocalStorageObject(LocalStorage.CartData, this.selectedData);
   }
 
   isArrayEqual(x, y) {

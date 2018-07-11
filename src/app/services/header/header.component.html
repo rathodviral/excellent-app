@@ -35,12 +35,14 @@
 
               <ul id='dropdown1' class='dropdown-content'>
                 <div *ngIf="!isTokenAvailable();else tokenNotD">
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Login</a>
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Register</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Login</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Register</a>
                 </div>
                 <ng-template #tokenNotD>
                   <li>
-                    <span>{{userData?.buyerFullName}}</span>
+                    <a [routerLink]="['/services/profile']">
+                      <span>{{userData?.fullName}}</span>
+                    </a>
                   </li>
                   <li>
                     <a href="javascript:void(0)" (click)="userLogoutClick()">Logout</a>
@@ -59,8 +61,8 @@
 
               <ul id='dropdown2' class='dropdown-content'>
                 <div *ngIf="!isTokenAvailable();else tokenNotM">
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Login</a>
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="isLoginPopupDisplay = true">Register</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Login</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Register</a>
                 </div>
                 <ng-template #tokenNotM>
                   <li>
@@ -220,8 +222,3 @@
     </div>
   </div>
 </div>
-<!-- Add SEARCH  END -->
-
-<p-dialog [(visible)]="isLoginPopupDisplay" [showHeader]="false" [contentStyle]="{'padding':'0'}">
-  <app-login (closeLoginPopup)="closeLoginDialog($event)"></app-login>
-</p-dialog>

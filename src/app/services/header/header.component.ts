@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Utilities } from "../../shared/services/utilities";
 import { LocalStorage } from "../../shared/constant/local-storage";
 import { CommonService } from "../../shared/services/common.service";
@@ -11,8 +11,9 @@ declare var jQuery;
 })
 export class HeaderComponent implements OnInit {
 
-  isLoginPopupDisplay: boolean = false
   userData: any = {};
+
+  @Output() loginDisplay = new EventEmitter<boolean>();
 
   constructor(private commonService: CommonService) {
   }
@@ -47,13 +48,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  userLoginClick() {
+    this.loginDisplay.emit(true);
+  }
   userLogoutClick() {
     this.commonService.clearLocalStorageObject(LocalStorage.UserData);
     this.userData = {};
   }
-
-  closeLoginDialog(event) {
-    this.isLoginPopupDisplay = false;
-  }
-
 }

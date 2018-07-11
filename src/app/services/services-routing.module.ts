@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ServicesComponent } from "./services.component";
 import { PageNotFoundComponent } from "../shared/components/page-not-found/page-not-found.component";
 import { ServicePageComponent } from "./service-page/service-page.component";
+import { ProfileComponent } from '../shared/components/profile/profile.component';
 
 const servicesRoutes: Routes = [
   {
@@ -11,7 +12,8 @@ const servicesRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'radio' },
       { path: 'radio', component: ServicePageComponent },
-      { path: 'cinema', component: ServicePageComponent }
+      { path: 'cinema', component: ServicePageComponent },
+      { path: 'profile', component: ProfileComponent }
     ]
   },
   { path: '**', component: PageNotFoundComponent }
