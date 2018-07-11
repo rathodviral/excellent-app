@@ -58,7 +58,7 @@ export class Params {
     this.offset = options.offset || 0;
     this.sortBy = options.sortBy || 'views';
     this.orderBy = options.orderBy || 'views';
-    this.limit = options.limit || 10;
+    this.limit = options.limit || 20;
     // this.optionType = options.optionType || [];
     this.optionType = options.optionType || '';
   }

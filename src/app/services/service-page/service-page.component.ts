@@ -17,7 +17,7 @@ declare var humps;
 export class ServicePageComponent implements OnInit, OnDestroy {
 
   filters: Filters;
-  filteredData: FilteredData[];
+  filteredData: FilteredData[] = [];
   params: Params;
   locationParams: LocationFilter;
   servicePage: string = 'radio';
@@ -73,17 +73,21 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         this.priceOption = data.optionType[0].optionCode;
         this.params.optionType = data.optionType[0].optionCode;
         this.filters = data;
-        this.getFilteredData();
+        this.getFilteredData(false);
 
       });
   }
 
-  getFilteredData() {
+  getFilteredData(isConcat) {
     this.sr.getFilteredData(this.servicePage, this.params)
       .subscribe(data => {
         if (data.length > 0) {
           // this.filteredData = this.modifyData(data);
-          this.filteredData = data;
+          if (isConcat) {
+            this.filteredData = this.filteredData.concat(data);
+          } else {
+            this.filteredData = data;
+          }
         } else {
           this.filteredData = [];
         }
@@ -93,7 +97,8 @@ export class ServicePageComponent implements OnInit, OnDestroy {
 
   getGeographyFilteredData(data) {
     this.params.filters.location = data;
-    this.getFilteredData();
+    this.params.offset = 0;
+    this.getFilteredData(false);
   }
 
   getOtherFilteredData(data) {
@@ -103,6 +108,8 @@ export class ServicePageComponent implements OnInit, OnDestroy {
       } else if (data.type === 'param') {
         // this.params[data.parent].push(data.value);
         this.params[data.parent] = data.value;
+        this.priceOption = data.value;
+
       }
     } else {
       if (data.type === 'filter') {
@@ -110,14 +117,17 @@ export class ServicePageComponent implements OnInit, OnDestroy {
       } else if (data.type === 'param') {
         // this.params[data.parent].splice(this.params[data.parent].findIndex(x => x === data.value), 1);
         this.params[data.parent] = data.value;
+        this.priceOption = data.value;
+
       }
     }
-    this.getFilteredData();
+    this.params.offset = 0;
+    this.getFilteredData(false);
   }
 
   loadMoreData(data) {
-    this.params.limit = this.params.limit + 10;
-    this.getFilteredData();
+    this.params.offset = this.params.offset + 10;
+    this.getFilteredData(true);
   }
 
   ngOnDestroy() {

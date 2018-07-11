@@ -86,20 +86,25 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.storageCartData = this.commonService.getLocalStorageObject(LocalStorage.CartData);
     this.subscription = this.servicesService.getCartData().subscribe(x => {
-      if (!Utilities.isEmptyObj(x)) {
+      console.log(x);
+
+      if (!Utilities.isEmptyObj(x.data)) {
         this.priceOptionKey = x.key;
         this.addToCartData = x.data;
         this.filterProductOptionData();
         this.bulkChangeInProductPriceSelect(null, this.bulkCartData.productOption.optionPrice.defaultPrice.varCobination);
+      } else {
+        this.addToCartData = [];
+        this.bulkCartData = [];
       }
     });
 
     this.selectedData.campaignName = 'Campaign 1';
-    if (!Utilities.isEmptyObj(this.storageCartData)) {
-      this.selectedData = this.storageCartData;
-      this.addToCartData = this.storageCartData.cartData;
-      this.bulkCartData = this.addToCartData[0];
-    }
+    // if (!Utilities.isEmptyObj(this.storageCartData)) {
+    //   this.selectedData = this.storageCartData;
+    //   this.addToCartData = this.storageCartData.cartData;
+    //   this.bulkCartData = this.addToCartData[0];
+    // }
     this.isSelectIndividualTab = false;
   }
 
