@@ -49,7 +49,7 @@
                     </div>
                     <div class="col s12 m7 l7">
                       <div class="input-field">
-                        <input type="text" class="validate" [(ngModel)]="selectedData.campaignName">
+                        <input type="text" class="validate" [(ngModel)]="selectedData.name">
                       </div>
                     </div>
                   </div>
@@ -101,7 +101,7 @@
                                 </p>
                               </div>
                               <div class="col s6 m6 l6">
-                                <p>Rs. {{showProductPrice(product)}}
+                                <p>Rs. {{display}}
                                   <i>{{product?.productOption?.optionUnit}}</i>
                                 </p>
                               </div>
@@ -130,7 +130,7 @@
                       </div>
                       <div class="col s12 m7 l7">
                         <div class="input-field">
-                          <input type="text" class="validate" [(ngModel)]="selectedData.campaignName">
+                          <input type="text" class="validate" [(ngModel)]="selectedData.name">
                         </div>
                       </div>
                     </div>
@@ -141,12 +141,12 @@
                       </div>
                       <div class="col s12 m6 l6">
                         <div class="input-field" *ngIf="price.controlType === formControlTypes.Text">
-                          <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="bulkChangeInProductPriceTextbox($event, price)"
-                            [(ngModel)]="price.value" (click)="bulkChangeInProductPriceTextbox($event, price)">
+                          <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="bulkChangeInProductPrice($event)"
+                            [(ngModel)]="price.value" (click)="bulkChangeInProductPrice($event)">
 
                           <input *ngIf="price.type === 'number'" [id]="price.key" type="number" [step]="price.step" [min]="price.min" [max]="price.max"
-                            [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="bulkChangeInProductPriceTextbox($event, price)"
-                            (click)="bulkChangeInProductPriceTextbox($event, price)">
+                            [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="bulkChangeInProductPrice($event)"
+                            (click)="bulkChangeInProductPrice($event)">
                         </div>
                       </div>
                     </div>
@@ -156,7 +156,7 @@
                       </div>
                       <div class="col s12 m6 l6">
                         <div class="input-field" *ngIf="variant.controlType === formControlTypes.Select">
-                          <select [id]="variant.key" [(ngModel)]="variant.value" (change)="bulkChangeInProductPriceSelect($event,variant)">
+                          <select [id]="variant.key" [(ngModel)]="variant.value" (change)="bulkChangeInProductPrice($event)">
                             <option value="null" disabled selected>{{variant.name}}</option>
                             <option *ngFor="let opt of variant.options" [value]="opt">{{opt}}</option>
                           </select>

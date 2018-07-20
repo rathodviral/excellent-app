@@ -1,3 +1,39 @@
-<p>
-  media-plan works!
-</p>
+<div class="row">
+  <div class="col s12 m8 l8 offset-m2 offset-l2">
+    <div class="white-box">
+      <div class="table-responsive ">
+        <table id="tblSearch" class="table dataTable media-plan-table" *ngIf="carts.length > 0;else noData">
+          <thead>
+            <tr>
+              <th>Campaign Name</th>
+              <th>Total Price</th>
+              <th>
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of carts; let i = index">
+              <td>{{item?.name}}</td>
+              <td>Rs. {{item?.totalPrice}}</td>
+              <td>
+                <a class="waves-effect waves-light btn green" href="javascript:void(0)" (click)="changeInCarts(true,i)">
+                  <i class="material-icons dp48">edit</i>
+                </a>
+                <a class="waves-effect waves-light btn" href="javascript:void(0)" (click)="changeInCarts(false,i)">
+                  <i class="material-icons dp48">delete</i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #noData>
+          No item in cart
+        </ng-template>
+      </div>
+      <div class="center col s12 l12 s12">
+        <a class="waves-effect waves-light btn-large btn mt-10" (click)="saveCampaign()">Send Campaign </a>
+      </div>
+    </div>
+  </div>
+</div>

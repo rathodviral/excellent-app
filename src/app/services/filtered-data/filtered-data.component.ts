@@ -55,8 +55,6 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
   ngDoCheck() {
     let changes = this.iterableDiffer.diff(this.selectedData);
     if (changes) {
-      console.log(this.selectedData);
-
       this.servicesService.sendCartData({ key: this.priceOption, data: this.selectedData });
     }
   }
@@ -74,8 +72,6 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   selectionData() {
-    console.log('ok');
-
     // this.servicesService.sendCartData(['Message from Child One Component!']);
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Utilities } from "../../shared/services/utilities";
 import { LocalStorage } from "../../shared/constant/local-storage";
 import { CommonService } from "../../shared/services/common.service";
+import { UserService } from 'src/app/shared/services/user.service';
 declare var jQuery;
 
 @Component({
@@ -15,8 +16,9 @@ export class HeaderComponent implements OnInit {
 
   @Output() loginDisplay = new EventEmitter<boolean>();
 
-  constructor(private commonService: CommonService) {
-  }
+  constructor(
+    private commonService: CommonService,
+    private userService: UserService) { }
 
   ngOnInit() {
     jQuery('.button-collapse').sideNav();
@@ -50,9 +52,11 @@ export class HeaderComponent implements OnInit {
 
   userLoginClick() {
     this.loginDisplay.emit(true);
+    this.userService.sendUserInfoData(true);
   }
   userLogoutClick() {
     this.commonService.clearLocalStorageObject(LocalStorage.UserData);
     this.userData = {};
+    this.userService.sendUserInfoData(false);
   }
 }

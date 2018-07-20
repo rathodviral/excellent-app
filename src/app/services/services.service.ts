@@ -6,16 +6,20 @@ import { catchError, tap } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import { LocationFilter, Params } from "../shared/modal/filter-params";
 import { FilteredData } from "../shared/modal/filtered-data";
+import { LocalStorage } from 'src/app/shared/constant/local-storage';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Injectable()
 export class ServicesService {
-  dataUrl: string = `${environment.address}api/buyer/media/`;
-  filterUrl: string = `${environment.address}api/buyer/filters/`;
-  locationUrl: string = `${environment.address}api/buyer/location/search`;
+  dataUrl = `${environment.address}api/buyer/media/`;
+  filterUrl = `${environment.address}api/buyer/filters/`;
+  locationUrl = `${environment.address}api/buyer/location/search`;
+  cartUrl = `${environment.address}api/buyer/campaign/save`;
+  mediaUrl = `${environment.address}api/buyer/mediadetail/`;
   private subject = new Subject<any>();
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private commonService: CommonService) {
   }
 
   getFilteredData(page: string, param: any): Observable<FilteredData[]> {
@@ -25,7 +29,7 @@ export class ServicesService {
     return this.http.get<FilteredData[]>(url)
       .pipe(
         tap(data => console.log('Media Data')),
-        catchError(this.handleError<any>('MediaData', { "status": false, "message": "No media were found" }))
+        catchError(this.handleError<any>('MediaData', { status: false, message: 'No media were found' }))
       );
   }
 
@@ -47,11 +51,33 @@ export class ServicesService {
       );
   }
 
+  saveCart(cart): Observable<any> {
+    const cartData = { campaign: [cart] };
+    const token = this.commonService.getDataFromLocalStorageObject(LocalStorage.UserData, 'token');
+    const options = {
+      headers: new HttpHeaders({
+        'x-access-token': token
+      })
+    };
+    return this.http.post<any>(this.cartUrl, cartData, options)
+      .pipe(
+        tap(data => console.log('Cart Save Successfully')),
+        catchError(this.handleError<any>('Cart Save Error', { status: false, message: 'Cart Save Error' }))
+      );
+  }
+
+  getMediaDetail(page: string, alias: string): Observable<FilteredData[]> {
+    const url = `${this.mediaUrl}${page}/${alias}`;
+    // const options = {params: {params:param}};
+    return this.http.get<FilteredData[]>(url)
+      .pipe(
+        tap(data => console.log('Media Data')),
+        catchError(this.handleError<any>('MediaData', { status: false, message: 'No media were found' }))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      // console.error(error); // log to console instead
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
@@ -67,5 +93,4 @@ export class ServicesService {
   getCartData(): Observable<any> {
     return this.subject.asObservable();
   }
-
 }

@@ -52,7 +52,6 @@ export class FiltersComponent implements OnInit {
     this.searchLocation.forEach(x => {
       newData.push({ LocationId: x.LocationId, LocationType: x.LocationType });
     });
-    console.log(newData);
     this.geographyData.emit(newData);
   }
 

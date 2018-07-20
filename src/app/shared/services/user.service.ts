@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { FilteredData } from "../modal/filtered-data";
@@ -14,6 +14,8 @@ import { RequestOptions, Headers } from '@angular/http';
 export class UserService {
 
   mainUrl: string = `${environment.address}api/buyer/user/`;
+  private userInfo = new Subject<any>();
+
 
   constructor(private http: HttpClient, private commonService: CommonService) { }
 
@@ -82,5 +84,18 @@ export class UserService {
     return (error: any): Observable<T> => {
       return of(result as T);
     };
+  }
+
+
+  sendUserInfoData(data: any) {
+    this.userInfo.next(data);
+  }
+
+  clearUserInfoData() {
+    this.userInfo.next();
+  }
+
+  getUserInfoData(): Observable<any> {
+    return this.userInfo.asObservable();
   }
 }

@@ -1,0 +1,62 @@
+ /*====  PROFILE VIEW  ==== */
+ .profile-view input:not([type]),
+.profile-view input[type=text]:not(.browser-default),
+.profile-view input[type=password]:not(.browser-default),
+.profile-view input[type=email]:not(.browser-default),
+.profile-view input[type=url]:not(.browser-default),
+.profile-view input[type=time]:not(.browser-default),
+.profile-view input[type=date]:not(.browser-default),
+.profile-view input[type=datetime]:not(.browser-default),
+.profile-view input[type=datetime-local]:not(.browser-default),
+.profile-view input[type=tel]:not(.browser-default),
+.profile-view input[type=number]:not(.browser-default),
+.profile-view input[type=search]:not(.browser-default),
+.profile-view textarea.materialize-textarea {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  border-radius: 0;
+  outline: none;
+  height: 3rem;
+  width: 100%;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  transition: all 0.3s;
+}
+.profile-view input:not([type]):focus:not([readonly]), .profile-view input[type=text]:not(.browser-default):focus:not([readonly]), .profile-view input[type=password]:not(.browser-default):focus:not([readonly]), .profile-view input[type=email]:not(.browser-default):focus:not([readonly]), .profile-view input[type=url]:not(.browser-default):focus:not([readonly]), .profile-view input[type=time]:not(.browser-default):focus:not([readonly]), .profile-view input[type=date]:not(.browser-default):focus:not([readonly]), .profile-view input[type=datetime]:not(.browser-default):focus:not([readonly]), .profile-view input[type=datetime-local]:not(.browser-default):focus:not([readonly]), .profile-view input[type=tel]:not(.browser-default):focus:not([readonly]), .profile-view input[type=number]:not(.browser-default):focus:not([readonly]), .profile-view input[type=search]:not(.browser-default):focus:not([readonly]), .profile-view textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #ee364e;
+    box-shadow: 0 1px 0 0 #ee3256;
+    border: none;
+}
+.profile-view input:not([type]):focus:not([readonly]) + label, .profile-view input[type=text]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=password]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=email]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=url]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=time]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=date]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=datetime]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=tel]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=number]:not(.browser-default):focus:not([readonly]) + label, .profile-view input[type=search]:not(.browser-default):focus:not([readonly]) + label, .profile-view textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #6b6b6b;
+}
+.profile-view .input-field label {
+    color: #6b6b6b;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.profile-view  .input-field.col label {
+    left: 0.75rem;
+}
+h4.header2 {
+    font-size: 1.58rem;
+    line-height: 110%;
+    margin: 1.14rem 0 0.912rem 0;
+    font-weight: 600;
+}
+.green-button {
+    background-color: #43A047 !important;
+}
+.red-button {
+    background-color: #FF5252 !important;
+}
+
+/*=====   PROFILE VIEW END  =========  */ 

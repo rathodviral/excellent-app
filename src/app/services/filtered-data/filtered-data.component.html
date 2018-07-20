@@ -47,6 +47,9 @@
               <th style="width: 2.25em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
+              <th style="width: 2.25em">
+                Alias
+              </th>
               <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -62,13 +65,16 @@
               <td>
                 <p-tableCheckbox [value]="data"></p-tableCheckbox>
               </td>
+              <td>
+                <a href="javascript:void(0)" [routerLink]="['./detail', data['alias']]">{{data['alias']}}</a>
+              </td>
               <td *ngFor="let col of columns">
                 {{data[col.field]}}
               </td>
               <td>
                 <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
                   Plan</a><br>-->
-                <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption[priceOption]?.optionPrice?.defaultPrice?.price}}</p>
+                <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption[priceOption]?.optionPrice?.defaultPrice?.price || data?.productOption?.optionPrice?.defaultPrice?.price}}</p>
                 <ng-template #tokenNot>
                   <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
                 </ng-template>

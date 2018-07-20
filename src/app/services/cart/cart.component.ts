@@ -9,6 +9,7 @@ import { FromControlTypes } from '../../shared/constant/form-control';
 import * as _ from 'lodash';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalStorage } from '../../shared/constant/local-storage';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,14 +20,16 @@ export class CartComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   addToCartData: any[] = [];
-  storageCartData: any;
+  addToCartDataDefault: any[] = [];
+  storageCartData: any[];
   bulkCartData: any = {};
   filterObj = {
     campaignName: ''
   };
   selectedData = {
-    campaignName: '',
-    cartData: []
+    name: '',
+    product: [],
+    totalPrice: 0
   };
 
   isSelectIndividualTab: boolean;
@@ -35,11 +38,13 @@ export class CartComponent implements OnInit, OnDestroy {
   priceOptionKey: string;
   formControlTypes = FromControlTypes;
   displayPrice: string = null;
+  display: number;
 
   constructor(
     private servicesService: ServicesService,
     private commonService: CommonService,
-    private dynamicPriceOptionsService: DynamicPriceOptionsService) { }
+    private dynamicPriceOptionsService: DynamicPriceOptionsService,
+    private router: Router) { }
 
   private filterProductOptionData() {
     this.addToCartData.forEach((v, k) => {
@@ -83,65 +88,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.bulkCartData = this.addToCartData[0];
   }
 
-  ngOnInit() {
-    this.storageCartData = this.commonService.getLocalStorageObject(LocalStorage.CartData);
-    this.subscription = this.servicesService.getCartData().subscribe(x => {
-      console.log(x);
-
-      if (!Utilities.isEmptyObj(x.data)) {
-        this.priceOptionKey = x.key;
-        this.addToCartData = x.data;
-        this.filterProductOptionData();
-        this.bulkChangeInProductPriceSelect(null, this.bulkCartData.productOption.optionPrice.defaultPrice.varCobination);
-      } else {
-        this.addToCartData = [];
-        this.bulkCartData = [];
-      }
-    });
-
-    this.selectedData.campaignName = 'Campaign 1';
-    // if (!Utilities.isEmptyObj(this.storageCartData)) {
-    //   this.selectedData = this.storageCartData;
-    //   this.addToCartData = this.storageCartData.cartData;
-    //   this.bulkCartData = this.addToCartData[0];
-    // }
-    this.isSelectIndividualTab = false;
-  }
-
-  changeInProductPriceTextbox(event, data, product) { }
-
-  changeInProductPriceSelect(event, variant, product) {
-    const otherPrice = product.productOption.optionPrice.otherPrice;
-    let variants = [];
-    product.productOption.variant.forEach(element => {
-      variants.push({ field: element.name, value: element.value });
-    });
-
-    otherPrice.forEach(x => {
-      if (this.isArrayEqual(x.varCobination, variants)) {
-        product['displayPrice'] = x.price;
-      }
-    });
-  }
-
-  showProductPrice(product) {
-    let display = 0;
-    const otherPrice = product.productOption.optionPrice.otherPrice;
-    let variants = [];
-    product.productOption.variant.forEach(element => {
-      variants.push({ field: element.name, value: element.value });
-    });
-
-    otherPrice.forEach(x => {
-      if (this.isArrayEqual(x.varCobination, variants)) {
-        display = x.price;
-      }
-    });
-
-    return display;
-  }
-
-  bulkChangeInProductPriceTextbox(event, data) {
+  private bulkChangeInProductPriceTextbox(event, data) {
     this.addToCartData.forEach(product => {
       product.productOption.priceUnit.forEach(price => {
         if (price.key === data.key) {
@@ -151,7 +98,7 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  bulkChangeInProductPriceSelect(event, data) {
+  private bulkChangeInProductPriceSelect(event, data) {
     this.addToCartData.forEach(product => {
       product.productOption.variant.forEach(variant => {
         if (variant.name === data.name) {
@@ -159,6 +106,104 @@ export class CartComponent implements OnInit, OnDestroy {
         }
       });
       this.changeInProductPriceSelect(event, null, product);
+    });
+  }
+
+  ngOnInit() {
+    const oldData = this.commonService.getLocalStorageObject(LocalStorage.CartData) || [];
+    this.storageCartData = oldData;
+    this.subscription = this.servicesService.getCartData().subscribe(x => {
+      if (!Utilities.isEmptyObj(x.data)) {
+        console.log(x.data);
+
+        this.addToCartDataDefault = _.cloneDeep(x.data);
+        this.priceOptionKey = x.key;
+        this.addToCartData = _.cloneDeep(x.data);
+        this.filterProductOptionData();
+
+        this.bulkChangeInProductPriceSelect(null, this.bulkCartData.productOption.optionPrice.defaultPrice.varCobination);
+      } else {
+        this.addToCartData = [];
+        this.bulkCartData = [];
+      }
+    });
+
+    this.selectedData.name = `Radio Campaign ${this.storageCartData.length + 1}`;
+    // if (!Utilities.isEmptyObj(this.storageCartData)) {
+    //   this.selectedData = this.storageCartData;
+    //   this.addToCartData = this.storageCartData.cartData;
+    //   this.bulkCartData = this.addToCartData[0];
+    // }
+    this.isSelectIndividualTab = false;
+  }
+
+  changeInProductPriceTextbox(event, data, product) {
+    this.changeInProductPriceSelect(event, null, product);
+  }
+
+  changeInProductPriceSelect(event, variant, product) {
+    const otherPrice = product.productOption.optionPrice.otherPrice;
+    const qtyList = product.productOption.priceUnit;
+    const qtyData = this.commonService.multiplyArrayObj(qtyList);
+
+    let variants = [];
+    product.productOption.variant.forEach(element => {
+      variants.push({ field: element.name, value: element.value });
+    });
+
+    otherPrice.forEach(x => {
+      if (this.isArrayEqual(x.varCobination, variants) && x.minQty === qtyData) {
+        product['displayPrice'] = x.price;
+      } else if (this.isArrayEqual(x.varCobination, variants) && x.minQty === 1) {
+        product['displayPrice'] = x.price;
+      }
+    });
+
+    this.showProductPrice(product);
+
+  }
+
+  showProductPrice(product) {
+    this.display = 0;
+    const otherPrice = product.productOption.optionPrice.otherPrice;
+    const qtyList = product.productOption.priceUnit;
+    const qtyData = this.commonService.multiplyArrayObj(qtyList);
+
+
+    let variants = [];
+    product.productOption.variant.forEach(element => {
+      variants.push({ field: element.name, value: element.value });
+    });
+
+    otherPrice.forEach(x => {
+
+      if (this.isArrayEqual(x.varCobination, variants)) {
+
+        if (x.minQty === qtyData) {
+          this.display = x.price;
+          product.productOption['optionPrice'] = x.price;
+          product.productOption['totalPrice'] = x.price * qtyData;
+
+        } else if (x.minQty === 1 && this.display === 0) {
+          this.display = x.price;
+          product.productOption['optionPrice'] = x.price;
+          product.productOption['totalPrice'] = x.price * qtyData;
+
+        }
+      }
+    });
+
+  }
+
+
+
+  bulkChangeInProductPrice(event) {
+    this.bulkCartData.productOption.variant.forEach(variant => {
+      this.bulkChangeInProductPriceSelect(event, variant);
+    });
+
+    this.bulkCartData.productOption.priceUnit.forEach(price => {
+      this.bulkChangeInProductPriceTextbox(event, price);
     });
   }
 
@@ -177,8 +222,16 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   saveCartData() {
-    this.selectedData.cartData = this.addToCartData;
-    this.commonService.setLocalStorageObject(LocalStorage.CartData, this.selectedData);
+    this.selectedData.product = _.cloneDeep(this.addToCartDataDefault);
+    this.selectedData.totalPrice = this.displayTotalPrice();
+    this.selectedData.product.forEach(element => {
+      let data = this.addToCartData.find(x => x.alias === element.alias);
+      element['productOption'][this.priceOptionKey]['optionPrice'] = data['productOption']['optionPrice'];
+      element['productOption'][this.priceOptionKey]['totalPrice'] = data['productOption']['totalPrice'];
+    });
+    this.storageCartData.push(this.selectedData);
+    this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);
+    this.router.navigate(['services/media']);
   }
 
   isArrayEqual(x, y) {
