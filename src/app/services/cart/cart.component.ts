@@ -5,11 +5,11 @@ import { Utilities } from 'src/app/shared/services/utilities';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-price-options/dynamic-price-options.service';
 import { PriceOptions } from '../../shared/components/dynamic-price-options/dynamic-price-options';
-import { FromControlTypes } from '../../shared/constant/form-control';
 import * as _ from 'lodash';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalStorage } from '../../shared/constant/local-storage';
 import { Router } from '../../../../node_modules/@angular/router';
+import { FormControlTypes } from 'src/app/shared/constant/form-control';
 
 @Component({
   selector: 'app-cart',
@@ -36,7 +36,7 @@ export class CartComponent implements OnInit, OnDestroy {
   orderForm: FormGroup;
   priceOptions: any[] = [];
   priceOptionKey: string;
-  formControlTypes = FromControlTypes;
+  formControlTypes = FormControlTypes;
   displayPrice: string = null;
   display: number;
 
@@ -138,7 +138,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   changeInProductPriceTextbox(event, data, product) {
-    this.changeInProductPriceSelect(event, null, product);
+    // this.changeInProductPriceSelect(event, null, product);
   }
 
   changeInProductPriceSelect(event, variant, product) {
@@ -152,9 +152,9 @@ export class CartComponent implements OnInit, OnDestroy {
     });
 
     otherPrice.forEach(x => {
-      if (this.isArrayEqual(x.varCobination, variants) && x.minQty === qtyData) {
+      if (this.commonService.isArrayEqual(x.varCobination, variants) && x.minQty === qtyData) {
         product['displayPrice'] = x.price;
-      } else if (this.isArrayEqual(x.varCobination, variants) && x.minQty === 1) {
+      } else if (this.commonService.isArrayEqual(x.varCobination, variants) && x.minQty === 1) {
         product['displayPrice'] = x.price;
       }
     });
@@ -177,7 +177,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
     otherPrice.forEach(x => {
 
-      if (this.isArrayEqual(x.varCobination, variants)) {
+      if (this.commonService.isArrayEqual(x.varCobination, variants)) {
 
         if (x.minQty === qtyData) {
           this.display = x.price;
@@ -232,10 +232,6 @@ export class CartComponent implements OnInit, OnDestroy {
     this.storageCartData.push(this.selectedData);
     this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);
     this.router.navigate(['services/media']);
-  }
-
-  isArrayEqual(x, y) {
-    return _(x).differenceWith(y, _.isEqual).isEmpty();
   }
 
   ngOnDestroy() {

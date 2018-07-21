@@ -1,4 +1,4 @@
-export const FromControlTypes = {
+export const FormControlTypes = {
     Text: 'textbox',
     Select: 'dropdown'
 }

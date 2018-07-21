@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PriceOptions } from './dynamic-price-options';
-import { FromControlTypes } from '../../constant/form-control';
+import { FormControlTypes } from '../../constant/form-control';
 
 @Component({
   selector: 'app-dynamic-price-options',
@@ -10,7 +10,7 @@ import { FromControlTypes } from '../../constant/form-control';
 })
 export class DynamicPriceOptionsComponent implements OnInit {
 
-  formControlTypes = FromControlTypes;
+  formControlTypes = FormControlTypes;
 
   @Input() priceOption: PriceOptions<any>;
   @Input() form: FormGroup;

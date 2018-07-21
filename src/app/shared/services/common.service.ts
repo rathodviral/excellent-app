@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Utilities } from "./utilities";
+import * as _ from 'lodash';
 
 declare var humps;
 
@@ -56,5 +57,9 @@ export class CommonService {
       sum = sum * array[i].value;
     }
     return sum;
+  }
+
+  isArrayEqual(x, y) {
+    return _(x).differenceWith(y, _.isEqual).isEmpty();
   }
 }

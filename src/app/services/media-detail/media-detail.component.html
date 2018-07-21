@@ -62,35 +62,12 @@
                   <p>Radio Mirchi 98.3 FM brings forward an amazing platform to highlight your brand name through our radio
                     advertising platform.</p>
                 </div>
-                <a data-activates="pricing-option" class="view-pricing waves-effect waves-light btn-large btn mt-20 center" click="productOption = product">View Pricing</a>
-                <div class="card-reveal">
+                <a data-activates="pricing-option" class="view-pricing waves-effect waves-light btn-large btn mt-20 center" (click)="filterProductOptionData(product)">View Pricing</a>
+                <div class="card-reveal" *ngFor="let content of product?.optionInfo?.content">
                   <span class="card-title grey-text text-darken-4">{{product?.optionName}}
                     <i class="material-icons right">close</i>
                   </span>
-                  <p>Radio Mirchi 98.3 FM brings forward an amazing platform to highlight your brand name through our radio
-                    advertising platform. It is with a motive to draw the enormous number of local entrepreneurs of Ahmedabad,
-                    that Radio Mirchi has ensured exciting advertising campaigns on radio. Not just a highly cost effective
-                    solution, your brand advertisements have now a creative voice with Radio Mirchi team.</p>
-                </div>
-                <div class="card-reveal1">
-                  <span class="card-title grey-text text-darken-4">Step
-                    <i class="material-icons right">close</i>
-                  </span>
-                  <p>Radio Mirchi 98.3 FM brings forward an amazing platform to highlight your brand name through our radio
-                    advertising platform. It is with a motive to draw the enormous number of local entrepreneurs of Ahmedabad,
-                    that Radio Mirchi has ensured exciting advertising campaigns on radio. Not just a highly cost effective
-                    solution, your brand advertisements have now a creative voice with Radio Mirchi team.
-                  </p>
-                </div>
-                <div class="card-reveal2">
-                  <span class="card-title grey-text text-darken-4">bcd
-                    <i class="material-icons right">close</i>
-                  </span>
-                  <p>Radio Mirchi 98.3 FM brings forward an amazing platform to highlight your brand name through our radio
-                    advertising platform. It is with a motive to draw the enormous number of local entrepreneurs of Ahmedabad,
-                    that Radio Mirchi has ensured exciting advertising campaigns on radio. Not just a highly cost effective
-                    solution, your brand advertisements have now a creative voice with Radio Mirchi team.
-                  </p>
+                  <p>{{content?.value}}</p>
                 </div>
               </div>
             </div>
@@ -176,92 +153,107 @@
     </div>
   </div>
 </section>
-
-<div id="pricing-option" class="side-nav">
-  <a class="closebtn">
-    <i class="material-icons dp48">close</i>
-  </a>
-  <div class="container">
-    <div class="white-box">
-      <div class="row">
-        <div class="col s12">
-          <h5 class="media-option">Red FM, Guwahati - Jingle</h5>
-          <div class="row">
-            <div class="col s12 m7 l7">
-              <div id="" class="card card-rate">
-                <div class="card-content form">
-                  <div class="row mb-none">
-                    <div class="col s6 m6 l6 right-align">
-                      <p>#Show(s) per Day</p>
-                    </div>
-                    <div class="col s6 m6 l6">
-                      <div class="input-field">
-                        <input type="number" value="1" class="validate" min="1">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-none">
-                    <div class="col s6 m6 l6 right-align">
-                      <p>#Frequency(s)</p>
-                    </div>
-                    <div class="col s6 m6 l6">
-                      <div class="input-field">
-                        <input type="number" value="1" class="validate" min="1">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-none">
-                    <div class="col s6 m6 l6  right-align">
-                      <p>#Day(s)</p>
-                    </div>
-                    <div class="col s6 m6 l6">
-                      <div class="input-field">
-                        <input type="number" value="1" class="validate" min="1">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col s12 m5 l5">
-              <div id="" class="card card-rate">
-                <div class="card-content">
-
-                  <div class="row mt-20">
-                    <div class="rate">
+<p-sidebar [(visible)]="isPricingOptionDisplay" position="right" [style]="{width:'60em'}">
+  <div id="pricing-option">
+    <a class="closebtn">
+      <i class="material-icons dp48">close</i>
+    </a>
+    <div class="container">
+      <div class="white-box">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="media-option">Red FM, Guwahati - Jingle</h5>
+            <div class="row">
+              <div class="col s12 m7 l7">
+                <div id="" class="card card-rate">
+                  <div class="card-content form">
+                    <div class="row mb-none" *ngFor="let price of productOption?.priceUnit">
                       <div class="col s6 m6 l6 right-align">
-                        <p>Card Rate:</p>
-                        <p>Discounted Rate :</p>
-                        <p>
-                          <b>Total Price:</b>
-                        </p>
+                        <p>{{price.name}}</p>
                       </div>
-                      <div class="col s6 m3 l6 left-align">
-                        <p>
-                          <i class="fa fa-rupee"></i> 300000
-                        </p>
-                        <p>
-                          <i class="fa fa-rupee"></i> 280000
-                        </p>
-                        <p>
-                          <b>
-                            <i class="fa fa-rupee"></i> 25,00000
-                          </b>
-                        </p>
+                      <div class="col s6 m6 l6">
+                        <!-- <div class="input-field">
+                          <input type="number" value="1" class="validate" min="1">
+                        </div> -->
+                        <div class="input-field" *ngIf="price.controlType === formControlTypes.Text">
+                          <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="changeInProductPriceTextbox()"
+                            [(ngModel)]="price.value" (click)="changeInProductPriceTextbox()">
+
+                          <input *ngIf="price.type === 'number'" [id]="price.key" type="number" [step]="price.step" [min]="price.min" [max]="price.max"
+                            [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="changeInProductPriceTextbox()"
+                            (click)="changeInProductPriceTextbox()">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-none" *ngFor="let variant of productOption?.variant">
+                      <div class="col s6 m6 l6 right-align">
+                        <p>{{variant.name}}</p>
+                      </div>
+                      <div class="col s6 m6 l6">
+                        <!-- <div class="input-field">
+                          <input type="number" value="1" class="validate" min="1">
+                        </div> -->
+                        <div class="input-field" *ngIf="variant.controlType === formControlTypes.Select">
+                          <select [id]="variant.key" [(ngModel)]="variant.value" (change)="changeInProductPriceSelect()">
+                            <option value="null" disabled selected>{{variant.name}}</option>
+                            <option *ngFor="let opt of variant.options" [value]="opt">{{opt}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row mb-none">
+                      <div class="col s6 m6 l6  right-align">
+                        <p>#Day(s)</p>
+                      </div>
+                      <div class="col s6 m6 l6">
+                        <div class="input-field">
+                          <input type="number" value="1" class="validate" min="1">
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s12 m5 l5">
+                <div id="" class="card card-rate">
+                  <div class="card-content">
+
+                    <div class="row mt-20">
+                      <div class="rate">
+                        <div class="col s6 m6 l6 right-align">
+                          <p>Card Rate:</p>
+                          <p>Discount:</p>
+                          <p>
+                            <b>Total Price:</b>
+                          </p>
+                        </div>
+                        <div class="col s6 m3 l6 left-align">
+                          <p>
+                            <i class="fa fa-rupee"></i> {{display}}
+                          </p>
+                          <p>
+                            <i class="fa fa-rupee"></i> {{'0'}}
+                          </p>
+                          <p>
+                            <b>
+                              <i class="fa fa-rupee"></i>{{displayTotalPrice()}}
+                            </b>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col s12 m12 l12 center">
-              <button class="waves-effect waves-light btn-large btn mt-20 center">Add to DASHBORD</button>
+              <div class="col s12 m12 l12 center">
+                <button class="waves-effect waves-light btn-large btn mt-20 center" (click)="saveDetail()">Add to DASHBORD</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
+</p-sidebar>
