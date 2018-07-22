@@ -52,7 +52,7 @@ export class ServicesService {
   }
 
   saveCart(cart): Observable<any> {
-    const cartData = { campaign: [cart] };
+    const cartData = { campaign: cart };
     const token = this.commonService.getDataFromLocalStorageObject(LocalStorage.UserData, 'token');
     const options = {
       headers: new HttpHeaders({

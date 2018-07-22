@@ -25,7 +25,7 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
 
 
   @Input('filteredData') filteredData: FilteredData[];
-  @Input('priceOption') priceOption: string;
+  // @Input('priceOption') priceOption: any[];
 
   @Output('loadMore') loadMore = new EventEmitter<any>();
   // @Input('selectedData') selectedData: FilteredData[];
@@ -55,7 +55,7 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
   ngDoCheck() {
     let changes = this.iterableDiffer.diff(this.selectedData);
     if (changes) {
-      this.servicesService.sendCartData({ key: this.priceOption, data: this.selectedData });
+      this.servicesService.sendCartData({ key: [], data: this.selectedData });
     }
   }
 

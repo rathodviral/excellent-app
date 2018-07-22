@@ -20,7 +20,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   filteredData: FilteredData[] = [];
   params: Params;
   locationParams: LocationFilter;
-  servicePage: string = 'radio';
+  servicePage: any[] = [];
   priceOption: string;
   // selectedData: FilterData[] = [];
 
@@ -70,7 +70,8 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         // this.filters.language = newfilters.language;
         // this.filters.radiostation = newfilters.radiostation;
         // this.filters.tier = newfilters.tier;
-        this.priceOption = data.optionType[0].optionCode;
+
+        // this.priceOption = data.optionType[0].optionCode;
         this.params.optionType = data.optionType[0].optionCode;
         this.filters = data;
         this.getFilteredData(false);
@@ -108,7 +109,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
       } else if (data.type === 'param') {
         // this.params[data.parent].push(data.value);
         this.params[data.parent] = data.value;
-        this.priceOption = data.value;
+        // this.priceOption = data.value;
 
       }
     } else {
@@ -117,7 +118,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
       } else if (data.type === 'param') {
         // this.params[data.parent].splice(this.params[data.parent].findIndex(x => x === data.value), 1);
         this.params[data.parent] = data.value;
-        this.priceOption = data.value;
+        // this.priceOption = data.value;
 
       }
     }

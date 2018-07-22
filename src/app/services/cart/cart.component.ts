@@ -35,10 +35,9 @@ export class CartComponent implements OnInit, OnDestroy {
   isSelectIndividualTab: boolean;
   orderForm: FormGroup;
   priceOptions: any[] = [];
-  priceOptionKey: string;
+  // priceOptionKey: string;
   formControlTypes = FormControlTypes;
   displayPrice: string = null;
-  display: number;
 
   constructor(
     private servicesService: ServicesService,
@@ -47,10 +46,14 @@ export class CartComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   private filterProductOptionData() {
+    this.bulkCartData = _.cloneDeep(this.addToCartData[0]);
+    this.bulkCartData['productOption']['priceUnit'] = [];
+    this.bulkCartData['productOption']['variant'] = [];
+
     this.addToCartData.forEach((v, k) => {
-      if (!Utilities.isEmptyObj(v['productOption'][this.priceOptionKey])) {
+      if (!Utilities.isEmptyObj(v['productOption'][Object.keys(v['productOption'])[0]])) {
         v['displayPrice'] = 0;
-        v['productOption'] = v['productOption'][this.priceOptionKey];
+        v['productOption'] = v['productOption'][Object.keys(v['productOption'])[0]];
         let priceData = [];
         v['productOption']['priceUnit'].forEach(price => {
           priceData.push({
@@ -65,6 +68,20 @@ export class CartComponent implements OnInit, OnDestroy {
             value: price['unitMin'] > 1 ? price['unitMin'] : 1,
             controlType: this.formControlTypes.Text
           });
+          if (!this.bulkCartData['productOption']['priceUnit'].some(x => x.key === price['unitName'].toLowerCase())) {
+            this.bulkCartData['productOption']['priceUnit'].push({
+              key: price['unitName'].toLowerCase(),
+              placeholder: price['unitName'],
+              code: price['unitCode'],
+              max: (price['unitMax'] === 0 || price['unitMax'] === null) ? 999 : price['unitMax'],
+              min: price['unitMin'],
+              name: price['unitName'],
+              step: price['unitStep'],
+              type: price['unitType'].toLowerCase(),
+              value: price['unitMin'] > 1 ? price['unitMin'] : 1,
+              controlType: this.formControlTypes.Text
+            });
+          }
         });
         v['productOption']['priceUnit'] = priceData;
 
@@ -78,14 +95,22 @@ export class CartComponent implements OnInit, OnDestroy {
             value: variant['defaultValue'] || null,
             options: variant['variantValue']
           });
+
+          if (!this.bulkCartData['productOption']['variant'].some(x => x.key === variant['name'].toLowerCase())) {
+            this.bulkCartData['productOption']['variant'].push({
+              key: variant['name'].toLowerCase(),
+              name: variant['name'],
+              placeholder: 'Select Variant',
+              controlType: this.formControlTypes.Select,
+              value: variant['defaultValue'] || null,
+              options: variant['variantValue']
+            });
+          }
         });
 
         v['productOption']['variant'] = variantData;
       }
-
     });
-
-    this.bulkCartData = this.addToCartData[0];
   }
 
   private bulkChangeInProductPriceTextbox(event, data) {
@@ -114,14 +139,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.storageCartData = oldData;
     this.subscription = this.servicesService.getCartData().subscribe(x => {
       if (!Utilities.isEmptyObj(x.data)) {
-        console.log(x.data);
 
         this.addToCartDataDefault = _.cloneDeep(x.data);
-        this.priceOptionKey = x.key;
+        // this.priceOptionKey = x.key;
         this.addToCartData = _.cloneDeep(x.data);
         this.filterProductOptionData();
 
-        this.bulkChangeInProductPriceSelect(null, this.bulkCartData.productOption.optionPrice.defaultPrice.varCobination);
+        this.bulkChangeInProductPriceSelect(null, this.addToCartData[0].productOption.optionPrice.defaultPrice.varCobination);
       } else {
         this.addToCartData = [];
         this.bulkCartData = [];
@@ -138,7 +162,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   changeInProductPriceTextbox(event, data, product) {
-    // this.changeInProductPriceSelect(event, null, product);
+    this.changeInProductPriceSelect(event, null, product);
   }
 
   changeInProductPriceSelect(event, variant, product) {
@@ -164,11 +188,9 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   showProductPrice(product) {
-    this.display = 0;
     const otherPrice = product.productOption.optionPrice.otherPrice;
     const qtyList = product.productOption.priceUnit;
     const qtyData = this.commonService.multiplyArrayObj(qtyList);
-
 
     let variants = [];
     product.productOption.variant.forEach(element => {
@@ -180,16 +202,15 @@ export class CartComponent implements OnInit, OnDestroy {
       if (this.commonService.isArrayEqual(x.varCobination, variants)) {
 
         if (x.minQty === qtyData) {
+          product.productOption['optPrice'] = x.price;
+          product.productOption['totalPrice'] = x.price * qtyData || 0;
+
+        } /* else if (x.minQty === 1 && this.display === 0) {
           this.display = x.price;
-          product.productOption['optionPrice'] = x.price;
+          // product.productOption['optionPrice'] = x.price;
           product.productOption['totalPrice'] = x.price * qtyData;
 
-        } else if (x.minQty === 1 && this.display === 0) {
-          this.display = x.price;
-          product.productOption['optionPrice'] = x.price;
-          product.productOption['totalPrice'] = x.price * qtyData;
-
-        }
+        } */
       }
     });
 
@@ -212,10 +233,12 @@ export class CartComponent implements OnInit, OnDestroy {
     let total = 0;
 
     this.addToCartData.forEach(element => {
-      total = total + element['displayPrice'];
-      element['productOption']['priceUnit'].forEach(product => {
-        total = total * product.value;
-      });
+      if (!Utilities.isEmptyObj(element['productOption']['priceUnit'])) {
+        total = total + element['displayPrice'];
+        element['productOption']['priceUnit'].forEach(product => {
+          total = total * product.value;
+        });
+      }
     });
 
     return total;
@@ -226,8 +249,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.selectedData.totalPrice = this.displayTotalPrice();
     this.selectedData.product.forEach(element => {
       let data = this.addToCartData.find(x => x.alias === element.alias);
-      element['productOption'][this.priceOptionKey]['optionPrice'] = data['productOption']['optionPrice'];
-      element['productOption'][this.priceOptionKey]['totalPrice'] = data['productOption']['totalPrice'];
+      element['productOption']['optionPrice'] = data['productOption']['optPrice'];
+      element['productOption']['totalPrice'] = data['productOption']['totalPrice'];
     });
     this.storageCartData.push(this.selectedData);
     this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);

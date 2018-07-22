@@ -1948,9 +1948,9 @@
  
  /* LOGIN AND REGISTER SIDE NAV */
  
- #login-register.side-nav {
+ #login-register {
      width: 100%;
-     background: url(assets/images/login-banner.jpg);
+     background: url("./assets/images/login-banner.png");
      background-size: cover;
      height: calc(100% - 250px) !important;
      padding-bottom: 0px;
@@ -1960,42 +1960,42 @@
      top: 115px;
  }
  
- #login-register.side-nav h3 {
+ #login-register h3 {
      font-size: 1.5rem;
      text-transform: uppercase;
      letter-spacing: 1px;
      text-align: center;
  }
  
- #login-register.side-nav h4 {
+ #login-register h4 {
      font-size: 1.1rem;
      text-transform: uppercase;
      letter-spacing: 1px;
      text-align: center;
  }
  
- #login-register.side-nav .login-box {
+ #login-register .login-box {
      padding: 0 40px;
  }
  
- #login-register.side-nav .register-box {
+ #login-register .register-box {
      padding: 0 20px;
      border-left: 1px solid #ccc;
  }
  
- #login-register.side-nav input:not([type]),
- #login-register.side-nav input[type=text]:not(.browser-default),
- #login-register.side-nav input[type=password]:not(.browser-default),
- #login-register.side-nav input[type=email]:not(.browser-default),
- #login-register.side-nav input[type=url]:not(.browser-default),
- #login-register.side-nav input[type=time]:not(.browser-default),
- #login-register.side-nav input[type=date]:not(.browser-default),
- #login-register.side-nav input[type=datetime]:not(.browser-default),
- #login-register.side-nav input[type=datetime-local]:not(.browser-default),
- #login-register.side-nav input[type=tel]:not(.browser-default),
- #login-register.side-nav input[type=number]:not(.browser-default),
- #login-register.side-nav input[type=search]:not(.browser-default),
- #login-register.side-nav textarea.materialize-textarea {
+ #login-register input:not([type]),
+ #login-register input[type=text]:not(.browser-default),
+ #login-register input[type=password]:not(.browser-default),
+ #login-register input[type=email]:not(.browser-default),
+ #login-register input[type=url]:not(.browser-default),
+ #login-register input[type=time]:not(.browser-default),
+ #login-register input[type=date]:not(.browser-default),
+ #login-register input[type=datetime]:not(.browser-default),
+ #login-register input[type=datetime-local]:not(.browser-default),
+ #login-register input[type=tel]:not(.browser-default),
+ #login-register input[type=number]:not(.browser-default),
+ #login-register input[type=search]:not(.browser-default),
+ #login-register textarea.materialize-textarea {
      background-color: transparent;
      border: 1px solid #ddd;
      border-radius: 0;
@@ -2013,19 +2013,19 @@
      transition: all 0.3s;
  }
  
- #login-register.side-nav input:not([type]):focus:not([readonly]),
- #login-register.side-nav input[type=text]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=password]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=email]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=url]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=time]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=date]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=datetime]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=tel]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=number]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav input[type=search]:not(.browser-default):focus:not([readonly]),
- #login-register.side-nav textarea.materialize-textarea:focus:not([readonly]) {
+ #login-register input:not([type]):focus:not([readonly]),
+ #login-register input[type=text]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=password]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=email]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=url]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=time]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=date]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=datetime]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=tel]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=number]:not(.browser-default):focus:not([readonly]),
+ #login-register input[type=search]:not(.browser-default):focus:not([readonly]),
+ #login-register textarea.materialize-textarea:focus:not([readonly]) {
      border: 1px solid #ee3946;
      -webkit-box-shadow: 0 0px 0 0 #ee3946;
      box-shadow: 0 0px 0 0 #ee3946;
@@ -2044,7 +2044,7 @@
  }
  
  @media (max-width: 600px) {
-     #login-register.side-nav {
+     #login-register {
          width: 100%;
          background: #ffffff;
          height: calc(100% - 0px) !important;
@@ -2053,7 +2053,7 @@
          padding: 0;
          top: 0px;
      }
-     #login-register.side-nav .register-box {
+     #login-register .register-box {
          padding: 0 20px;
          border-left: 0px solid #ccc;
          border-top: 1px solid #ccc;
