@@ -20,7 +20,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   filteredData: FilteredData[] = [];
   params: Params;
   locationParams: LocationFilter;
-  servicePage: any[] = [];
+  servicePage: string;
   priceOption: string;
   // selectedData: FilterData[] = [];
 
