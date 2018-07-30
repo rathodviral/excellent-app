@@ -14,7 +14,7 @@
   </a>
 </div>
 <p-sidebar [(visible)]="isCartDisplay" position="right" [style]="{top:'65px'}">
-  <app-cart></app-cart>
+  <app-cart (closeCart)="closeCartSideBar($event)"></app-cart>
 </p-sidebar>
 <p-dialog [(visible)]="isLoginPopupDisplay" [showHeader]="false" [contentStyle]="{'padding':'0'}">
   <app-login (closeLoginPopup)="closeLoginDialog($event)"></app-login>

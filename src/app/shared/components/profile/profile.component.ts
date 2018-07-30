@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { CommonService } from 'src/app/shared/services/common.service';
-import { LocalStorage } from 'src/app/shared/constant/local-storage';
-import { UserService } from 'src/app/shared/services/user.service';
-import { Utilities } from 'src/app/shared/services/utilities';
 import { Subscription } from '../../../../../node_modules/rxjs';
+import { CommonService } from '../../services/common.service';
+import { UserService } from '../../services/user.service';
+import { Utilities } from '../../services/utilities';
+import { LocalStorage } from '../../constant/local-storage';
 
 @Component({
   selector: 'app-profile',

@@ -4,10 +4,9 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from "@angular
 import { Observable, of, Subject } from "rxjs";
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
-import { LocationFilter, Params } from "../shared/modal/filter-params";
 import { FilteredData } from "../shared/modal/filtered-data";
-import { LocalStorage } from 'src/app/shared/constant/local-storage';
-import { CommonService } from 'src/app/shared/services/common.service';
+import { CommonService } from '../shared/services/common.service';
+import { LocalStorage } from '../shared/constant/local-storage';
 
 @Injectable()
 export class ServicesService {

@@ -24,6 +24,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { AccordionModule } from 'primeng/accordion';
 import { MediaPlanComponent } from './media-plan/media-plan.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
+import { MediaPipe } from './media.pipe';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MediaDetailComponent } from './media-detail/media-detail.component';
     FiltersComponent,
     FilteredDataComponent,
     FilterPipe,
+    MediaPipe,
     ServicePageComponent,
     MediaPlanComponent,
     MediaDetailComponent

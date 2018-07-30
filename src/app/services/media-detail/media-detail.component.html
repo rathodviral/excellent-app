@@ -76,7 +76,7 @@
         <hr>
         <div id="thumb-boxed" class="mt-30 scrollspy">
           <div class="row">
-            <div class="col s12 m3" *ngFor="let specification of mediaDetail?.specification">
+            <div class="col s12 m3" *ngFor="let specification of mediaDetail?.specification | media:{group : 'stats'}">
               <div class="card  border-radius-3">
                 <div class="card-content center">
                   <img src="assets/images/service-logo/{{specification?.additionalInfo?.icon}}" class="width-40 border-round z-depth-5 round-img">
@@ -90,7 +90,7 @@
 
         <div id="overview" class="content-box scrollspy mb-30">
           <div class="row">
-            <div class="col l12 s12" [innerText]="mediaDetail?.productLongDescription"></div>
+            <div class="col l12 s12" [innerHTML]="mediaDetail?.productLongDescription"></div>
           </div>
         </div>
 
@@ -162,7 +162,7 @@
       <div class="white-box">
         <div class="row">
           <div class="col s12">
-            <h5 class="media-option">Red FM, Guwahati - Jingle</h5>
+            <h5 class="media-option">{{mediaDetail?.productName}}</h5>
             <div class="row">
               <div class="col s12 m7 l7">
                 <div id="" class="card card-rate">
@@ -176,12 +176,12 @@
                           <input type="number" value="1" class="validate" min="1">
                         </div> -->
                         <div class="input-field" *ngIf="price.controlType === formControlTypes.Text">
-                          <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="changeInProductPriceTextbox()"
-                            [(ngModel)]="price.value" (click)="changeInProductPriceTextbox()">
+                          <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="changeInProductPriceSelect()"
+                            [(ngModel)]="price.value" (click)="changeInProductPriceSelect()">
 
                           <input *ngIf="price.type === 'number'" [id]="price.key" type="number" [step]="price.step" [min]="price.min" [max]="price.max"
-                            [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="changeInProductPriceTextbox()"
-                            (click)="changeInProductPriceTextbox()">
+                            [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="changeInProductPriceSelect()"
+                            (click)="changeInProductPriceSelect()">
                         </div>
                       </div>
                     </div>
@@ -223,18 +223,18 @@
                       <div class="rate">
                         <div class="col s6 m6 l6 right-align">
                           <p>Card Rate:</p>
-                          <p>Discount:</p>
+                          <!-- <p>Discount:</p> -->
                           <p>
                             <b>Total Price:</b>
                           </p>
                         </div>
                         <div class="col s6 m3 l6 left-align">
                           <p>
-                            <i class="fa fa-rupee"></i> {{display}}
+                            <i class="fa fa-rupee"></i> {{ productOption?.optPrice}}
                           </p>
-                          <p>
+                          <!-- <p>
                             <i class="fa fa-rupee"></i> {{'0'}}
-                          </p>
+                          </p> -->
                           <p>
                             <b>
                               <i class="fa fa-rupee"></i>{{displayTotalPrice()}}

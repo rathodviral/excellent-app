@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServicesService } from '../services.service';
 import * as _ from 'lodash';
-import { FormControlTypes } from 'src/app/shared/constant/form-control';
-import { CommonService } from 'src/app/shared/services/common.service';
 import { Utilities } from '../../shared/services/utilities';
-import { LocalStorage } from 'src/app/shared/constant/local-storage';
+import { CommonService } from '../../shared/services/common.service';
+import { LocalStorage } from '../../shared/constant/local-storage';
+import { FormControlTypes } from '../../shared/constant/form-control';
 
 declare var jQuery;
 
@@ -60,11 +60,10 @@ export class MediaDetailComponent implements OnInit {
     this.isPricingOptionDisplay = false;
     this.servicesService.getMediaDetail(this.page, this.alias).subscribe((response) => {
       this.mediaDetail = _.cloneDeep(response);
-      this.mediaDetail['metaData'] = JSON.parse(response['metaData']);
-      this.mediaDetail['specification'].forEach(element => {
-        element['additionalInfo'] = JSON.parse(element['additionalInfo']);
-      });
-      // console.log(this.mediaDetail);
+      // this.mediaDetail['metaData'] = JSON.parse(response['metaData']);
+      // this.mediaDetail['specification'].forEach(element => {
+      //   element['additionalInfo'] = JSON.parse(element['additionalInfo']);
+      // });
       for (const key in this.mediaDetail.productOption) {
         if (this.mediaDetail.productOption.hasOwnProperty(key)) {
           const element = this.mediaDetail.productOption[key];
@@ -86,9 +85,9 @@ export class MediaDetailComponent implements OnInit {
       return;
     }
 
-    if (Utilities.isEmptyObj(v['variant'])) {
-      return;
-    }
+    // if (Utilities.isEmptyObj(v['variant'])) {
+    //   return;
+    // }
 
     this.productOption = _.cloneDeep(v);
     this.selectedData.product = _.cloneDeep(v);
@@ -111,19 +110,23 @@ export class MediaDetailComponent implements OnInit {
     });
     this.productOption['priceUnit'] = priceData;
 
-    let variantData = [];
-    this.productOption['variant'].forEach(variant => {
-      variantData.push({
-        key: variant['name'].toLowerCase(),
-        name: variant['name'],
-        placeholder: 'Select Variant',
-        controlType: this.formControlTypes.Select,
-        value: variant['defaultValue'] || null,
-        options: variant['variantValue']
-      });
-    });
+    if (!Utilities.isEmptyObj(v['variant'])) {
+      let variantData = [];
 
-    this.productOption['variant'] = variantData;
+      this.productOption['variant'].forEach(variant => {
+        variantData.push({
+          key: variant['name'].toLowerCase(),
+          name: variant['name'],
+          placeholder: 'Select Variant',
+          controlType: this.formControlTypes.Select,
+          value: variant['defaultValue'] || null,
+          options: variant['variantValue']
+        });
+      });
+
+      this.productOption['variant'] = variantData;
+    }
+
     this.changeInProductPriceSelect();
 
   }
@@ -138,51 +141,34 @@ export class MediaDetailComponent implements OnInit {
     const qtyData = this.commonService.multiplyArrayObj(qtyList);
 
     let variants = [];
-    this.productOption.variant.forEach(element => {
-      variants.push({ field: element.name, value: element.value });
-    });
+    if (!Utilities.isEmptyObj(this.productOption.variant)) {
+      this.productOption.variant.forEach(element => {
 
-    otherPrice.forEach(x => {
-      if (this.commonService.isArrayEqual(x.varCobination, variants) && x.minQty === qtyData) {
-        this.productOption['displayPrice'] = x.price;
-      } else if (this.commonService.isArrayEqual(x.varCobination, variants) && x.minQty === 1) {
-        this.productOption['displayPrice'] = x.price;
+        variants.push({ field: element.name, value: element.value });
+      });
+    }
+
+    const qtyrange = _.uniq(otherPrice.map(x => x.minQty)) || [];
+
+    for (let index = 0; index < otherPrice.length; index++) {
+      const x = otherPrice[index].minQty;
+      const z = otherPrice[index];
+
+      const rangeIndex = qtyrange.findIndex(p => p === otherPrice[index].minQty);
+      if (x === qtyrange[rangeIndex]) {
+        otherPrice[index].maxQty = Utilities.isEmptyObj(qtyrange[rangeIndex + 1]) ? 99999 : (Number(qtyrange[rangeIndex + 1]) - 1);
       }
-    });
-
-
-    this.showProductPrice();
-
-  }
-
-  showProductPrice() {
-    this.display = 0;
-    const otherPrice = this.productOption.optionPrice.otherPrice;
-    const qtyList = this.productOption.priceUnit;
-    const qtyData = this.commonService.multiplyArrayObj(qtyList);
-
-
-    let variants = [];
-    this.productOption.variant.forEach(element => {
-      variants.push({ field: element.name, value: element.value });
-    });
-
-    otherPrice.forEach(x => {
-      if (this.commonService.isArrayEqual(x.varCobination, variants)) {
-        if (x.minQty === qtyData) {
-          this.display = x.price;
-          // this.productOption['optionPrice'] = x.price;
-          this.productOption['totalPrice'] = x.price * qtyData;
-
-        } else if (x.minQty === 1 && this.display === 0) {
-          this.display = x.price;
-          // this.productOption['optionPrice'] = x.price;
-          this.productOption['totalPrice'] = x.price * qtyData;
-
+      const y = otherPrice[index].maxQty;
+      if (this.commonService.isArrayEqual(z.varCobination, variants)) {
+        if (x <= qtyData && y >= qtyData) {
+          this.productOption['displayPrice'] = z.price;
+          this.productOption['optPrice'] = z.price;
+          this.productOption['totalPrice'] = (z.price * qtyData) || 0;
         }
       }
-    });
+    }
   }
+
 
   displayTotalPrice() {
     if (Utilities.isEmptyObj(this.productOption['displayPrice'])) {
@@ -191,11 +177,13 @@ export class MediaDetailComponent implements OnInit {
 
     let total = 0;
 
-    total = total + this.productOption['displayPrice'];
-    this.productOption['priceUnit'].forEach(product => {
-      total = total * product.value;
-    });
+    // total = total + this.productOption['displayPrice'];
+    // this.productOption['priceUnit'].forEach(product => {
+    //   total = total * product.value;
+    // });
 
+
+    total = total + this.productOption['totalPrice'];
     return total;
   }
 

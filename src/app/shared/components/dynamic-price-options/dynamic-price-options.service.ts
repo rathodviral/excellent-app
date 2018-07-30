@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { PriceOptions } from 'src/app/shared/components/dynamic-price-options/dynamic-price-options';
-import { Utilities } from 'src/app/shared/services/utilities';
-import { FormControlTypes } from 'src/app/shared/constant/form-control';
+import { PriceOptions } from './dynamic-price-options';
+import { Utilities } from '../../services/utilities';
 
 
 @Injectable()

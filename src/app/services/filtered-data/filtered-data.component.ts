@@ -8,7 +8,7 @@ import { Subject, config } from "rxjs/index";
 import { CommonService } from "../../shared/services/common.service";
 import { LocalStorage } from "../../shared/constant/local-storage";
 import { Utilities } from "../../shared/services/utilities";
-import { ServicesService } from 'src/app/services/services.service';
+import { ServicesService } from '../services.service';
 
 @Component({
   selector: 'app-filtered-data',
@@ -25,7 +25,7 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
 
 
   @Input('filteredData') filteredData: FilteredData[];
-  // @Input('priceOption') priceOption: any[];
+  @Input('priceOption') priceOption: any[];
 
   @Output('loadMore') loadMore = new EventEmitter<any>();
   // @Input('selectedData') selectedData: FilteredData[];

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonService } from 'src/app/shared/services/common.service';
-import { LocalStorage } from 'src/app/shared/constant/local-storage';
-import { Utilities } from 'src/app/shared/services/utilities';
+import { CommonService } from '../shared/services/common.service';
+import { LocalStorage } from '../shared/constant/local-storage';
+import { Utilities } from '../shared/services/utilities';
 
 @Component({
   selector: 'app-services',
@@ -32,6 +32,10 @@ export class ServicesComponent implements OnInit, OnDestroy {
 
   closeLoginDialog(data) {
     this.isLoginPopupDisplay = data;
+  }
+
+  closeCartSideBar(data) {
+    this.isCartDisplay = data;
   }
 
   cartDisplayCheck() {

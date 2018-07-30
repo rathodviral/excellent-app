@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Injectable, Inject } from '@angular/core';
 import { Utilities } from "./utilities";
 import * as _ from 'lodash';
 
@@ -9,7 +10,7 @@ declare var humps;
 })
 export class CommonService {
 
-  constructor() { }
+  constructor(@Inject(WINDOW) private window: Window, ) { }
 
   convertObjectToFormData(item) {
     let formData = new FormData();
@@ -28,11 +29,11 @@ export class CommonService {
   }
 
   setLocalStorageObject(key: string, value: Object): void {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    this.window.localStorage.setItem(key, JSON.stringify(value));
   }
 
   getLocalStorageObject(key: string): any {
-    let temp = window.localStorage.getItem(key);
+    let temp = this.window.localStorage.getItem(key);
     if (Utilities.isNull(temp)) {
       return null;
     }
@@ -44,11 +45,11 @@ export class CommonService {
   }
 
   clearLocalStorageObject(key: string) {
-    window.localStorage.removeItem(key);
+    this.window.localStorage.removeItem(key);
   }
 
   clearLocalStorageObjectAll() {
-    window.localStorage.clear();
+    this.window.localStorage.clear();
   }
 
   multiplyArrayObj(array) {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/shared/services/common.service';
-import { LocalStorage } from 'src/app/shared/constant/local-storage';
 import { ServicesService } from '../services.service';
-import { Utilities } from 'src/app/shared/services/utilities';
+import { CommonService } from '../../shared/services/common.service';
+import { LocalStorage } from '../../shared/constant/local-storage';
+import { Utilities } from '../../shared/services/utilities';
 
 @Component({
   selector: 'app-media-plan',
@@ -24,6 +24,7 @@ export class MediaPlanComponent implements OnInit {
 
     } else {
       this.carts.splice(index, 1);
+      this.commonService.clearLocalStorageObject(LocalStorage.CartData);
       this.commonService.setLocalStorageObject(LocalStorage.CartData, this.carts);
     }
   }

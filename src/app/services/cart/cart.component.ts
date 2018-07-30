@@ -1,15 +1,14 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ServicesService } from 'src/app/services/services.service';
-import { Utilities } from 'src/app/shared/services/utilities';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { DynamicPriceOptionsService } from 'src/app/shared/components/dynamic-price-options/dynamic-price-options.service';
-import { PriceOptions } from '../../shared/components/dynamic-price-options/dynamic-price-options';
 import * as _ from 'lodash';
-import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalStorage } from '../../shared/constant/local-storage';
 import { Router } from '../../../../node_modules/@angular/router';
-import { FormControlTypes } from 'src/app/shared/constant/form-control';
+import { ServicesService } from '../services.service';
+import { Utilities } from '../../shared/services/utilities';
+import { DynamicPriceOptionsService } from '../../shared/components/dynamic-price-options/dynamic-price-options.service';
+import { FormControlTypes } from '../../shared/constant/form-control';
+import { CommonService } from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-cart',
@@ -39,6 +38,8 @@ export class CartComponent implements OnInit, OnDestroy {
   formControlTypes = FormControlTypes;
   displayPrice: string = null;
 
+  @Output('closeCart') closeCart = new EventEmitter<boolean>();
+
   constructor(
     private servicesService: ServicesService,
     private commonService: CommonService,
@@ -60,7 +61,7 @@ export class CartComponent implements OnInit, OnDestroy {
             key: price['unitName'].toLowerCase(),
             placeholder: price['unitName'],
             code: price['unitCode'],
-            max: (price['unitMax'] === 0 || price['unitMax'] === null) ? 999 : price['unitMax'],
+            max: (price['unitMax'] === 0 || price['unitMax'] === null) ? 99999 : price['unitMax'],
             min: price['unitMin'],
             name: price['unitName'],
             step: price['unitStep'],
@@ -84,20 +85,10 @@ export class CartComponent implements OnInit, OnDestroy {
           }
         });
         v['productOption']['priceUnit'] = priceData;
-
         let variantData = [];
-        v['productOption']['variant'].forEach(variant => {
-          variantData.push({
-            key: variant['name'].toLowerCase(),
-            name: variant['name'],
-            placeholder: 'Select Variant',
-            controlType: this.formControlTypes.Select,
-            value: variant['defaultValue'] || null,
-            options: variant['variantValue']
-          });
-
-          if (!this.bulkCartData['productOption']['variant'].some(x => x.key === variant['name'].toLowerCase())) {
-            this.bulkCartData['productOption']['variant'].push({
+        if (!Utilities.isEmptyObj(v['productOption']['priceUnit'])) {
+          v['productOption']['variant'].forEach(variant => {
+            variantData.push({
               key: variant['name'].toLowerCase(),
               name: variant['name'],
               placeholder: 'Select Variant',
@@ -105,32 +96,21 @@ export class CartComponent implements OnInit, OnDestroy {
               value: variant['defaultValue'] || null,
               options: variant['variantValue']
             });
-          }
-        });
 
+            if (!this.bulkCartData['productOption']['variant'].some(x => x.key === variant['name'].toLowerCase())) {
+              this.bulkCartData['productOption']['variant'].push({
+                key: variant['name'].toLowerCase(),
+                name: variant['name'],
+                placeholder: 'Select Variant',
+                controlType: this.formControlTypes.Select,
+                value: variant['defaultValue'] || null,
+                options: variant['variantValue']
+              });
+            }
+          });
+        }
         v['productOption']['variant'] = variantData;
       }
-    });
-  }
-
-  private bulkChangeInProductPriceTextbox(event, data) {
-    this.addToCartData.forEach(product => {
-      product.productOption.priceUnit.forEach(price => {
-        if (price.key === data.key) {
-          price.value = data.value;
-        }
-      });
-    });
-  }
-
-  private bulkChangeInProductPriceSelect(event, data) {
-    this.addToCartData.forEach(product => {
-      product.productOption.variant.forEach(variant => {
-        if (variant.name === data.name) {
-          variant.value = data.value;
-        }
-      });
-      this.changeInProductPriceSelect(event, null, product);
     });
   }
 
@@ -141,11 +121,10 @@ export class CartComponent implements OnInit, OnDestroy {
       if (!Utilities.isEmptyObj(x.data)) {
 
         this.addToCartDataDefault = _.cloneDeep(x.data);
-        // this.priceOptionKey = x.key;
         this.addToCartData = _.cloneDeep(x.data);
         this.filterProductOptionData();
 
-        this.bulkChangeInProductPriceSelect(null, this.addToCartData[0].productOption.optionPrice.defaultPrice.varCobination);
+        this.bulkChangeInProductPrice(event);
       } else {
         this.addToCartData = [];
         this.bulkCartData = [];
@@ -153,70 +132,46 @@ export class CartComponent implements OnInit, OnDestroy {
     });
 
     this.selectedData.name = `Radio Campaign ${this.storageCartData.length + 1}`;
-    // if (!Utilities.isEmptyObj(this.storageCartData)) {
-    //   this.selectedData = this.storageCartData;
-    //   this.addToCartData = this.storageCartData.cartData;
-    //   this.bulkCartData = this.addToCartData[0];
-    // }
     this.isSelectIndividualTab = false;
   }
 
   changeInProductPriceTextbox(event, data, product) {
-    this.changeInProductPriceSelect(event, null, product);
+    this.changeInProductPriceSelect(event, data, product);
   }
 
   changeInProductPriceSelect(event, variant, product) {
-    const otherPrice = product.productOption.optionPrice.otherPrice;
+    const otherPrice = _.orderBy(product.productOption.optionPrice.otherPrice, ['minQty'], ['asc']);
     const qtyList = product.productOption.priceUnit;
     const qtyData = this.commonService.multiplyArrayObj(qtyList);
 
     let variants = [];
-    product.productOption.variant.forEach(element => {
-      variants.push({ field: element.name, value: element.value });
-    });
 
-    otherPrice.forEach(x => {
-      if (this.commonService.isArrayEqual(x.varCobination, variants) && x.minQty === qtyData) {
-        product['displayPrice'] = x.price;
-      } else if (this.commonService.isArrayEqual(x.varCobination, variants) && x.minQty === 1) {
-        product['displayPrice'] = x.price;
+    if (!Utilities.isEmptyObj(product.productOption.variant)) {
+      product.productOption.variant.forEach(element => {
+        variants.push({ field: element.name, value: element.value });
+      });
+    }
+
+    const qtyrange = _.uniq(otherPrice.map(x => x.minQty));
+
+    for (let index = 0; index < otherPrice.length; index++) {
+      const x = otherPrice[index].minQty;
+      const z = otherPrice[index];
+
+      const rangeIndex = qtyrange.findIndex(p => p === otherPrice[index].minQty);
+      if (x === qtyrange[rangeIndex]) {
+        otherPrice[index].maxQty = Utilities.isEmptyObj(qtyrange[rangeIndex + 1]) ? 99999 : (qtyrange[rangeIndex + 1] - 1);
       }
-    });
-
-    this.showProductPrice(product);
-
-  }
-
-  showProductPrice(product) {
-    const otherPrice = product.productOption.optionPrice.otherPrice;
-    const qtyList = product.productOption.priceUnit;
-    const qtyData = this.commonService.multiplyArrayObj(qtyList);
-
-    let variants = [];
-    product.productOption.variant.forEach(element => {
-      variants.push({ field: element.name, value: element.value });
-    });
-
-    otherPrice.forEach(x => {
-
-      if (this.commonService.isArrayEqual(x.varCobination, variants)) {
-
-        if (x.minQty === qtyData) {
-          product.productOption['optPrice'] = x.price;
-          product.productOption['totalPrice'] = x.price * qtyData || 0;
-
-        } /* else if (x.minQty === 1 && this.display === 0) {
-          this.display = x.price;
-          // product.productOption['optionPrice'] = x.price;
-          product.productOption['totalPrice'] = x.price * qtyData;
-
-        } */
+      const y = otherPrice[index].maxQty;
+      if (this.commonService.isArrayEqual(z.varCobination, variants)) {
+        if (x <= qtyData && y >= qtyData) {
+          product['displayPrice'] = z.price;
+          product.productOption['optPrice'] = z.price;
+          product.productOption['totalPrice'] = (z.price * qtyData) || 0;
+        }
       }
-    });
-
+    }
   }
-
-
 
   bulkChangeInProductPrice(event) {
     this.bulkCartData.productOption.variant.forEach(variant => {
@@ -228,17 +183,40 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
+  bulkChangeInProductPriceTextbox(event, data) {
+    this.addToCartData.forEach(product => {
+      product.productOption.priceUnit.forEach(price => {
+        if (price.key === data.key) {
+          price.value = data.value;
+        }
+      });
+    });
+  }
+
+  bulkChangeInProductPriceSelect(event, data) {
+    this.addToCartData.forEach(product => {
+      product.productOption.variant.forEach(variant => {
+        if (variant.name === data.name) {
+          variant.value = data.value;
+        }
+      });
+      this.changeInProductPriceSelect(event, null, product);
+    });
+  }
 
   displayTotalPrice() {
     let total = 0;
 
     this.addToCartData.forEach(element => {
       if (!Utilities.isEmptyObj(element['productOption']['priceUnit'])) {
-        total = total + element['displayPrice'];
-        element['productOption']['priceUnit'].forEach(product => {
-          total = total * product.value;
-        });
+        // totalAmt = element['displayPrice'];
+        // element['productOption']['priceUnit'].forEach(product => {
+        //   qtyData = qtyData * product.value;
+        // });
+
+        total = total + element['productOption']['totalPrice'];
       }
+
     });
 
     return total;
@@ -254,6 +232,7 @@ export class CartComponent implements OnInit, OnDestroy {
     });
     this.storageCartData.push(this.selectedData);
     this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);
+    this.closeCart.emit(false);
     this.router.navigate(['services/media']);
   }
 
