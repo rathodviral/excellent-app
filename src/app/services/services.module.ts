@@ -35,11 +35,9 @@ import { MediaPipe } from './media.pipe';
     HttpClientModule,
     SharedModule,
     ServiceRoutingModule,
-    DataTablesModule,
     AutoCompleteModule,
     TableModule,
     DialogModule,
-    DropdownModule,
     SidebarModule,
     AccordionModule
   ],

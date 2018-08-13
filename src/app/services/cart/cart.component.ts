@@ -114,12 +114,18 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
+  private getLocalStorageData() {
     const oldData = this.commonService.getLocalStorageObject(LocalStorage.CartData) || [];
     this.storageCartData = oldData;
+    this.selectedData.name = `Radio Campaign ${this.storageCartData.length + 1}`;
+
+  }
+
+  ngOnInit() {
+    this.getLocalStorageData();
     this.subscription = this.servicesService.getCartData().subscribe(x => {
       if (!Utilities.isEmptyObj(x.data)) {
-
+        this.getLocalStorageData();
         this.addToCartDataDefault = _.cloneDeep(x.data);
         this.addToCartData = _.cloneDeep(x.data);
         this.filterProductOptionData();
@@ -131,7 +137,6 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.selectedData.name = `Radio Campaign ${this.storageCartData.length + 1}`;
     this.isSelectIndividualTab = false;
   }
 
@@ -167,10 +172,12 @@ export class CartComponent implements OnInit, OnDestroy {
         if (x <= qtyData && y >= qtyData) {
           product['displayPrice'] = z.price;
           product.productOption['optPrice'] = z.price;
-          product.productOption['totalPrice'] = (z.price * qtyData) || 0;
         }
       }
     }
+
+    product.productOption['totalPrice'] = product.productOption['optPrice'] * qtyData;
+
   }
 
   bulkChangeInProductPrice(event) {
@@ -190,6 +197,7 @@ export class CartComponent implements OnInit, OnDestroy {
           price.value = data.value;
         }
       });
+      this.changeInProductPriceSelect(event, null, product);
     });
   }
 
@@ -226,13 +234,37 @@ export class CartComponent implements OnInit, OnDestroy {
     this.selectedData.product = _.cloneDeep(this.addToCartDataDefault);
     this.selectedData.totalPrice = this.displayTotalPrice();
     this.selectedData.product.forEach(element => {
-      let data = this.addToCartData.find(x => x.alias === element.alias);
-      element['productOption']['optionPrice'] = data['productOption']['optPrice'];
-      element['productOption']['totalPrice'] = data['productOption']['totalPrice'];
+      let cartdata = this.addToCartData.find(x => x.alias === element.alias)['productOption'];
+      element['productOption']['optionPrice'] = cartdata['optPrice'];
+      element['productOption']['subTotalPrice'] = cartdata['totalPrice'];
+
+      const data = element['productOption'][Object.keys(element['productOption'])[0]];
+
+      if (!Utilities.isEmptyObj(data.priceUnit)) {
+        data.priceUnit.forEach(p => {
+          const index = cartdata.priceUnit.findIndex(x => x.name === p.unitName);
+          if (index > -1) {
+            p['value'] = cartdata.priceUnit[index].value;
+          }
+        });
+      }
+
+      if (!Utilities.isEmptyObj(data.variant)) {
+        data.variant.forEach(v => {
+          const index = cartdata.variant.findIndex(x => x.name === v.name);
+          if (index > -1) {
+            v.value = cartdata.variant[index].value;
+          }
+        });
+      }
     });
     this.storageCartData.push(this.selectedData);
+    this.commonService.clearLocalStorageObject(LocalStorage.CartData);
     this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);
     this.closeCart.emit(false);
+    this.storageCartData = [];
+    this.addToCartDataDefault = [];
+    this.addToCartData = [];
     this.router.navigate(['services/media']);
   }
 

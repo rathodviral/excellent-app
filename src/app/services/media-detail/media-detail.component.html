@@ -88,6 +88,22 @@
           </div>
         </div>
 
+        <div class="content-box scrollspy mb-30" *ngFor="let specification of mediaDetail?.specification | media:{group : 'Advertising'}">
+          <div class="row">
+            <h2>{{specification?.group}}</h2>
+            <p class="lighten-4" [innerHTML]="specification?.name">{{specification?.name}}</p>
+            <h5 class="lighten-4" [innerHTML]="specification?.smallText">{{specification?.smallText}}</h5>
+          </div>
+        </div>
+
+        <div class="content-box scrollspy mb-30" *ngFor="let specification of mediaDetail?.specification | media:{group : 'Images'}">
+          <div class="row">
+            <h2>{{specification?.group}}</h2>
+            <p class="lighten-4" [innerHTML]="specification?.name">{{specification?.name}}</p>
+            <h5 class="lighten-4" [innerHTML]="specification?.smallText">{{specification?.smallText}}</h5>
+          </div>
+        </div>
+
         <div id="overview" class="content-box scrollspy mb-30">
           <div class="row">
             <div class="col l12 s12" [innerHTML]="mediaDetail?.productLongDescription"></div>

@@ -42,10 +42,10 @@ export class FilteredDataComponent implements OnInit, DoCheck, OnDestroy {
   ngOnInit() {
     if (this.isTokenAvailable()) {
       this.userData = this.commonService.getDataFromLocalStorageObject(LocalStorage.UserData, 'user');
+      this.servicesService.sendCartData({ key: [], data: [] });
     }
 
     this.cols = [
-      { field: 'productName', header: 'Radio Station' },
       { field: 'cityName', header: 'City' },
       { field: 'frequency', header: 'Frequency' },
       { field: 'targetAudience', header: 'Audience' }

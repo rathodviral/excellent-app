@@ -127,7 +127,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   }
 
   loadMoreData(data) {
-    this.params.offset = this.params.offset + 10;
+    this.params.offset = this.params.offset + this.params.limit;
     this.getFilteredData(true);
   }
 

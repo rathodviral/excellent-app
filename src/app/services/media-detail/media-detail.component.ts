@@ -163,10 +163,12 @@ export class MediaDetailComponent implements OnInit {
         if (x <= qtyData && y >= qtyData) {
           this.productOption['displayPrice'] = z.price;
           this.productOption['optPrice'] = z.price;
-          this.productOption['totalPrice'] = (z.price * qtyData) || 0;
         }
       }
     }
+
+    this.productOption['totalPrice'] = this.productOption['optPrice'] * qtyData;
+
   }
 
 
@@ -192,9 +194,29 @@ export class MediaDetailComponent implements OnInit {
     this.selectedData.product['displayPrice'] = this.productOption['displayPrice'];
     this.selectedData.product['optionPrice'] = this.productOption['displayPrice'];
     this.selectedData.product['totalPrice'] = this.productOption['totalPrice'];
+    console.log(this.selectedData);
+
+    if (!Utilities.isEmptyObj(this.selectedData.product['priceUnit'])) {
+      this.selectedData.product['priceUnit'].forEach(p => {
+        const index = this.productOption.priceUnit.findIndex(x => x.name === p.unitName);
+        if (index > -1) {
+          p['value'] = this.productOption.priceUnit[index].value;
+        }
+      });
+    }
+
+    if (!Utilities.isEmptyObj(this.selectedData.product['variant'])) {
+      this.selectedData.product['variant'].forEach(v => {
+        const index = this.productOption.variant.findIndex(x => x.name === v.name);
+        if (index > -1) {
+          v.value = this.productOption.variant[index].value;
+        }
+      });
+    }
 
     this.selectedData.totalPrice = this.displayTotalPrice();
     this.storageCartData.push(this.selectedData);
+    this.commonService.clearLocalStorageObject(LocalStorage.CartData);
     this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);
     this.router.navigate(['services/media']);
   }

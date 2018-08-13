@@ -2,7 +2,7 @@
   <div class="col s12 m8 l8 offset-m2 offset-l2">
     <div class="white-box" *ngIf="isTokenAvailable();else noLogin">
       <div class="table-responsive">
-        <table id="tblSearch" class="table dataTable media-plan-table" *ngIf="carts.length > 0;else noData">
+        <table id="tblSearch" class="table dataTable media-plan-table" *ngIf="carts && carts.length > 0;else noData">
           <thead>
             <tr>
               <th>Campaign Name</th>
