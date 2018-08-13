@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Output} from "@angular/core";
-import {EventEmitter} from "@angular/core";
-import {Input} from "@angular/core";
-import {Filters} from "../../shared/modal/filters";
-import {AfterContentInit} from "@angular/core";
-import {ChangeDetectorRef} from "@angular/core";
-import {LocationFilter} from "../../shared/modal/filter-params";
-import {ServicesService} from "../services.service";
+import { Component, OnInit } from '@angular/core';
+import { Output } from "@angular/core";
+import { EventEmitter } from "@angular/core";
+import { Input } from "@angular/core";
+import { Filters } from "../../shared/modal/filters";
+import { AfterContentInit } from "@angular/core";
+import { ChangeDetectorRef } from "@angular/core";
+import { LocationFilter } from "../../shared/modal/filter-params";
+import { ServicesService } from "../services.service";
 declare var jQuery;
 
 @Component({
@@ -16,28 +16,29 @@ declare var jQuery;
 })
 export class FiltersComponent implements OnInit {
 
-  searchTier:string = '';
-  searchZone:string = '';
-  language:string = '';
-  radioStation:string = '';
-  searchLocation:any;
-  searchResults:string[] = [];
-  locationParams:LocationFilter;
+  searchTier: string = '';
+  searchZone: string = '';
+  language: string = '';
+  radioStation: string = '';
+  optionType: string = '';
+  searchLocation: any;
+  searchResults: string[] = [];
+  locationParams: LocationFilter;
 
-  @Input('filters') filters:Filters;
-  @Input('servicePage') servicePage:string;
+  @Input('filters') filters: Filters;
+  @Input('servicePage') servicePage: string;
   @Output('geographyData') geographyData = new EventEmitter<any>();
   @Output('otherFilterData') otherFilterData = new EventEmitter<any>();
 
-  constructor(private sr:ServicesService) {
+  constructor(private sr: ServicesService) {
   }
 
   ngOnInit() {
     jQuery('.collapsible').collapsible();
   }
 
-  geographyDataSearch(value:any) {
-    this.locationParams = new LocationFilter({q: value.query, media: this.servicePage});
+  geographyDataSearch(value: any) {
+    this.locationParams = new LocationFilter({ q: value.query, media: this.servicePage });
     if (value.query.length > 2) {
       this.sr.getFilteredDataLocationBase(this.locationParams)
         .subscribe(data => {
@@ -49,17 +50,17 @@ export class FiltersComponent implements OnInit {
   geographyDataChange() {
     const newData = [];
     this.searchLocation.forEach(x => {
-      newData.push({LocationId:x.LocationId, LocationType:x.LocationType});
+      newData.push({ LocationId: x.LocationId, LocationType: x.LocationType });
     });
-    console.log(newData);
     this.geographyData.emit(newData);
   }
 
-  otherFilterDataChange(event, parent, value) {
+  otherFilterDataChange(event, parent, value, type) {
     const data = {
       checked: event.target.checked,
       parent: parent,
-      value: value
+      value: value,
+      type: type
     };
     this.otherFilterData.emit(data);
   }

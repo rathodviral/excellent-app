@@ -1,8 +1,8 @@
-<div class="fixed-action-btn " style="bottom: 35px; right: 5px;">
+<!-- <div class="fixed-action-btn " style="bottom: 35px; right: 5px;">
   <a data-activates="add-dashbord" class="button-collapse2 btn-floating btn-large ">
     <i class="material-icons">add</i>
   </a>
-</div>
+</div> -->
 <!-- Add Dashbord  START -->
 <div id="add-dashbord" class="side-nav">
   <div class="container">
@@ -14,585 +14,166 @@
               <div class="col s12 border-bottom-1 mt-5">
                 <ul class="tabs">
                   <li class="tab col s6">
-                    <a href="#bulk" class="active">
+                    <a href="javascript:void(0)" [ngClass]="{active: !isSelectIndividualTab}" (click)="isSelectIndividualTab = false">
                       <span>Bulk Plan</span>
                     </a>
                   </li>
                   <li class="tab col s6">
-                    <a href="#individual">
+                    <a href="javascript:void(0)" [ngClass]="{active: isSelectIndividualTab}" (click)="isSelectIndividualTab = true">
                       <span>Individual Plan</span>
                     </a>
                   </li>
 
                 </ul>
               </div>
+              <!-- <form [formGroup]="orderForm" (ngSubmit)="saveCartData()">
+                
+              </form> -->
 
-              <div id="individual" class="col s12">
+              <div id="individual" class="col s12" *ngIf="isSelectIndividualTab;else bulkTab">
 
-                <div class="row mt-20 mb-none" style="margin-bottom:10px;">
+                <!-- <div class="row mt-20 mb-none" style="margin-bottom:10px;">
                   <div class="col s12 m5 l5">
                     <p>Campaign Name :</p>
                   </div>
                   <div class="col s12 m7 l7">
                     <div class="input-field">
-                      <input  type="text" class="validate">
+                      <input type="text" class="validate" [(ngModel)]="filterObj.campaignName">
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="filter">
-                  <ul class="collapsible active" data-collapsible="expandable">
-                    <li class="collapse">
-                      <div class="collapsible-header active">
-                        <span>98.3 Radio Mirchi</span>  <i class="material-icons dp48 right">expand_more</i>
-                      </div>
-                      <div class="collapsible-body">
-                        <!--  Inner Body  -->
-                        <div>
-
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Ad Length</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select Ad Length</option>
-                                  <option value="3" data-val="5">5 Sec</option>
-                                  <option value="4" data-val="10">10 Sec</option>
-                                  <option value="5" data-val="15">15 Sec</option>
-                                  <option value="6" data-val="20">20 Sec</option>
-                                  <option value="7" data-val="25">25 Sec</option>
-                                  <option value="8" data-val="30">30 Sec</option>
-                                  <option value="9" data-val="35">35 Sec</option>
-                                  <option value="10" data-val="40">40 Sec</option>
-                                  <option value="11" data-val="45">45 Sec</option>
-                                  <option value="12" data-val="50">50 Sec</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Frequency</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select Frequency</option>
-                                  <option value="1" data-val="5">5 Spots/day</option>
-                                  <option value="2" data-val="10">10 Spots/day</option>
-                                  <option value="3" data-val="15">15 Spots/day</option>
-                                  <option value="4" data-val="20">20 Spots/day</option>
-                                  <option value="5" data-val="25">25 Spots/day</option>
-                                  <option value="6" data-val="30">30 Spots/day</option>
-                                  <option value="7" data-val="35">35 Spots/day</option>
-                                  <option value="8" data-val="40">40 Spots/day</option>
-                                  <option value="9" data-val="45">45 Spots/day</option>
-                                  <option value="10" data-val="50">50 Spots/day</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row ">
-                            <div class="col s12 m6 l6">
-                              <p>No of Days</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select No of Days</option>
-                                  <option value="1">1 Day</option>
-                                  <option value="2">2 Days</option>
-                                  <option value="3">3 Days</option>
-                                  <option value="4">4 Days</option>
-                                  <option value="5">5 Days</option>
-                                  <option value="6">6 Days</option>
-                                  <option value="7">7 Days</option>
-                                  <option value="8">8 Days</option>
-                                  <option value="9">9 Days</option>
-                                  <option value="10">10 Days</option>
-                                  <option value="11">11 Days</option>
-                                  <option value="12">12 Days</option>
-                                  <option value="13">13 Days</option>
-                                  <option value="14">14 Days</option>
-                                  <option value="15">15 Days</option>
-                                  <option value="16">16 Days</option>
-                                  <option value="17">17 Days</option>
-                                  <option value="18">18 Days</option>
-                                  <option value="19">19 Days</option>
-                                  <option value="20">20 Days</option>
-                                  <option value="21">21 Days</option>
-                                  <option value="22">22 Days</option>
-                                  <option value="23">23 Days</option>
-                                  <option value="24">24 Days</option>
-                                  <option value="25">25 Days</option>
-                                  <option value="26">26 Days</option>
-                                  <option value="27">27 Days</option>
-                                  <option value="28">28 Days</option>
-                                  <option value="29">29 Days</option>
-                                  <option value="30">30 Days</option>
-                                  <option value="31">31 Days</option>
-                                  <option value="32">32 Days</option>
-                                  <option value="33">33 Days</option>
-                                  <option value="34">34 Days</option>
-                                  <option value="35">35 Days</option>
-                                  <option value="36">36 Days</option>
-                                  <option value="37">37 Days</option>
-                                  <option value="38">38 Days</option>
-                                  <option value="39">39 Days</option>
-                                  <option value="40">40 Days</option>
-                                  <option value="41">41 Days</option>
-                                  <option value="42">42 Days</option>
-                                  <option value="43">43 Days</option>
-                                  <option value="44">44 Days</option>
-                                  <option value="45">45 Days</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Time Band</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Time Band</option>
-                                  <option value="22">Equal Spread (RODP)</option>
-                                  <option value="26">Prime Time</option>
-                                  <option value="21 ">Across the Day (ROS)</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s8 m6 l6">
-                              <p>Card Rate / 10 Sec</p>
-                            </div>
-                            <div class="col s4 m6 l6">
-                              <p>Rs.5000</p>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- End  Body  -->
-                      </div>
-                    </li>
-                    <li class="collapse">
-                      <div class="collapsible-header ">
-                        <span>98.3 Radio Mirchi, Chennai</span> <i class="material-icons dp48 right">expand_more</i>
-                      </div>
-                      <div class="collapsible-body ">
-                        <!--  Inner Body  -->
-                        <div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Ad Length</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select Ad Length</option>
-                                  <option value="3" data-val="5">5 Sec</option>
-                                  <option value="4" data-val="10">10 Sec</option>
-                                  <option value="5" data-val="15">15 Sec</option>
-                                  <option value="6" data-val="20">20 Sec</option>
-                                  <option value="7" data-val="25">25 Sec</option>
-                                  <option value="8" data-val="30">30 Sec</option>
-                                  <option value="9" data-val="35">35 Sec</option>
-                                  <option value="10" data-val="40">40 Sec</option>
-                                  <option value="11" data-val="45">45 Sec</option>
-                                  <option value="12" data-val="50">50 Sec</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Frequency</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select Frequency</option>
-                                  <option value="1" data-val="5">5 Spots/day</option>
-                                  <option value="2" data-val="10">10 Spots/day</option>
-                                  <option value="3" data-val="15">15 Spots/day</option>
-                                  <option value="4" data-val="20">20 Spots/day</option>
-                                  <option value="5" data-val="25">25 Spots/day</option>
-                                  <option value="6" data-val="30">30 Spots/day</option>
-                                  <option value="7" data-val="35">35 Spots/day</option>
-                                  <option value="8" data-val="40">40 Spots/day</option>
-                                  <option value="9" data-val="45">45 Spots/day</option>
-                                  <option value="10" data-val="50">50 Spots/day</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row ">
-                            <div class="col s12 m6 l6">
-                              <p>No of Days</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select No of Days</option>
-                                  <option value="1">1 Day</option>
-                                  <option value="2">2 Days</option>
-                                  <option value="3">3 Days</option>
-                                  <option value="4">4 Days</option>
-                                  <option value="5">5 Days</option>
-                                  <option value="6">6 Days</option>
-                                  <option value="7">7 Days</option>
-                                  <option value="8">8 Days</option>
-                                  <option value="9">9 Days</option>
-                                  <option value="10">10 Days</option>
-                                  <option value="11">11 Days</option>
-                                  <option value="12">12 Days</option>
-                                  <option value="13">13 Days</option>
-                                  <option value="14">14 Days</option>
-                                  <option value="15">15 Days</option>
-                                  <option value="16">16 Days</option>
-                                  <option value="17">17 Days</option>
-                                  <option value="18">18 Days</option>
-                                  <option value="19">19 Days</option>
-                                  <option value="20">20 Days</option>
-                                  <option value="21">21 Days</option>
-                                  <option value="22">22 Days</option>
-                                  <option value="23">23 Days</option>
-                                  <option value="24">24 Days</option>
-                                  <option value="25">25 Days</option>
-                                  <option value="26">26 Days</option>
-                                  <option value="27">27 Days</option>
-                                  <option value="28">28 Days</option>
-                                  <option value="29">29 Days</option>
-                                  <option value="30">30 Days</option>
-                                  <option value="31">31 Days</option>
-                                  <option value="32">32 Days</option>
-                                  <option value="33">33 Days</option>
-                                  <option value="34">34 Days</option>
-                                  <option value="35">35 Days</option>
-                                  <option value="36">36 Days</option>
-                                  <option value="37">37 Days</option>
-                                  <option value="38">38 Days</option>
-                                  <option value="39">39 Days</option>
-                                  <option value="40">40 Days</option>
-                                  <option value="41">41 Days</option>
-                                  <option value="42">42 Days</option>
-                                  <option value="43">43 Days</option>
-                                  <option value="44">44 Days</option>
-                                  <option value="45">45 Days</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Time Band</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Time Band</option>
-                                  <option value="22">Equal Spread (RODP)</option>
-                                  <option value="26">Prime Time</option>
-                                  <option value="21 ">Across the Day (ROS)</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s8 m6 l6">
-                              <p>Card Rate / 10 Sec</p>
-                            </div>
-                            <div class="col s4 m6 l6">
-                              <p>Rs.5000</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- End  Inner Body  -->
-                      </div>
-                    </li>
-                    <li class="collapse">
-                      <div class="collapsible-header ">
-                        <span>98.3 Suryan FM, Tiruchirappalli</span><i class="material-icons dp48 right">expand_more</i>
-                      </div>
-                      <div class="collapsible-body ">
-                        <!--  Inner Body  -->
-                        <div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Ad Length</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select Ad Length</option>
-                                  <option value="3" data-val="5">5 Sec</option>
-                                  <option value="4" data-val="10">10 Sec</option>
-                                  <option value="5" data-val="15">15 Sec</option>
-                                  <option value="6" data-val="20">20 Sec</option>
-                                  <option value="7" data-val="25">25 Sec</option>
-                                  <option value="8" data-val="30">30 Sec</option>
-                                  <option value="9" data-val="35">35 Sec</option>
-                                  <option value="10" data-val="40">40 Sec</option>
-                                  <option value="11" data-val="45">45 Sec</option>
-                                  <option value="12" data-val="50">50 Sec</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Frequency</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select Frequency</option>
-                                  <option value="1" data-val="5">5 Spots/day</option>
-                                  <option value="2" data-val="10">10 Spots/day</option>
-                                  <option value="3" data-val="15">15 Spots/day</option>
-                                  <option value="4" data-val="20">20 Spots/day</option>
-                                  <option value="5" data-val="25">25 Spots/day</option>
-                                  <option value="6" data-val="30">30 Spots/day</option>
-                                  <option value="7" data-val="35">35 Spots/day</option>
-                                  <option value="8" data-val="40">40 Spots/day</option>
-                                  <option value="9" data-val="45">45 Spots/day</option>
-                                  <option value="10" data-val="50">50 Spots/day</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row ">
-                            <div class="col s12 m6 l6">
-                              <p>No of Days</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Select No of Days</option>
-                                  <option value="1">1 Day</option>
-                                  <option value="2">2 Days</option>
-                                  <option value="3">3 Days</option>
-                                  <option value="4">4 Days</option>
-                                  <option value="5">5 Days</option>
-                                  <option value="6">6 Days</option>
-                                  <option value="7">7 Days</option>
-                                  <option value="8">8 Days</option>
-                                  <option value="9">9 Days</option>
-                                  <option value="10">10 Days</option>
-                                  <option value="11">11 Days</option>
-                                  <option value="12">12 Days</option>
-                                  <option value="13">13 Days</option>
-                                  <option value="14">14 Days</option>
-                                  <option value="15">15 Days</option>
-                                  <option value="16">16 Days</option>
-                                  <option value="17">17 Days</option>
-                                  <option value="18">18 Days</option>
-                                  <option value="19">19 Days</option>
-                                  <option value="20">20 Days</option>
-                                  <option value="21">21 Days</option>
-                                  <option value="22">22 Days</option>
-                                  <option value="23">23 Days</option>
-                                  <option value="24">24 Days</option>
-                                  <option value="25">25 Days</option>
-                                  <option value="26">26 Days</option>
-                                  <option value="27">27 Days</option>
-                                  <option value="28">28 Days</option>
-                                  <option value="29">29 Days</option>
-                                  <option value="30">30 Days</option>
-                                  <option value="31">31 Days</option>
-                                  <option value="32">32 Days</option>
-                                  <option value="33">33 Days</option>
-                                  <option value="34">34 Days</option>
-                                  <option value="35">35 Days</option>
-                                  <option value="36">36 Days</option>
-                                  <option value="37">37 Days</option>
-                                  <option value="38">38 Days</option>
-                                  <option value="39">39 Days</option>
-                                  <option value="40">40 Days</option>
-                                  <option value="41">41 Days</option>
-                                  <option value="42">42 Days</option>
-                                  <option value="43">43 Days</option>
-                                  <option value="44">44 Days</option>
-                                  <option value="45">45 Days</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s12 m6 l6">
-                              <p>Time Band</p>
-                            </div>
-                            <div class="col s12 m6 l6">
-                              <div class="input-field">
-                                <select>
-                                  <option value="" disabled selected>Time Band</option>
-                                  <option value="22">Equal Spread (RODP)</option>
-                                  <option value="26">Prime Time</option>
-                                  <option value="21 ">Across the Day (ROS)</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col s8 m6 l6">
-                              <p>Card Rate / 10 Sec</p>
-                            </div>
-                            <div class="col s4 m6 l6">
-                              <p>Rs.5000</p>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- End  Inner Body  -->
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-              <div id="bulk" class="col s12">
-
-                <div class="bulk-edit">
                   <div class="row mt-20" style="margin-bottom:0px;">
                     <div class="col s12 m5 l5">
                       <p>Campaign Name :</p>
                     </div>
                     <div class="col s12 m7 l7">
                       <div class="input-field">
-                        <input  type="text" class="validate">
+                        <input type="text" class="validate" [(ngModel)]="selectedData.name">
                       </div>
                     </div>
                   </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col s12 m6 l6">
-                      <p>Ad Length</p>
-                    </div>
-                    <div class="col s12 m6 l6">
-                      <div class="input-field">
-                        <select>
-                          <option value="" disabled selected>Select Ad Length</option>
-                          <option value="3" data-val="5">5 Sec</option>
-                          <option value="4" data-val="10">10 Sec</option>
-                          <option value="5" data-val="15">15 Sec</option>
-                          <option value="6" data-val="20">20 Sec</option>
-                          <option value="7" data-val="25">25 Sec</option>
-                          <option value="8" data-val="30">30 Sec</option>
-                          <option value="9" data-val="35">35 Sec</option>
-                          <option value="10" data-val="40">40 Sec</option>
-                          <option value="11" data-val="45">45 Sec</option>
-                          <option value="12" data-val="50">50 Sec</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+                  <hr/>
                   <div class="row">
 
-                    <div class="col s12 m6 l6">
-                      <p>Frequency</p>
+                    <div class="col s12" *ngIf="addToCartData.length > 0;else noCartData">
+
+                      <p-accordion [multiple]="true">
+
+                        <p-accordionTab *ngFor="let product of addToCartData">
+                          <p-header>
+                            <span>{{product?.productName}}</span>
+                          </p-header>
+                          <div>
+
+                            <div class="row" *ngFor="let price of product?.productOption?.priceUnit">
+                              <div class="col s12 m6 l6">
+                                <p>{{price.name}}</p>
+                              </div>
+                              <div class="col s12 m6 l6">
+                                <div class="input-field" *ngIf="price.controlType === formControlTypes.Text">
+                                  <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="changeInProductPriceTextbox($event, price, product)"
+                                    [(ngModel)]="price.value" (click)="changeInProductPriceTextbox($event, price, product)">
+
+                                  <input *ngIf="price.type === 'number'" [id]="price.key" type="number" [step]="price.step" [min]="price.min" [max]="price.max"
+                                    [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="changeInProductPriceTextbox($event, price, product)"
+                                    (click)="changeInProductPriceTextbox($event, price, product)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" *ngFor="let variant of product?.productOption?.variant">
+                              <div class="col s12 m6 l6">
+                                <p>{{variant.name}}</p>
+                              </div>
+                              <div class="col s12 m6 l6">
+                                <div class="input-field" *ngIf="variant.controlType === formControlTypes.Select">
+                                  <select [id]="variant.key" [(ngModel)]="variant.value" (change)="changeInProductPriceSelect($event,variant, product)">
+                                    <option value="null" disabled selected>{{variant.name}}</option>
+                                    <option *ngFor="let opt of variant.options" [value]="opt">{{opt}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col s6 m6 l6">
+                                <p>Rate
+                                  <!--  <i>{{product?.productOption?.optionUnit}}</i> -->
+                                </p>
+                              </div>
+                              <div class="col s6 m6 l6">
+                                <p>Rs. {{product?.productOption?.optPrice}}
+                                  <i>{{product?.productOption?.optionUnit}}</i>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </p-accordionTab>
+                      </p-accordion>
                     </div>
-                    <div class="col s12 m6 l6">
-                      <div class="input-field">
-                        <select>
-                          <option value="" disabled selected>Select Frequency</option>
-                          <option value="1" data-val="5">5 Spots/day</option>
-                          <option value="2" data-val="10">10 Spots/day</option>
-                          <option value="3" data-val="15">15 Spots/day</option>
-                          <option value="4" data-val="20">20 Spots/day</option>
-                          <option value="5" data-val="25">25 Spots/day</option>
-                          <option value="6" data-val="30">30 Spots/day</option>
-                          <option value="7" data-val="35">35 Spots/day</option>
-                          <option value="8" data-val="40">40 Spots/day</option>
-                          <option value="9" data-val="45">45 Spots/day</option>
-                          <option value="10" data-val="50">50 Spots/day</option>
-                        </select>
+                    <ng-template #noCartData>
+                      <div class="col s12">
+                        No data in cart
                       </div>
-                    </div>
-                  </div>
-                  <div class="row ">
-                    <div class="col s12 m6 l6">
-                      <p>No of Days</p>
-                    </div>
-                    <div class="col s12 m6 l6">
-                      <div class="input-field">
-                        <select>
-                          <option value="" disabled selected>Select No of Days</option>
-                          <option value="1">1 Day</option>
-                          <option value="2">2 Days</option>
-                          <option value="3">3 Days</option>
-                          <option value="4">4 Days</option>
-                          <option value="5">5 Days</option>
-                          <option value="6">6 Days</option>
-                          <option value="7">7 Days</option>
-                          <option value="8">8 Days</option>
-                          <option value="9">9 Days</option>
-                          <option value="10">10 Days</option>
-                          <option value="11">11 Days</option>
-                          <option value="12">12 Days</option>
-                          <option value="13">13 Days</option>
-                          <option value="14">14 Days</option>
-                          <option value="15">15 Days</option>
-                          <option value="16">16 Days</option>
-                          <option value="17">17 Days</option>
-                          <option value="18">18 Days</option>
-                          <option value="19">19 Days</option>
-                          <option value="20">20 Days</option>
-                          <option value="21">21 Days</option>
-                          <option value="22">22 Days</option>
-                          <option value="23">23 Days</option>
-                          <option value="24">24 Days</option>
-                          <option value="25">25 Days</option>
-                          <option value="26">26 Days</option>
-                          <option value="27">27 Days</option>
-                          <option value="28">28 Days</option>
-                          <option value="29">29 Days</option>
-                          <option value="30">30 Days</option>
-                          <option value="31">31 Days</option>
-                          <option value="32">32 Days</option>
-                          <option value="33">33 Days</option>
-                          <option value="34">34 Days</option>
-                          <option value="35">35 Days</option>
-                          <option value="36">36 Days</option>
-                          <option value="37">37 Days</option>
-                          <option value="38">38 Days</option>
-                          <option value="39">39 Days</option>
-                          <option value="40">40 Days</option>
-                          <option value="41">41 Days</option>
-                          <option value="42">42 Days</option>
-                          <option value="43">43 Days</option>
-                          <option value="44">44 Days</option>
-                          <option value="45">45 Days</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col s12 m6 l6">
-                      <p>Time Band</p>
-                    </div>
-                    <div class="col s12 m6 l6">
-                      <div class="input-field">
-                        <select>
-                          <option value="" disabled selected>Time Band</option>
-                          <option value="22">Equal Spread (RODP)</option>
-                          <option value="26">Prime Time</option>
-                          <option value="21 ">Across the Day (ROS)</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col s6 m6 l6">
-                      <p>Card Rate / 10 Sec</p>
-                    </div>
-                    <div class="col s6 m6 l6">
-                      <p>Rs.5000</p>
-                    </div>
+                    </ng-template>
+
                   </div>
                 </div>
+
               </div>
+              <ng-template #bulkTab>
+                <div id="bulk" class="col s12">
+
+                  <div class="bulk-edit">
+                    <div class="row mt-20" style="margin-bottom:0px;">
+                      <div class="col s12 m5 l5">
+                        <p>Campaign Name :</p>
+                      </div>
+                      <div class="col s12 m7 l7">
+                        <div class="input-field">
+                          <input type="text" class="validate" [(ngModel)]="selectedData.name">
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row" *ngFor="let price of bulkCartData?.productOption?.priceUnit">
+                      <div class="col s12 m6 l6">
+                        <p>{{price.name}}</p>
+                      </div>
+                      <div class="col s12 m6 l6">
+                        <div class="input-field" *ngIf="price.controlType === formControlTypes.Text">
+                          <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="bulkChangeInProductPriceTextbox($event,price)"
+                            [(ngModel)]="price.value" (click)="bulkChangeInProductPriceTextbox($event,price)">
+
+                          <input *ngIf="price.type === 'number'" [id]="price.key" type="number" [step]="price.step" [min]="price.min" [max]="price.max"
+                            [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="bulkChangeInProductPriceTextbox($event,price)"
+                            (click)="bulkChangeInProductPriceTextbox($event,price)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngFor="let variant of bulkCartData?.productOption?.variant">
+                      <div class="col s12 m6 l6">
+                        <p>{{variant.name}}</p>
+                      </div>
+                      <div class="col s12 m6 l6">
+                        <div class="input-field" *ngIf="variant.controlType === formControlTypes.Select">
+                          <select [id]="variant.key" [(ngModel)]="variant.value" (change)="bulkChangeInProductPriceSelect($event, variant)">
+                            <option value="null" disabled selected>{{variant.name}}</option>
+                            <option *ngFor="let opt of variant.options" [value]="opt">{{opt}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col s6 m6 l6">
+                        <p>Card Rate {{bulkCartData?.productOption?.optionUnit}}</p>
+                      </div>
+                      <div class="col s6 m6 l6">
+                        <p>Rs.5000</p>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </li>
         </ul>
@@ -600,9 +181,10 @@
 
       <div class="col s12 l12 s12">
         <div class="prize">
-          <p>Total: Rs.2500</p>
+          <p>Total: Rs.{{displayTotalPrice()}}</p>
         </div>
-        <a class="waves-effect waves-light btn-large btn mt-10">Apply</a>
+        <!-- <a class="waves-effect waves-light btn-large btn mt-10" href="javascript:void(0)" (click)="saveCartData()">Apply</a> -->
+        <button class="waves-effect waves-light btn-large btn mt-10" (click)="saveCartData()">Apply</button>
       </div>
     </div>
   </div>

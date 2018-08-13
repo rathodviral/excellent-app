@@ -3,6 +3,6 @@
     <app-filters [filters]="filters" [servicePage]="servicePage" (geographyData)="getGeographyFilteredData($event)" (otherFilterData)="getOtherFilteredData($event)"></app-filters>
   </div>
   <div class="col s12 m12 l9">
-    <app-filtered-data [filteredData]="filteredData"></app-filtered-data>
+    <app-filtered-data [filteredData]="filteredData" [priceOption]="priceOption" (loadMore)="loadMoreData($event)"></app-filtered-data>
   </div>
 </div>

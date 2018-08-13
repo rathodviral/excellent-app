@@ -1,23 +1,26 @@
-export class Filters{
+export class Filters {
   language: FilterData[];
   radiostation: FilterData[];
   tier: FilterData[];
-  zone: FilterData[];
+  zone: any[];
+  optionType: any[];
 
   constructor(options: {
     language?: FilterData[],
     radiostation?: FilterData[],
     tier?: FilterData[],
-    zone?: FilterData[]
+    zone?: any[]
+    optionType?: any[]
   } = {}) {
     this.language = options.language || [];
     this.radiostation = options.radiostation || [];
     this.tier = options.tier || [];
     this.zone = options.zone || [];
+    this.optionType = options.optionType || [];
   }
 }
 
-export class FilterData{
+export class FilterData {
   filterValueId: string;
   filterValueName: string;
   sortOrder: string;

@@ -1,3 +1,4 @@
 export const LocalStorage = {
-  UserData : 'userData'
+  UserData: 'userData',
+  CartData: 'cartData'
 };

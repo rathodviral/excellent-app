@@ -8,6 +8,10 @@ Install [NodeJs] recommended version from `https://nodejs.org/en/download/`.
 
 Run `npm install -g @angular/cli` for adding angular cli at global level.
 
+Clone application from `https://github.com/rathodviral/excellent-app` repository.
+
+Run `npm install` for adding dependency at local level.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

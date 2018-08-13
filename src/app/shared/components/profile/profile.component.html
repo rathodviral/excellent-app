@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col s12 m7 l7 offset-m3 offset-l3">
+    <div class="card-panel profile-view">
+      <h4 class="header2 center">Edit Profile</h4>
+      <div class="row">
+        <form [formGroup]="userProfileForm" (ngSubmit)="profileFormSubmit()" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="nameTxt" class="validate profile" placeholder="Enter Your Full Name" type="text" formControlName="fullName">
+              <label for="nameTxt" class="active">Full Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col m6 ml s12">
+              <input name="emailTxt" class="validate profile" placeholder="Enter Your Email" type="email" formControlName="email">
+              <label for="emailTxt" class="active">Email</label>
+            </div>
+
+            <div class="input-field col m6 ml s12">
+              <input name="phoneTxt" class="validate profile" placeholder="Enter Your Phone" type="text" formControlName="contact">
+              <label for="phoneTxt" class="active">Phone</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 s12">
+              <input name="companyTxt" class="validate profile" placeholder="Enter Your Company Name" type="text" formControlName="organization">
+              <label for="companyTxt" class="active">Company</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 s12">
+              <input name="cityTxt" class="validate" placeholder="Enter Your City" type="text" formControlName="city">
+              <label for="cityTxt" class="active">City</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 ">
+              <button class="btn cyan waves-effect waves-light right red-button" style="margin-left:10px;" type="reset" name="reset">Cancel
+                <i class="material-icons left">close</i>
+              </button>
+
+              <button class="btn cyan waves-effect waves-light right green-button" type="submit" name="action">Update
+                <i class="material-icons left">done</i>
+              </button>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+</div>

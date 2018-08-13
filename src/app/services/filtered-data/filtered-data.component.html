@@ -41,46 +41,62 @@
           </tr>
           </tbody>
         </table>-->
-        <p-table [value]="filteredData" [(selection)]="selectedData">
+        <p-table *ngIf="filteredData?.length > 0;else noFilteredData" [columns]="cols" [value]="filteredData" [(selection)]="selectedData">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th style="width: 2.25em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th class="text-left" width="150">Radio Station</th>
-              <th>Frequency</th>
-              <th [pSortableColumn]="cityName">City<p-sortIcon [field]="cityName"></p-sortIcon></th>
-              <th class="nosort"><span class="hide-on-small-only">Rate per second</span><span
-                class="show-on-small hide-on-med-and-up">Rate</span></th>
+              <th style="width: 2.25em">
+                Radio Station
+              </th>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th class="nosort">
+                <span class="hide-on-small-only">Rate</span>
+                <span class="show-on-small hide-on-med-and-up">Rate</span>
+              </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-data>
+          <ng-template pTemplate="body" let-data let-columns="columns">
             <tr>
               <td>
                 <p-tableCheckbox [value]="data"></p-tableCheckbox>
               </td>
-              <td class="text-left st-name"><a href="javascript:void(0)">{{data?.productName}}</a></td>
-              <td>{{data?.attribute['1']['value']}}</td>
-              <td>{{data?.cityName}}</td>
+              <td>
+                <a href="javascript:void(0)" [routerLink]="['./detail', data['alias']]">{{data['productName']}}</a>
+              </td>
+              <td *ngFor="let col of columns">
+                {{data[col.field]}}
+              </td>
               <td>
                 <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
                   Plan</a><br>-->
-                <p *ngIf="isTokenAvailable(); else tokenNot">data</p>
+                <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption[priceOption]?.optionPrice?.defaultPrice?.price}}</p>
                 <ng-template #tokenNot>
                   <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
-
                 </ng-template>
               </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="summary">
+          <!-- <ng-template pTemplate="summary">
             <ul>
               <li *ngFor="let item of selectedData" style="text-align: left">
                 {{item.cityName}}
               </li>
             </ul>
-          </ng-template>
+          </ng-template> -->
         </p-table>
+        <div class="col s12">
+          <button style="text-align: center" (click)="loadFilterData()">Load More</button>
+        </div>
+        <ng-template #noFilteredData>
+          <div class="col s12">
+            <h5 style="text-align: center">No data found</h5>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

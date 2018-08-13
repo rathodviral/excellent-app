@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Utilities} from "../../shared/services/utilities";
-import {LocalStorage} from "../../shared/constant/local-storage";
-import {CommonService} from "../../shared/services/common.service";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Utilities } from "../../shared/services/utilities";
+import { LocalStorage } from "../../shared/constant/local-storage";
+import { CommonService } from "../../shared/services/common.service";
+import { UserService } from '../../shared/services/user.service';
 declare var jQuery;
 
 @Component({
@@ -11,11 +12,13 @@ declare var jQuery;
 })
 export class HeaderComponent implements OnInit {
 
-  isLoginPopupDisplay:boolean = false
-  userData:any = {};
+  userData: any = {};
 
-  constructor(private commonService:CommonService) {
-  }
+  @Output() loginDisplay = new EventEmitter<boolean>();
+
+  constructor(
+    private commonService: CommonService,
+    private userService: UserService) { }
 
   ngOnInit() {
     jQuery('.button-collapse').sideNav();
@@ -47,13 +50,13 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  userLoginClick() {
+    this.loginDisplay.emit(true);
+    this.userService.sendUserInfoData(true);
+  }
   userLogoutClick() {
     this.commonService.clearLocalStorageObject(LocalStorage.UserData);
     this.userData = {};
+    this.userService.sendUserInfoData(false);
   }
-
-  closeLoginDialog() {
-    this.isLoginPopupDisplay = false;
-  }
-
 }

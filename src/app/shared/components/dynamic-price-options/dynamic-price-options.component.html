@@ -1,0 +1,36 @@
+<!-- <div [formGroup]="form">
+  <label [attr.for]="priceOption.key">{{priceOption.label}}</label>
+
+  <div [ngSwitch]="priceOption.controlType">
+
+    <input *ngSwitchCase="'textbox'" [formControlName]="priceOption.key" [id]="priceOption.key" [type]="priceOption.type">
+
+    <select [id]="priceOption.key" *ngSwitchCase="'dropdown'" [formControlName]="priceOption.key">
+      <option *ngFor="let opt of priceOption.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+
+  </div>
+
+ 
+
+  <div class="errorMessage" *ngIf="!isValid">{{priceOption.label}} is required</div>
+</div> -->
+
+<div class="row" [formGroup]="form">
+  <div class="col s12 m6 l6">
+    <p>{{priceOption.label}}</p>
+  </div>
+  <div class="col s12 m6 l6">
+    <div class="input-field">
+      <input *ngIf="priceOption.controlType === formControlTypes.Text && priceOption.type === 'text'" [formControlName]="priceOption.key"
+        [id]="priceOption.key" type="text" [placeholder]="priceOption.placeholder">
+
+      <input *ngIf="priceOption.controlType === formControlTypes.Text && priceOption.type === 'number'" [formControlName]="priceOption.key"
+        [id]="priceOption.key" type="number" [step]="priceOption.step" [min]="priceOption.min" [max]="priceOption.max" [placeholder]="priceOption.placeholder">
+
+      <select [id]="priceOption.key" *ngIf="priceOption.controlType === formControlTypes.Select" [formControlName]="priceOption.key">
+        <option *ngFor="let opt of priceOption.options" [value]="opt.key">{{opt.value}}</option>
+      </select>
+    </div>
+  </div>
+</div>

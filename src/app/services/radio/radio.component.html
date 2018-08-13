@@ -1,8 +1,0 @@
-<div class="row">
-  <div class="col s3 hide-on-med-and-down">
-    <app-filters [filters]="filters" (geographyData)="getGeographyFilteredData($event)" (otherFilterData)="getOtherFilteredData($event)"></app-filters>
-  </div>
-  <div class="col s12 m12 l9">
-    <app-filtered-data [filteredData]="filteredData" (otherFilterData)="getOtherFilteredData($event)"></app-filtered-data>
-  </div>
-</div>

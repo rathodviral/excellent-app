@@ -1,10 +1,14 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
-import {LoginComponent} from "./components/login/login.component";
-import {CommonService} from "./services/common.service";
-import {UserService} from "./services/user.service";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { LoginComponent } from "./components/login/login.component";
+import { CommonService } from "./services/common.service";
+import { UserService } from "./services/user.service";
+import { DynamicPriceOptionsComponent } from './components/dynamic-price-options/dynamic-price-options.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { FilterDeepDataPipe } from './pipes/filterDeepData.pipe';
+import { DynamicPriceOptionsService } from './components/dynamic-price-options/dynamic-price-options.service';
 
 @NgModule({
   imports: [
@@ -14,18 +18,27 @@ import {UserService} from "./services/user.service";
   ],
   declarations: [
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    FilterDeepDataPipe,
+    DynamicPriceOptionsComponent,
+    ProfileComponent
+
   ],
   exports: [
     PageNotFoundComponent,
     CommonModule,
     FormsModule,
     LoginComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterDeepDataPipe,
+    DynamicPriceOptionsComponent,
+    ProfileComponent
+
   ],
-  providers:[
+  providers: [
     CommonService,
-    UserService
+    UserService,
+    DynamicPriceOptionsService
   ]
 })
 export class SharedModule {

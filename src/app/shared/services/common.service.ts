@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import {Utilities} from "./utilities";
+import { Injectable, Inject } from '@angular/core';
+import { Utilities } from "./utilities";
+import * as _ from 'lodash';
 
-declare  var humps;
+declare var humps;
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ export class CommonService {
 
   constructor() { }
 
-  convertObjectToFormData(item){
+  convertObjectToFormData(item) {
     let formData = new FormData();
-    for ( var key in item ) {
+    for (var key in item) {
       formData.append(key, item[key]);
     }
     return formData
@@ -38,14 +39,27 @@ export class CommonService {
     return JSON.parse(temp);
   }
 
-  getDataFromLocalStorageObject(localkey: string,objkey:string): any {
-    return Utilities.isNull(this.getLocalStorageObject(localkey)) ? null :this.getLocalStorageObject(localkey)[objkey];
+  getDataFromLocalStorageObject(localkey: string, objkey: string): any {
+    return Utilities.isNull(this.getLocalStorageObject(localkey)) ? null : this.getLocalStorageObject(localkey)[objkey];
   }
 
   clearLocalStorageObject(key: string) {
     window.localStorage.removeItem(key);
   }
+
   clearLocalStorageObjectAll() {
     window.localStorage.clear();
+  }
+
+  multiplyArrayObj(array) {
+    let sum = 1;
+    for (let i = 0; i < array.length; i++) {
+      sum = sum * array[i].value;
+    }
+    return sum;
+  }
+
+  isArrayEqual(x, y) {
+    return _(x).differenceWith(y, _.isEqual).isEmpty();
   }
 }
