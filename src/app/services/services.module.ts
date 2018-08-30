@@ -15,7 +15,6 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FilterPipe } from './filter.pipe';
 import { ServicePageComponent } from './service-page/service-page.component';
-import { DataTablesModule } from "angular-datatables/index";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { TableModule } from "primeng/table";
 import { DialogModule } from "primeng/dialog";
@@ -25,6 +24,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { MediaPlanComponent } from './media-plan/media-plan.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { MediaPipe } from './media.pipe';
+import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
 
 
 @NgModule({
@@ -35,11 +35,8 @@ import { MediaPipe } from './media.pipe';
     HttpClientModule,
     SharedModule,
     ServiceRoutingModule,
-    AutoCompleteModule,
-    TableModule,
     DialogModule,
-    SidebarModule,
-    AccordionModule
+    SidebarModule
   ],
   declarations: [
     ServicesComponent,
@@ -57,7 +54,8 @@ import { MediaPipe } from './media.pipe';
   ],
   providers: [
     ServicesService
-  ]
+  ],
+  entryComponents: [LoginPopupComponent]
 })
 export class ServicesModule {
 }

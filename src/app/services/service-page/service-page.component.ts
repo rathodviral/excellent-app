@@ -7,6 +7,7 @@ import { Utilities } from "../../shared/services/utilities";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { OnDestroy } from "@angular/core";
+import { MatTableDataSource } from '@angular/material';
 declare var humps;
 
 @Component({
@@ -18,6 +19,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
 
   filters: Filters;
   filteredData: FilteredData[] = [];
+  filterDataNew: any;
   params: Params;
   locationParams: LocationFilter;
   servicePage: string;
@@ -92,6 +94,10 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         } else {
           this.filteredData = [];
         }
+
+        this.filterDataNew = this.filteredData;
+        // this.filterDataNew = new MatTableDataSource<FilteredData>(this.filteredData);
+
         this.dtTrigger.next();
       });
   }

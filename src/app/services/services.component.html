@@ -1,4 +1,4 @@
-<app-header (loginDisplay)="closeLoginDialog($event)"></app-header>
+<!-- <app-header (loginDisplay)="closeLoginDialog($event)"></app-header>
 <main>
   <app-sub-header></app-sub-header>
   <section class="mt-30">
@@ -12,10 +12,34 @@
   <a data-activates="add-dashbord" class="button-collapse2 btn-floating btn-large" (click)="cartDisplayCheck()">
     <i class="material-icons">add</i>
   </a>
-</div>
-<p-sidebar [(visible)]="isCartDisplay" position="right" [style]="{top:'65px'}">
+</div> -->
+<!-- <p-sidebar [(visible)]="isCartDisplay" position="right" [style]="{top:'65px'}">
   <app-cart (closeCart)="closeCartSideBar($event)"></app-cart>
 </p-sidebar>
 <p-dialog [(visible)]="isLoginPopupDisplay" [showHeader]="false" [contentStyle]="{'padding':'0'}">
   <app-login (closeLoginPopup)="closeLoginDialog($event)"></app-login>
-</p-dialog>
+</p-dialog> -->
+
+<mat-sidenav-container class="example-container" (backdropClick)="closeCartSideBar('backdrop')">
+  <mat-sidenav class="example-sidenav" #sidenav (keydown.escape)="closeCartSideBar('escape')" disableClose position="end">
+    <app-cart (closeCart)="closeCartSideBar($event)"></app-cart>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-header (loginDisplay)="closeLoginDialog($event)"></app-header>
+    <main>
+      <app-sub-header></app-sub-header>
+      <section class="mt-30">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+      </section>
+    </main>
+    <app-footer></app-footer>
+    <div class="fixed-action-btn " style="bottom: 35px; right: 5px;">
+      <a data-activates="add-dashbord" class="button-collapse2 btn-floating btn-large" (click)="cartDisplayCheck()">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

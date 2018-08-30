@@ -41,7 +41,7 @@
           </tr>
           </tbody>
         </table>-->
-        <p-table *ngIf="filteredData?.length > 0;else noFilteredData" [columns]="cols" [value]="filteredData" [(selection)]="selectedData">
+        <!-- <p-table *ngIf="filteredData?.length > 0;else noFilteredData" [columns]="cols" [value]="filteredData" [(selection)]="selectedData">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th style="width: 2.25em">
@@ -72,8 +72,6 @@
                 {{data[col.field]}}
               </td>
               <td>
-                <!--<a class="waves-effect waves-light btn-border" href="javascript:void(0)">Add to
-                  Plan</a><br>-->
                 <p *ngIf="isTokenAvailable(); else tokenNot">{{data?.productOption[priceOption]?.optionPrice?.defaultPrice?.price}}</p>
                 <ng-template #tokenNot>
                   <a href="javascript:void(0)" (click)="openLoginDialog(data)">Login to View Rates</a>
@@ -81,14 +79,56 @@
               </td>
             </tr>
           </ng-template>
-          <!-- <ng-template pTemplate="summary">
-            <ul>
-              <li *ngFor="let item of selectedData" style="text-align: left">
-                {{item.cityName}}
-              </li>
-            </ul>
-          </ng-template> -->
-        </p-table>
+        </p-table> -->
+        <table *ngIf="dataSource?.data.length > 0;else noFilteredData" mat-table [dataSource]="dataSource" matSort matSortActive="productName"
+          matSortDisableClear matSortDirection="asc" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? checkBoxSelection(row) : null" [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
+            <td mat-cell *matCellDef="let element">
+              <a href="javascript:void(0)" [routerLink]="['./detail', element['alias']]">{{element['productName']}}</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cityName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.cityName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="frequency">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Frequency </th>
+            <td mat-cell *matCellDef="let element"> {{element.frequency}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="targetAudience">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Audience </th>
+            <td mat-cell *matCellDef="let element"> {{element.targetAudience}} </td>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+            <td mat-cell *matCellDef="let element">
+              <p *ngIf="isTokenAvailable(); else tokenNot">{{element?.productOption[priceOption]?.optionPrice?.defaultPrice?.price}}</p>
+              <ng-template #tokenNot>
+                <a href="javascript:void(0)" (click)="openLoginDialog(element)">Login to View Rates</a>
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+          </tr>
+        </table>
         <div class="col s12">
           <button style="text-align: center" (click)="loadFilterData()">Load More</button>
         </div>
@@ -101,6 +141,6 @@
     </div>
   </div>
 </div>
-<p-dialog [(visible)]="isLoginPopupDisplay" [showHeader]="false" [contentStyle]="{'padding':'0'}" [style]="{left:0}">
+<!-- <p-dialog [(visible)]="isLoginPopupDisplay" [showHeader]="false" [contentStyle]="{'padding':'0'}" [style]="{left:0}">
   <app-login (closeLoginPopup)="closeLoginDialog($event)"></app-login>
-</p-dialog>
+</p-dialog> -->

@@ -58,7 +58,7 @@
 
                     <div class="col s12" *ngIf="addToCartData.length > 0;else noCartData">
 
-                      <p-accordion [multiple]="true">
+                      <!-- <p-accordion [multiple]="true">
 
                         <p-accordionTab *ngFor="let product of addToCartData">
                           <p-header>
@@ -97,7 +97,6 @@
                             <div class="row">
                               <div class="col s6 m6 l6">
                                 <p>Rate
-                                  <!--  <i>{{product?.productOption?.optionUnit}}</i> -->
                                 </p>
                               </div>
                               <div class="col s6 m6 l6">
@@ -108,7 +107,57 @@
                             </div>
                           </div>
                         </p-accordionTab>
-                      </p-accordion>
+                      </p-accordion> -->
+                      <mat-accordion [multi]="true">
+                        <mat-expansion-panel [expanded]="false" *ngFor="let product of addToCartData">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              {{product?.productName}}
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <div class="row" *ngFor="let price of product?.productOption?.priceUnit">
+                            <div class="col s12 m6 l6">
+                              <p>{{price.name}}</p>
+                            </div>
+                            <div class="col s12 m6 l6">
+                              <div class="input-field" *ngIf="price.controlType === formControlTypes.Text">
+                                <input *ngIf="price.type === 'text'" [id]="price.key" type="text" [placeholder]="price.placeholder" (keyup)="changeInProductPriceTextbox($event, price, product)"
+                                  [(ngModel)]="price.value" (click)="changeInProductPriceTextbox($event, price, product)">
+
+                                <input *ngIf="price.type === 'number'" [id]="price.key" type="number" [step]="price.step" [min]="price.min" [max]="price.max"
+                                  [placeholder]="price.placeholder" [(ngModel)]="price.value" (keyup)="changeInProductPriceTextbox($event, price, product)"
+                                  (click)="changeInProductPriceTextbox($event, price, product)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row" *ngFor="let variant of product?.productOption?.variant">
+                            <div class="col s12 m6 l6">
+                              <p>{{variant.name}}</p>
+                            </div>
+                            <div class="col s12 m6 l6">
+                              <div class="input-field" *ngIf="variant.controlType === formControlTypes.Select">
+                                <select [id]="variant.key" [(ngModel)]="variant.value" (change)="changeInProductPriceSelect($event,variant, product)">
+                                  <option value="null" disabled selected>{{variant.name}}</option>
+                                  <option *ngFor="let opt of variant.options" [value]="opt">{{opt}}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col s6 m6 l6">
+                              <p>Rate
+                                <!--  <i>{{product?.productOption?.optionUnit}}</i> -->
+                              </p>
+                            </div>
+                            <div class="col s6 m6 l6">
+                              <p>Rs. {{product?.productOption?.optPrice}}
+                                <i>{{product?.productOption?.optionUnit}}</i>
+                              </p>
+                            </div>
+                          </div>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+
                     </div>
                     <ng-template #noCartData>
                       <div class="col s12">

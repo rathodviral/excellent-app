@@ -7,6 +7,10 @@ import { AfterContentInit } from "@angular/core";
 import { ChangeDetectorRef } from "@angular/core";
 import { LocationFilter } from "../../shared/modal/filter-params";
 import { ServicesService } from "../services.service";
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { Utilities } from '../../shared/services/utilities';
 declare var jQuery;
 
 @Component({
@@ -21,7 +25,8 @@ export class FiltersComponent implements OnInit {
   language: string = '';
   radioStation: string = '';
   optionType: string = '';
-  searchLocation: any;
+  searchLocation: any[] = [];
+  myControl = new FormControl();
   searchResults: string[] = [];
   locationParams: LocationFilter;
 
@@ -35,14 +40,32 @@ export class FiltersComponent implements OnInit {
 
   ngOnInit() {
     jQuery('.collapsible').collapsible();
+    this.myControl.valueChanges.subscribe(newValue => {
+      if (Utilities.isEmptyObj(newValue.LocationId)) {
+        this.geographyDataSearch(newValue);
+      } else {
+        this.searchLocation.push(newValue);
+        this.geographyDataChange();
+        this.myControl.setValue('');
+      }
+    });
+  }
+
+  displayFn(data?: any): string | undefined {
+    return data ? data.LocationName : undefined;
   }
 
   geographyDataSearch(value: any) {
-    this.locationParams = new LocationFilter({ q: value.query, media: this.servicePage });
-    if (value.query.length > 2) {
+    // this.locationParams = new LocationFilter({ q: value.query, media: this.servicePage });
+    this.locationParams = new LocationFilter({ q: value, media: this.servicePage });
+    // if (value.query.length > 2) {
+    this.searchResults = [];
+
+    if (value.length > 2) {
       this.sr.getFilteredDataLocationBase(this.locationParams)
         .subscribe(data => {
           this.searchResults = data;
+
         });
     }
   }
@@ -53,6 +76,11 @@ export class FiltersComponent implements OnInit {
       newData.push({ LocationId: x.LocationId, LocationType: x.LocationType });
     });
     this.geographyData.emit(newData);
+  }
+
+  removeSearchLocation(index) {
+    this.searchLocation.splice(index, 1);
+    this.geographyDataChange();
   }
 
   otherFilterDataChange(event, parent, value, type) {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule, MatCheckboxModule, MatTableModule, MatExpansionModule, MatSortModule, MatAutocompleteModule, MatInputModule, MatSidenavModule, MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -9,20 +10,30 @@ import { DynamicPriceOptionsComponent } from './components/dynamic-price-options
 import { ProfileComponent } from './components/profile/profile.component';
 import { FilterDeepDataPipe } from './pipes/filterDeepData.pipe';
 import { DynamicPriceOptionsService } from './components/dynamic-price-options/dynamic-price-options.service';
+import { LoginPopupComponent } from './components/login-popup/login-popup.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatExpansionModule,
+    MatSortModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSidenavModule,
+    MatDialogModule
   ],
   declarations: [
     PageNotFoundComponent,
     LoginComponent,
     FilterDeepDataPipe,
     DynamicPriceOptionsComponent,
-    ProfileComponent
-
+    ProfileComponent,
+    LoginPopupComponent
   ],
   exports: [
     PageNotFoundComponent,
@@ -32,8 +43,17 @@ import { DynamicPriceOptionsService } from './components/dynamic-price-options/d
     ReactiveFormsModule,
     FilterDeepDataPipe,
     DynamicPriceOptionsComponent,
-    ProfileComponent
-
+    ProfileComponent,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatExpansionModule,
+    MatSortModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSidenavModule,
+    MatDialogModule,
+    LoginPopupComponent
   ],
   providers: [
     CommonService,

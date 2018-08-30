@@ -94,7 +94,7 @@
       </div>
     </li> -->
 
-    <p-accordion [multiple]="true">
+    <!-- <p-accordion [multiple]="true">
       <p-accordionTab [selected]="true">
         <p-header>
           <i class="material-icons">place</i> Geography
@@ -185,6 +185,123 @@
           </p>
         </div>
       </p-accordionTab>
-    </p-accordion>
+    </p-accordion> -->
+
+    <mat-accordion [multi]="true">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="material-icons">place</i> Geography
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            Type your name and age
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <div class="search-input-box">
+          <i class="material-icons">search</i>
+          <!-- <p-autoComplete [(ngModel)]="searchLocation" [suggestions]="searchResults" (completeMethod)="geographyDataSearch($event)"
+            [multiple]="true" field="LocationName" (onSelect)="geographyDataChange()" (onUnselect)="geographyDataChange()"></p-autoComplete> -->
+          <span *ngFor="let item of searchLocation; let i = index;">{{item.LocationName}} <b (click)="removeSearchLocation(i)">X</b></span>
+          <mat-form-field>
+            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          </mat-form-field>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of searchResults" [value]="option">
+              {{option.LocationName}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-language "></i> Language
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Language" [(ngModel)]="language" />
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.language | filter:{name : language}">
+            <input type="checkbox" class="filled-in" id="language{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'languages', item.filterValueId, 'filter')"
+            />
+            <label for="language{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-rss "></i> Station
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Station" [(ngModel)]="radioStation" />
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.radiostation | filter:{name : radioStation}">
+            <input type="checkbox" class="filled-in" id="station{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'station', item.filterValueId, 'filter')"
+            />
+            <label for="station{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-rss "></i> Tier
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Tier" [(ngModel)]="searchTier" />
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.tier | filter:{name : searchTier}">
+            <input type="checkbox" class="filled-in" id="tier{{item.filterValueId}}" [value]="item.filterValueId" (change)="otherFilterDataChange($event,'tier', item.filterValueId, 'filter')"
+            />
+            <label for="tier{{item.filterValueId}}">{{item.filterValueName}}</label>
+          </p>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-rss "></i> Zone
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-sidebar-small">
+          <i class="material-icons">search</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Zone" [(ngModel)]="searchZone" />
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.zone | filter:{zoneName : searchZone}">
+            <input type="checkbox" class="filled-in" id="zone{{item.zoneId}}" [value]="item.zoneId" (change)="otherFilterDataChange($event,'zone', item.zoneId, 'filter')"
+            />
+            <label for="zone{{item.zoneId}}">{{item.zoneName}}</label>
+          </p>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-rss "></i> Options Type
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-sidebar-small">
+          <i class="material-icons">option</i>
+          <input type="text" name="Search" class="search-input" placeholder="Search Option" [(ngModel)]="optionType" />
+        </div>
+        <div class="filter-data">
+          <p *ngFor="let item of filters?.optionType | filter:{optionName : optionType}; let i=index">
+            <input type="radio" name="optionType" [checked]="i === 0" class="filled-in" id="zone{{item.optionCode}}" [value]="item.optionCode"
+              (change)="otherFilterDataChange($event,'optionType', item.optionCode, 'param')" />
+            <label for="zone{{item.optionCode}}">{{item.optionName}}</label>
+          </p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </ul>
 </div>
