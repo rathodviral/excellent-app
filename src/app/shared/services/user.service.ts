@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of, Subject } from "rxjs";
 import { catchError, tap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { FilteredData } from "../modal/filtered-data";
 import { CommonService } from './common.service';
 import { LocalStorage } from '../constant/local-storage';
 import { RequestOptions, Headers } from '@angular/http';
+import { APP_BASE_HREF } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class UserService {
   private userInfo = new Subject<any>();
 
 
-  constructor(private http: HttpClient, private commonService: CommonService) { }
+  constructor(private http: HttpClient, private commonService: CommonService, @Optional() @Inject(APP_BASE_HREF) origin: string) { }
 
   userRegistration(user: any): Observable<any> {
     // const options = encodeURIComponent(JSON.stringify(param));

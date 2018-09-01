@@ -15,12 +15,6 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FilterPipe } from './filter.pipe';
 import { ServicePageComponent } from './service-page/service-page.component';
-import { AutoCompleteModule } from "primeng/autocomplete";
-import { TableModule } from "primeng/table";
-import { DialogModule } from "primeng/dialog";
-import { DropdownModule } from "primeng/dropdown";
-import { SidebarModule } from 'primeng/sidebar';
-import { AccordionModule } from 'primeng/accordion';
 import { MediaPlanComponent } from './media-plan/media-plan.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { MediaPipe } from './media.pipe';
@@ -34,9 +28,7 @@ import { LoginPopupComponent } from '../shared/components/login-popup/login-popu
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    ServiceRoutingModule,
-    DialogModule,
-    SidebarModule
+    ServiceRoutingModule
   ],
   declarations: [
     ServicesComponent,

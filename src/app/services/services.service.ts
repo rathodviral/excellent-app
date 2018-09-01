@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional, Inject } from '@angular/core';
 import { Filters } from "../shared/modal/filters";
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Observable, of, Subject } from "rxjs";
@@ -7,6 +7,7 @@ import { environment } from "../../environments/environment";
 import { FilteredData } from "../shared/modal/filtered-data";
 import { CommonService } from '../shared/services/common.service';
 import { LocalStorage } from '../shared/constant/local-storage';
+import { APP_BASE_HREF } from '@angular/common';
 
 @Injectable()
 export class ServicesService {
@@ -18,7 +19,7 @@ export class ServicesService {
   private subject = new Subject<any>();
 
 
-  constructor(private http: HttpClient, private commonService: CommonService) {
+  constructor(private http: HttpClient, private commonService: CommonService, @Optional() @Inject(APP_BASE_HREF) origin: string) {
   }
 
   getFilteredData(page: string, param: any): Observable<FilteredData[]> {

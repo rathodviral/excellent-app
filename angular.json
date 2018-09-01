@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/excellent-app",
+            "outputPath": "dist/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,9 +26,6 @@
               "src/vendor/css/bootstrap.css",
               "src/vendor/css/materialize.css",
               "src/vendor/fonts/font-awesome/css/font-awesome.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -101,6 +98,14 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
           }
         }
       }

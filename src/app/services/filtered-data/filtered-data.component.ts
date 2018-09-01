@@ -11,7 +11,7 @@ import { ServicesService } from '../services.service';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
-import { LoginPopupComponent } from 'src/app/shared/components/login-popup/login-popup.component';
+import { LoginPopupComponent } from '../../shared/components/login-popup/login-popup.component';
 
 @Component({
   selector: 'app-filtered-data',

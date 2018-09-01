@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServicesService } from '../services.service';
 import * as _ from 'lodash';
@@ -6,6 +6,7 @@ import { Utilities } from '../../shared/services/utilities';
 import { CommonService } from '../../shared/services/common.service';
 import { LocalStorage } from '../../shared/constant/local-storage';
 import { FormControlTypes } from '../../shared/constant/form-control';
+import { MatSidenav } from '@angular/material';
 
 declare var jQuery;
 
@@ -34,6 +35,8 @@ export class MediaDetailComponent implements OnInit {
   storageCartData: any[];
   scrollElem: string;
 
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
   constructor(
     private route: ActivatedRoute,
     private servicesService: ServicesService,
@@ -58,6 +61,7 @@ export class MediaDetailComponent implements OnInit {
     this.productOptions = [];
     this.productOption = {};
     this.isPricingOptionDisplay = false;
+    this.sidenav.close();
     this.servicesService.getMediaDetail(this.page, this.alias).subscribe((response) => {
       this.mediaDetail = _.cloneDeep(response);
       // this.mediaDetail['metaData'] = JSON.parse(response['metaData']);
@@ -78,8 +82,8 @@ export class MediaDetailComponent implements OnInit {
   }
 
   filterProductOptionData(v) {
-    console.log(v);
     this.isPricingOptionDisplay = true;
+    this.sidenav.open();
 
     if (Utilities.isEmptyObj(v['priceUnit'])) {
       return;
@@ -227,4 +231,7 @@ export class MediaDetailComponent implements OnInit {
     element.scrollIntoView({ behavior: 'smooth' });
   }
 
+  closeCartSideBar(data) {
+    this.sidenav.close();
+  }
 }
