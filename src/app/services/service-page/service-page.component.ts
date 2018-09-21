@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ServicesService } from "../services.service";
 import { Params, Filter, LocationFilter } from "../../shared/modal/filter-params";
 import { Filters, FilterData } from "../../shared/modal/filters";
 import { FilteredData } from "../../shared/modal/filtered-data";
@@ -12,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CommonService } from '../../shared/services/common.service';
 import { LocalStorage } from '../../shared/constant/local-storage';
+import { AppService } from '../../app.service';
 declare var humps;
 
 @Component({
@@ -69,7 +69,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private sr: ServicesService,
+    private sr: AppService,
     private router: Router,
     private commonService: CommonService) {
     this.page = this.router.url.split('/')[2];

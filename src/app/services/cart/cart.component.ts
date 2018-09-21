@@ -4,11 +4,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
 import { LocalStorage } from '../../shared/constant/local-storage';
 import { Router } from '../../../../node_modules/@angular/router';
-import { ServicesService } from '../services.service';
 import { Utilities } from '../../shared/services/utilities';
 import { DynamicPriceOptionsService } from '../../shared/components/dynamic-price-options/dynamic-price-options.service';
 import { FormControlTypes } from '../../shared/constant/form-control';
 import { CommonService } from '../../shared/services/common.service';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-cart',
@@ -41,7 +41,7 @@ export class CartComponent implements OnInit, OnDestroy {
   @Output('closeCart') closeCart = new EventEmitter<boolean>();
 
   constructor(
-    private servicesService: ServicesService,
+    private servicesService: AppService,
     private commonService: CommonService,
     private dynamicPriceOptionsService: DynamicPriceOptionsService,
     private router: Router) { }

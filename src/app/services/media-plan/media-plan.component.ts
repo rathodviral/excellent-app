@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesService } from '../services.service';
 import { CommonService } from '../../shared/services/common.service';
 import { LocalStorage } from '../../shared/constant/local-storage';
 import { Utilities } from '../../shared/services/utilities';
 import { LoginPopupComponent } from '../../shared/components/login-popup/login-popup.component';
 import { MatDialog } from '@angular/material';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-media-plan',
@@ -18,7 +18,7 @@ export class MediaPlanComponent implements OnInit {
   isLoginPopupDisplay: boolean;
   userData: any = {};
 
-  constructor(private commonService: CommonService, public dialog: MatDialog, private servicesService: ServicesService) { }
+  constructor(private commonService: CommonService, public dialog: MatDialog, private servicesService: AppService) { }
 
   ngOnInit() {
     this.carts = this.commonService.getLocalStorageObject(LocalStorage.CartData);

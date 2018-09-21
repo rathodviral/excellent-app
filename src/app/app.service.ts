@@ -1,16 +1,16 @@
 import { Injectable, Optional, Inject } from '@angular/core';
-import { Filters } from "../shared/modal/filters";
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from "@angular/common/http";
-import { Observable, of, Subject } from "rxjs";
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from "../../environments/environment";
-import { FilteredData } from "../shared/modal/filtered-data";
-import { CommonService } from '../shared/services/common.service';
-import { LocalStorage } from '../shared/constant/local-storage';
 import { APP_BASE_HREF } from '@angular/common';
+import { environment } from '../environments/environment';
+import { CommonService } from './shared/services/common.service';
+import { FilteredData } from './shared/modal/filtered-data';
+import { Filters } from './shared/modal/filters';
+import { LocalStorage } from './shared/constant/local-storage';
 
 @Injectable()
-export class ServicesService {
+export class AppService {
   dataUrl = `${environment.address}api/buyer/media/`;
   filterUrl = `${environment.address}api/buyer/filters/`;
   locationUrl = `${environment.address}api/buyer/location/search`;

@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControlTypes } from '../shared/constant/form-control';
 import { MatSidenav, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServicesService } from '../services/services.service';
 import { CommonService } from '../shared/services/common.service';
 import { LocalStorage } from '../shared/constant/local-storage';
 import { Utilities } from '../shared/services/utilities';
 import * as _ from 'lodash';
 import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-radio-detail',
@@ -39,7 +39,7 @@ export class RadioDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private servicesService: ServicesService,
+    private servicesService: AppService,
     private router: Router,
     private commonService: CommonService,
     public dialog: MatDialog) {

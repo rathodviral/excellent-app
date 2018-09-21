@@ -9,14 +9,11 @@ import { SharedModule } from "./shared/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { isPlatformBrowser } from '@angular/common';
-import { ServicesService } from './services/services.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './services/header/header.component';
 import { SubHeaderComponent } from './services/sub-header/sub-header.component';
 import { CartComponent } from './services/cart/cart.component';
 import { FooterComponent } from './services/footer/footer.component';
-import { FiltersComponent } from './services/filters/filters.component';
-import { FilteredDataComponent } from './services/filtered-data/filtered-data.component';
 import { FilterPipe } from './services/filter.pipe';
 import { MediaPipe } from './services/media.pipe';
 import { ServicePageComponent } from './services/service-page/service-page.component';
@@ -24,7 +21,7 @@ import { MediaPlanComponent } from './services/media-plan/media-plan.component';
 import { LoginPopupComponent } from './shared/components/login-popup/login-popup.component';
 import { RadioComponent } from './radio/radio.component';
 import { RadioDetailComponent } from './radio-detail/radio-detail.component';
-import { MediaDetailResolver } from './services/media-detail/media-detail.resolver';
+import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
@@ -36,8 +33,6 @@ import { MediaDetailResolver } from './services/media-detail/media-detail.resolv
     SubHeaderComponent,
     CartComponent,
     FooterComponent,
-    FiltersComponent,
-    FilteredDataComponent,
     FilterPipe,
     MediaPipe,
     ServicePageComponent,
@@ -55,7 +50,7 @@ import { MediaDetailResolver } from './services/media-detail/media-detail.resolv
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ServicesService, MediaDetailResolver],
+  providers: [AppService],
   bootstrap: [AppComponent],
   entryComponents: [LoginPopupComponent]
 })
