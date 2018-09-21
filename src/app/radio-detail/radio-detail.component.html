@@ -1,3 +1,7 @@
+<!-- <p-sidebar [(visible)]="isPricingOptionDisplay" position="right" [style]="{width:'60em'}">
+  
+</p-sidebar> -->
+
 <mat-sidenav-container class="example-container" (backdropClick)="closeCartSideBar('backdrop')">
   <mat-sidenav class="example-sidenav" #sidenav (keydown.escape)="closeCartSideBar('escape')" disableClose position="end">
     <div id="pricing-option">
@@ -106,6 +110,8 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
+
+    <!-- <app-header (loginDisplay)="closeLoginDialog($event)"></app-header> -->
     <main>
       <app-sub-header></app-sub-header>
       <section class="product-detail ">
@@ -290,6 +296,5 @@
       </section>
     </main>
     <app-footer></app-footer>
-
   </mat-sidenav-content>
 </mat-sidenav-container>

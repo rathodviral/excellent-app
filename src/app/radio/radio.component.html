@@ -1,0 +1,22 @@
+<mat-sidenav-container class="example-container" (backdropClick)="closeCartSideBar('backdrop')">
+  <mat-sidenav class="example-sidenav" #sidenav (keydown.escape)="closeCartSideBar('escape')" disableClose position="end">
+    <app-cart (closeCart)="closeCartSideBar($event)"></app-cart>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header (loginDisplay)="closeLoginDialog($event)"></app-header>
+    <main>
+      <app-sub-header></app-sub-header>
+      <section class="mt-30">
+        <div class="container">
+          <app-service-page [page]="'radio'"></app-service-page>
+        </div>
+      </section>
+    </main>
+    <app-footer></app-footer>
+    <div class="fixed-action-btn " style="bottom: 35px; right: 5px;">
+      <a data-activates="add-dashbord" class="button-collapse2 btn-floating btn-large" (click)="cartDisplayCheck()">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

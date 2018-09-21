@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ServiceRoutingModule } from "./services-routing.module";
 import { SharedModule } from "../shared/shared.module";
@@ -19,6 +19,7 @@ import { MediaPlanComponent } from './media-plan/media-plan.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { MediaPipe } from './media.pipe';
 import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
+import { RadioComponent } from './radio/radio.component';
 
 
 @NgModule({
@@ -42,12 +43,12 @@ import { LoginPopupComponent } from '../shared/components/login-popup/login-popu
     MediaPipe,
     ServicePageComponent,
     MediaPlanComponent,
-    MediaDetailComponent
+    MediaDetailComponent,
+    RadioComponent
   ],
-  providers: [
-    ServicesService
-  ],
+  providers: [],
   entryComponents: [LoginPopupComponent]
 })
 export class ServicesModule {
 }
+ */

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ServicesService } from "../services.service";
 import { Params, Filter, LocationFilter } from "../../shared/modal/filter-params";
 import { Filters, FilterData } from "../../shared/modal/filters";
@@ -22,12 +22,13 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   filterDataNew: any;
   params: Params;
   locationParams: LocationFilter;
-  servicePage: string;
   priceOption: string;
   // selectedData: FilterData[] = [];
 
   // dtOptions:DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+
+  @Input() page: string;
 
   private modifyData(data) {
     const newData = humps.camelizeKeys(data, (key, convert) => {
@@ -38,7 +39,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   }
 
   constructor(private sr: ServicesService, private router: Router) {
-    this.servicePage = this.router.url.split('/')[2];
+    this.page = this.router.url.split('/')[2];
   }
 
   ngOnInit() {
@@ -63,7 +64,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   }
 
   getFilters() {
-    this.sr.getFilters(this.servicePage)
+    this.sr.getFilters(this.page)
       .subscribe(data => {
         /* this.filters.language = data['LANGUAGE'];
          this.filters.radiostation = data['RADIOSTATION'];
@@ -82,7 +83,7 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData(isConcat) {
-    this.sr.getFilteredData(this.servicePage, this.params)
+    this.sr.getFilteredData(this.page, this.params)
       .subscribe(data => {
         if (data.length > 0) {
           // this.filteredData = this.modifyData(data);

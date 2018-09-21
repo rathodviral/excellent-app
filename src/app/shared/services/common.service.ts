@@ -1,6 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Utilities } from "./utilities";
 import * as _ from 'lodash';
+import { isPlatformBrowser } from '@angular/common';
 
 declare var humps;
 
@@ -9,7 +10,7 @@ declare var humps;
 })
 export class CommonService {
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
   convertObjectToFormData(item) {
     let formData = new FormData();
@@ -28,15 +29,20 @@ export class CommonService {
   }
 
   setLocalStorageObject(key: string, value: Object): void {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }
 
   getLocalStorageObject(key: string): any {
-    let temp = window.localStorage.getItem(key);
-    if (Utilities.isNull(temp)) {
-      return null;
+    if (isPlatformBrowser(this.platformId)) {
+      let temp = localStorage.getItem(key);
+      if (Utilities.isNull(temp)) {
+        return null;
+      }
+      return JSON.parse(temp);
     }
-    return JSON.parse(temp);
+
   }
 
   getDataFromLocalStorageObject(localkey: string, objkey: string): any {
@@ -44,11 +50,15 @@ export class CommonService {
   }
 
   clearLocalStorageObject(key: string) {
-    window.localStorage.removeItem(key);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(key);
+    }
   }
 
   clearLocalStorageObjectAll() {
-    window.localStorage.clear();
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+    }
   }
 
   multiplyArrayObj(array) {

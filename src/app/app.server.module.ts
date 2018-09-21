@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ServerModule } from '@angular/platform-server';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 import { AppModule } from './app.module';
@@ -9,11 +9,12 @@ import { AppComponent } from './app.component';
   imports: [
     AppModule,
     ServerModule,
+    ServerTransferStateModule,
     ModuleMapLoaderModule
   ],
   providers: [
     // Add universal-only providers here
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
 })
-export class AppServerModule {}
+export class AppServerModule { }

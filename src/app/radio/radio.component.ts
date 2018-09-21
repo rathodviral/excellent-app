@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { CommonService } from '../shared/services/common.service';
-import { LocalStorage } from '../shared/constant/local-storage';
-import { Utilities } from '../shared/services/utilities';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSidenav, MatDialog } from '@angular/material';
+import { CommonService } from '../shared/services/common.service';
+import { Utilities } from '../shared/services/utilities';
+import { LocalStorage } from '../shared/constant/local-storage';
 import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
 
 @Component({
-  selector: 'app-services',
-  templateUrl: './services.component.html',
-  styleUrls: ['./services.component.css']
+  selector: 'app-radio',
+  templateUrl: './radio.component.html',
+  styleUrls: ['./radio.component.css']
 })
-export class ServicesComponent implements OnInit, OnDestroy {
+export class RadioComponent implements OnInit, OnDestroy {
 
   isCartDisplay: boolean;
   isLoginPopupDisplay: boolean;

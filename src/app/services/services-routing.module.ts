@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServicesComponent } from "./services.component";
 import { PageNotFoundComponent } from "../shared/components/page-not-found/page-not-found.component";
@@ -33,3 +33,4 @@ const servicesRoutes: Routes = [
 })
 export class ServiceRoutingModule {
 }
+ */

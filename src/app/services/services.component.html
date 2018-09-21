@@ -24,7 +24,6 @@
   <mat-sidenav class="example-sidenav" #sidenav (keydown.escape)="closeCartSideBar('escape')" disableClose position="end">
     <app-cart (closeCart)="closeCartSideBar($event)"></app-cart>
   </mat-sidenav>
-
   <mat-sidenav-content>
     <app-header (loginDisplay)="closeLoginDialog($event)"></app-header>
     <main>
