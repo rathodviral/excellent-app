@@ -29,14 +29,17 @@
               <a href="javascript:void(0)">Contact</a>
             </li>
             <li class="account hide-on-med-and-down">
-              <a class='dropdown-account-large hide-on-med-and-down' href="javascript:void(0)" data-activates='dropdown1' data-alignment="right">Account
+              <a class='dropdown-account-large hide-on-med-and-down' href="javascript:void(0)" data-activates='dropdown1'
+                data-alignment="right">Account
                 <i class="material-icons dp48">arrow_drop_down</i>
               </a>
 
               <ul id='dropdown1' class='dropdown-content'>
                 <div *ngIf="!isTokenAvailable();else tokenNotD">
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Login</a>
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Register</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)"
+                    (click)="userLoginClick()">Login</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)"
+                    (click)="userLoginClick()">Register</a>
                 </div>
                 <ng-template #tokenNotD>
                   <li>
@@ -51,7 +54,8 @@
               </ul>
             </li>
             <li class="">
-              <a class="waves-effect waves-light btn-border" href="javascript:void(0)" [routerLink]="['/services/media']">Media Plan</a>
+              <a class="waves-effect waves-light btn-border" href="javascript:void(0)" [routerLink]="['/media']">Media
+                Plan</a>
             </li>
             <!--  Dropdown Only Mobile -->
             <li class=" hide-on-large-only">
@@ -61,8 +65,10 @@
 
               <ul id='dropdown2' class='dropdown-content'>
                 <div *ngIf="!isTokenAvailable();else tokenNotM">
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Login</a>
-                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)" (click)="userLoginClick()">Register</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)"
+                    (click)="userLoginClick()">Login</a>
+                  <a data-activates="login-register" class="login-register-init waves-effect waves-light btn" href="javascript:void(0)"
+                    (click)="userLoginClick()">Register</a>
                 </div>
                 <ng-template #tokenNotM>
                   <li>

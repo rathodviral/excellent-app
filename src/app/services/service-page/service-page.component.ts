@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ServicesService } from "../services.service";
 import { Params, Filter, LocationFilter } from "../../shared/modal/filter-params";
 import { Filters, FilterData } from "../../shared/modal/filters";
@@ -7,7 +7,11 @@ import { Utilities } from "../../shared/services/utilities";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { OnDestroy } from "@angular/core";
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CommonService } from '../../shared/services/common.service';
+import { LocalStorage } from '../../shared/constant/local-storage';
 declare var humps;
 
 @Component({
@@ -28,7 +32,33 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   // dtOptions:DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
+
+  // Filter component
+
+  searchTier = '';
+  searchZone = '';
+  language = '';
+  radioStation = '';
+  optionType = '';
+  searchLocation: any[] = [];
+  myControl = new FormControl();
+  searchResults: string[] = [];
+
+  // Filterdata component
+
+  selectedData: any[];
+  isLoginPopupDisplay = false;
+  userData: any = {};
+  cols: any[];
+  iterableDiffer: any = [];
+
+  displayedColumns: string[] = ['select', 'productName', 'cityName', 'frequency', 'targetAudience', 'price'];
+  dataSource: any;
+  selection = new SelectionModel<FilteredData>(true, []);
+
   @Input() page: string;
+
+  @ViewChild(MatSort) sort: MatSort;
 
   private modifyData(data) {
     const newData = humps.camelizeKeys(data, (key, convert) => {
@@ -38,8 +68,25 @@ export class ServicePageComponent implements OnInit, OnDestroy {
     return newData;
   }
 
-  constructor(private sr: ServicesService, private router: Router) {
+  constructor(
+    private sr: ServicesService,
+    private router: Router,
+    private commonService: CommonService) {
     this.page = this.router.url.split('/')[2];
+    this.myControl.valueChanges.subscribe(newValue => {
+      if (Utilities.isEmptyObj(newValue.LocationId)) {
+        this.geographyDataSearch(newValue);
+      } else {
+        this.searchLocation.push(newValue);
+        this.geographyDataChange();
+        this.myControl.setValue('');
+      }
+    });
+
+    if (this.isTokenAvailable()) {
+      this.userData = this.commonService.getDataFromLocalStorageObject(LocalStorage.UserData, 'user');
+      this.sr.sendCartData({ key: [], data: [] });
+    }
   }
 
   ngOnInit() {
@@ -97,9 +144,8 @@ export class ServicePageComponent implements OnInit, OnDestroy {
         }
 
         this.filterDataNew = this.filteredData;
-        // this.filterDataNew = new MatTableDataSource<FilteredData>(this.filteredData);
-
-        this.dtTrigger.next();
+        this.dataSource = new MatTableDataSource<FilteredData>(this.filterDataNew);
+        this.dataSource.sort = this.sort;
       });
   }
 
@@ -136,6 +182,77 @@ export class ServicePageComponent implements OnInit, OnDestroy {
   loadMoreData(data) {
     this.params.offset = this.params.offset + this.params.limit;
     this.getFilteredData(true);
+  }
+
+  displayFn(data?: any): string | undefined {
+    return data ? data.LocationName : undefined;
+  }
+
+  geographyDataSearch(value: any) {
+    // this.locationParams = new LocationFilter({ q: value.query, media: this.servicePage });
+    this.locationParams = new LocationFilter({ q: value, media: this.page });
+    // if (value.query.length > 2) {
+    this.searchResults = [];
+
+    if (value.length > 2) {
+      this.sr.getFilteredDataLocationBase(this.locationParams)
+        .subscribe(data => {
+          this.searchResults = data;
+
+        });
+    }
+  }
+
+  geographyDataChange() {
+    const newData = [];
+    this.searchLocation.forEach(x => {
+      newData.push({ LocationId: x.LocationId, LocationType: x.LocationType });
+    });
+    // this.geographyData.emit(newData);
+    this.getGeographyFilteredData(newData);
+  }
+
+  removeSearchLocation(index) {
+    this.searchLocation.splice(index, 1);
+    this.geographyDataChange();
+  }
+
+  otherFilterDataChange(event, parent, value, type) {
+    const data = {
+      checked: event.target.checked,
+      parent: parent,
+      value: value,
+      type: type
+    };
+    // this.otherFilterData.emit(data);
+    this.getOtherFilteredData(data);
+  }
+
+  loadFilterData() {
+    this.loadMoreData(null);
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+    this.sr.sendCartData({ key: [], data: this.selection.selected });
+
+  }
+
+  checkBoxSelection(row) {
+    this.selection.toggle(row);
+    this.sr.sendCartData({ key: [], data: this.selection.selected });
+  }
+
+  isTokenAvailable() {
+    return !Utilities.isEmptyObj(this.commonService.getDataFromLocalStorageObject(LocalStorage.UserData, 'token'));
   }
 
   ngOnDestroy() {

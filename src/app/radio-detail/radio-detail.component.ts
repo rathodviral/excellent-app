@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControlTypes } from '../shared/constant/form-control';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServicesService } from '../services/services.service';
 import { CommonService } from '../shared/services/common.service';
 import { LocalStorage } from '../shared/constant/local-storage';
 import { Utilities } from '../shared/services/utilities';
 import * as _ from 'lodash';
+import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
 
 @Component({
   selector: 'app-radio-detail',
@@ -32,6 +33,7 @@ export class RadioDetailComponent implements OnInit {
   };
   storageCartData: any[];
   scrollElem: string;
+  isLoginPopupDisplay: boolean;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
@@ -39,7 +41,8 @@ export class RadioDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private servicesService: ServicesService,
     private router: Router,
-    private commonService: CommonService) {
+    private commonService: CommonService,
+    public dialog: MatDialog) {
 
     this.route.params.subscribe((x) => {
       this.alias = x['alias'] || null;
@@ -60,8 +63,8 @@ export class RadioDetailComponent implements OnInit {
     this.productOption = {};
     this.isPricingOptionDisplay = false;
     this.sidenav.close();
-    this.servicesService.getMediaDetail('radio', this.alias).subscribe((response) => {
-      this.mediaDetail = _.cloneDeep(response);
+    this.servicesService.getMediaDetail(this.page, this.alias).subscribe((response) => {
+      this.mediaDetail = response;
       // this.mediaDetail['metaData'] = JSON.parse(response['metaData']);
       // this.mediaDetail['specification'].forEach(element => {
       //   element['additionalInfo'] = JSON.parse(element['additionalInfo']);
@@ -75,6 +78,45 @@ export class RadioDetailComponent implements OnInit {
       // console.log(_.values(_.groupBy(this.productOptions, 'optionSection')));
       // console.log(_.map(_.keyBy(this.productOption, 'optionSection')));
     });
+    /* if (this.transferState.hasKey(STATE_KEY_USERS)) {
+      this.mediaDetail = this.transferState.get(STATE_KEY_USERS, {});
+      this.transferState.remove(STATE_KEY_USERS);
+    } else {
+      // this.route.data.subscribe(({ detail }) => {
+      //   this.mediaDetail = _.cloneDeep(detail);
+      //   this.transferState.set(myTransferStateKey, this.mediaDetail);
+
+      //   for (const key in this.mediaDetail.productOption) {
+      //     if (this.mediaDetail.productOption.hasOwnProperty(key)) {
+      //       const element = this.mediaDetail.productOption[key];
+      //       this.productOptions.push(element);
+      //     }
+      //   }
+
+      // });
+      this.servicesService.getMediaDetail(this.page, this.alias).subscribe((response) => {
+        this.mediaDetail = response;
+        this.transferState.set(STATE_KEY_USERS, this.mediaDetail);
+        for (const key in this.mediaDetail.productOption) {
+          if (this.mediaDetail.productOption.hasOwnProperty(key)) {
+            const element = this.mediaDetail.productOption[key];
+            this.productOptions.push(element);
+          }
+        }
+      });
+    } */
+
+    /* this.route.data.subscribe(({ detail }) => {
+      this.mediaDetail = _.cloneDeep(detail);
+      for (const key in this.mediaDetail.productOption) {
+        if (this.mediaDetail.productOption.hasOwnProperty(key)) {
+          const element = this.mediaDetail.productOption[key];
+          this.productOptions.push(element);
+        }
+      }
+
+    }); */
+
 
     this.selectedData.name = `Radio Campaign ${oldData.length + 1}`;
   }
@@ -229,8 +271,26 @@ export class RadioDetailComponent implements OnInit {
     element.scrollIntoView({ behavior: 'smooth' });
   }
 
+  loginPopupManage() {
+    const dialogRef = this.dialog.open(LoginPopupComponent, {
+      width: '100%',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   closeCartSideBar(data) {
     this.sidenav.close();
   }
+
+  closeLoginDialog(data) {
+    this.isLoginPopupDisplay = data;
+    if (data) {
+      this.loginPopupManage();
+    }
+  }
+
 
 }

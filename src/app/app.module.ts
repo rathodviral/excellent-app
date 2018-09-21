@@ -21,12 +21,10 @@ import { FilterPipe } from './services/filter.pipe';
 import { MediaPipe } from './services/media.pipe';
 import { ServicePageComponent } from './services/service-page/service-page.component';
 import { MediaPlanComponent } from './services/media-plan/media-plan.component';
-import { MediaDetailComponent } from './services/media-detail/media-detail.component';
 import { LoginPopupComponent } from './shared/components/login-popup/login-popup.component';
 import { RadioComponent } from './radio/radio.component';
 import { RadioDetailComponent } from './radio-detail/radio-detail.component';
 import { MediaDetailResolver } from './services/media-detail/media-detail.resolver';
-import { ServicesComponent } from './services/services.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +42,8 @@ import { ServicesComponent } from './services/services.component';
     MediaPipe,
     ServicePageComponent,
     MediaPlanComponent,
-    MediaDetailComponent,
     RadioComponent,
-    RadioDetailComponent,
-    ServicesComponent
+    RadioDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'excellent-app' }),
