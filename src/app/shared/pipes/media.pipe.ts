@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Utilities } from "../shared/services/utilities";
+import { Utilities } from '../services/utilities';
 
 @Pipe({
     name: 'media'

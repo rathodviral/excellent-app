@@ -14,8 +14,6 @@ import { HeaderComponent } from './services/header/header.component';
 import { SubHeaderComponent } from './services/sub-header/sub-header.component';
 import { CartComponent } from './services/cart/cart.component';
 import { FooterComponent } from './services/footer/footer.component';
-import { FilterPipe } from './services/filter.pipe';
-import { MediaPipe } from './services/media.pipe';
 import { ServicePageComponent } from './services/service-page/service-page.component';
 import { MediaPlanComponent } from './services/media-plan/media-plan.component';
 import { LoginPopupComponent } from './shared/components/login-popup/login-popup.component';
@@ -33,8 +31,6 @@ import { AppService } from './app.service';
     SubHeaderComponent,
     CartComponent,
     FooterComponent,
-    FilterPipe,
-    MediaPipe,
     ServicePageComponent,
     MediaPlanComponent,
     RadioComponent,

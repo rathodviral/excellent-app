@@ -8,6 +8,7 @@ import { Utilities } from '../shared/services/utilities';
 import * as _ from 'lodash';
 import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
 import { AppService } from '../app.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-radio-detail',
@@ -42,6 +43,7 @@ export class RadioDetailComponent implements OnInit {
     private servicesService: AppService,
     private router: Router,
     private commonService: CommonService,
+    private meta: Meta,
     public dialog: MatDialog) {
 
     this.route.params.subscribe((x) => {
@@ -51,7 +53,6 @@ export class RadioDetailComponent implements OnInit {
     this.route.url.subscribe((x) => {
       this.page = x[0]['path'] || null;
     });
-
   }
 
   ngOnInit() {
@@ -77,6 +78,11 @@ export class RadioDetailComponent implements OnInit {
       }
       // console.log(_.values(_.groupBy(this.productOptions, 'optionSection')));
       // console.log(_.map(_.keyBy(this.productOption, 'optionSection')));
+
+      this.meta.addTags([
+        { name: 'title', content: this.mediaDetail.metaData.title },
+        { name: 'description', content: this.mediaDetail.metaData.description }
+      ]);
     });
     /* if (this.transferState.hasKey(STATE_KEY_USERS)) {
       this.mediaDetail = this.transferState.get(STATE_KEY_USERS, {});
@@ -119,6 +125,7 @@ export class RadioDetailComponent implements OnInit {
 
 
     this.selectedData.name = `Radio Campaign ${oldData.length + 1}`;
+
   }
 
   filterProductOptionData(v) {

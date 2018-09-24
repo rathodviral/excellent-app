@@ -11,6 +11,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FilterDeepDataPipe } from './pipes/filterDeepData.pipe';
 import { DynamicPriceOptionsService } from './components/dynamic-price-options/dynamic-price-options.service';
 import { LoginPopupComponent } from './components/login-popup/login-popup.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { MediaPipe } from './pipes/media.pipe';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { LoginPopupComponent } from './components/login-popup/login-popup.compon
     FilterDeepDataPipe,
     DynamicPriceOptionsComponent,
     ProfileComponent,
-    LoginPopupComponent
+    LoginPopupComponent,
+    FilterPipe,
+    MediaPipe
   ],
   exports: [
     PageNotFoundComponent,
@@ -53,7 +57,9 @@ import { LoginPopupComponent } from './components/login-popup/login-popup.compon
     MatAutocompleteModule,
     MatSidenavModule,
     MatDialogModule,
-    LoginPopupComponent
+    LoginPopupComponent,
+    FilterPipe,
+    MediaPipe
   ],
   providers: [
     CommonService,
