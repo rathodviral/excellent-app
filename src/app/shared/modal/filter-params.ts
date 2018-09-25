@@ -3,6 +3,7 @@ export class Filter {
   station: string[];
   languages: string[];
   audienceClass?: string[];
+  mediaoption?: string[];
   screenPreference?: string;
   tier: string[];
   zone: string[];
@@ -12,6 +13,7 @@ export class Filter {
     station?: string[];
     languages?: string[];
     audienceClass?: string[],
+    mediaoption?: string[],
     screenPreference?: string,
     tier?: string[];
     zone?: string[];
@@ -20,6 +22,7 @@ export class Filter {
     this.station = options.station || [];
     this.languages = options.languages || [];
     this.audienceClass = options.audienceClass || [];
+    this.mediaoption = options.mediaoption || [];
     this.screenPreference = options.screenPreference || '';
     this.tier = options.tier || [];
     this.zone = options.zone || [];

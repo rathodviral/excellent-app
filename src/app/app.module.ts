@@ -17,6 +17,8 @@ import { AppService } from './app.service';
 import { MediaPlanComponent } from './media-plan/media-plan.component';
 import { CinemaComponent } from './cinema/cinema.component';
 import { CinemaDetailComponent } from './cinema-detail/cinema-detail.component';
+import { TransitComponent } from './transit/transit.component';
+import { TransitDetailComponent } from './transit-detail/transit-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CinemaDetailComponent } from './cinema-detail/cinema-detail.component';
     RadioComponent,
     RadioDetailComponent,
     CinemaComponent,
-    CinemaDetailComponent
+    CinemaDetailComponent,
+    TransitComponent,
+    TransitDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'excellent-app' }),

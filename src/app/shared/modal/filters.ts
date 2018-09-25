@@ -3,6 +3,7 @@ export class Filters {
   radiostation: FilterData[];
   audienceClass: FilterData[];
   screenPreference: any[];
+  mediaoption: FilterData[];
   tier: FilterData[];
   zone: any[];
   optionType: any[];
@@ -12,6 +13,7 @@ export class Filters {
     radiostation?: FilterData[],
     audienceClass?: FilterData[],
     screenPreference?: any[],
+    mediaoption?: FilterData[],
     tier?: FilterData[],
     zone?: any[]
     optionType?: any[]
@@ -20,6 +22,7 @@ export class Filters {
     this.radiostation = options.radiostation || [];
     this.audienceClass = options.audienceClass || [];
     this.screenPreference = options.screenPreference || [];
+    this.mediaoption = options.mediaoption || [];
     this.tier = options.tier || [];
     this.zone = options.zone || [];
     this.optionType = options.optionType || [];
