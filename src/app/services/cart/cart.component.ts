@@ -265,7 +265,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.storageCartData = [];
     this.addToCartDataDefault = [];
     this.addToCartData = [];
-    this.router.navigate(['services/media']);
+    this.router.navigate(['/media']);
   }
 
   ngOnDestroy() {
