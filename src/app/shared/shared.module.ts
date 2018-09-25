@@ -13,11 +13,17 @@ import { DynamicPriceOptionsService } from './components/dynamic-price-options/d
 import { LoginPopupComponent } from './components/login-popup/login-popup.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { MediaPipe } from './pipes/media.pipe';
+import { HeaderComponent } from './components/header/header.component';
+import { SubHeaderComponent } from './components/sub-header/sub-header.component';
+import { CartComponent } from './components/cart/cart.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -37,7 +43,11 @@ import { MediaPipe } from './pipes/media.pipe';
     ProfileComponent,
     LoginPopupComponent,
     FilterPipe,
-    MediaPipe
+    MediaPipe,
+    HeaderComponent,
+    SubHeaderComponent,
+    CartComponent,
+    FooterComponent
   ],
   exports: [
     PageNotFoundComponent,
@@ -59,7 +69,11 @@ import { MediaPipe } from './pipes/media.pipe';
     MatDialogModule,
     LoginPopupComponent,
     FilterPipe,
-    MediaPipe
+    MediaPipe,
+    HeaderComponent,
+    SubHeaderComponent,
+    CartComponent,
+    FooterComponent
   ],
   providers: [
     CommonService,

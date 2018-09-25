@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Utilities } from "../../shared/services/utilities";
-import { LocalStorage } from "../../shared/constant/local-storage";
-import { CommonService } from "../../shared/services/common.service";
-import { UserService } from '../../shared/services/user.service';
+import { CommonService } from '../../services/common.service';
+import { UserService } from '../../services/user.service';
+import { Utilities } from '../../services/utilities';
+import { LocalStorage } from '../../constant/local-storage';
 declare var jQuery;
 
 @Component({

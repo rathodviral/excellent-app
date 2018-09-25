@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../shared/services/common.service';
-import { LocalStorage } from '../../shared/constant/local-storage';
-import { Utilities } from '../../shared/services/utilities';
-import { LoginPopupComponent } from '../../shared/components/login-popup/login-popup.component';
 import { MatDialog } from '@angular/material';
-import { AppService } from '../../app.service';
+import { CommonService } from '../shared/services/common.service';
+import { AppService } from '../app.service';
+import { LocalStorage } from '../shared/constant/local-storage';
+import { Utilities } from '../shared/services/utilities';
+import { LoginPopupComponent } from '../shared/components/login-popup/login-popup.component';
 
 @Component({
   selector: 'app-media-plan',

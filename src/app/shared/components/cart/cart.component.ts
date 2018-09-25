@@ -2,13 +2,13 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
-import { LocalStorage } from '../../shared/constant/local-storage';
-import { Router } from '../../../../node_modules/@angular/router';
-import { Utilities } from '../../shared/services/utilities';
-import { DynamicPriceOptionsService } from '../../shared/components/dynamic-price-options/dynamic-price-options.service';
-import { FormControlTypes } from '../../shared/constant/form-control';
-import { CommonService } from '../../shared/services/common.service';
-import { AppService } from '../../app.service';
+import { FormControlTypes } from '../../constant/form-control';
+import { AppService } from '../../../app.service';
+import { CommonService } from '../../services/common.service';
+import { DynamicPriceOptionsService } from '../dynamic-price-options/dynamic-price-options.service';
+import { Router } from '@angular/router';
+import { Utilities } from '../../services/utilities';
+import { LocalStorage } from '../../constant/local-storage';
 
 @Component({
   selector: 'app-cart',
