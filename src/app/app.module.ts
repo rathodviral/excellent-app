@@ -15,6 +15,8 @@ import { RadioComponent } from './radio/radio.component';
 import { RadioDetailComponent } from './radio-detail/radio-detail.component';
 import { AppService } from './app.service';
 import { MediaPlanComponent } from './media-plan/media-plan.component';
+import { CinemaComponent } from './cinema/cinema.component';
+import { CinemaDetailComponent } from './cinema-detail/cinema-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MediaPlanComponent } from './media-plan/media-plan.component';
     AboutComponent,
     MediaPlanComponent,
     RadioComponent,
-    RadioDetailComponent
+    RadioDetailComponent,
+    CinemaComponent,
+    CinemaDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'excellent-app' }),

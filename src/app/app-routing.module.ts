@@ -9,6 +9,8 @@ import { RadioComponent } from './radio/radio.component';
 import { RadioDetailComponent } from './radio-detail/radio-detail.component';
 import { MediaPlanComponent } from './media-plan/media-plan.component';
 import { ProfileComponent } from './shared/components/profile/profile.component';
+import { CinemaComponent } from './cinema/cinema.component';
+import { CinemaDetailComponent } from './cinema-detail/cinema-detail.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'radio', pathMatch: 'full' },
@@ -18,6 +20,8 @@ const appRoutes: Routes = [
   { path: 'team', component: TeamComponent },
   { path: 'radio', component: RadioComponent },
   { path: 'radio/:alias', component: RadioDetailComponent },
+  { path: 'cinema', component: CinemaComponent },
+  { path: 'cinema/:alias', component: CinemaDetailComponent },
   { path: 'media', component: MediaPlanComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '**', component: PageNotFoundComponent }

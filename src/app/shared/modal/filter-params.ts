@@ -2,6 +2,8 @@ export class Filter {
   location: Location[];
   station: string[];
   languages: string[];
+  audienceClass?: string[];
+  screenPreference?: string;
   tier: string[];
   zone: string[];
 
@@ -9,12 +11,16 @@ export class Filter {
     location?: Location[];
     station?: string[];
     languages?: string[];
+    audienceClass?: string[],
+    screenPreference?: string,
     tier?: string[];
     zone?: string[];
   } = {}) {
     this.location = options.location || [];
     this.station = options.station || [];
     this.languages = options.languages || [];
+    this.audienceClass = options.audienceClass || [];
+    this.screenPreference = options.screenPreference || '';
     this.tier = options.tier || [];
     this.zone = options.zone || [];
   }

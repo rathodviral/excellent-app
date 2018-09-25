@@ -1,6 +1,8 @@
 export class Filters {
   language: FilterData[];
   radiostation: FilterData[];
+  audienceClass: FilterData[];
+  screenPreference: any[];
   tier: FilterData[];
   zone: any[];
   optionType: any[];
@@ -8,12 +10,16 @@ export class Filters {
   constructor(options: {
     language?: FilterData[],
     radiostation?: FilterData[],
+    audienceClass?: FilterData[],
+    screenPreference?: any[],
     tier?: FilterData[],
     zone?: any[]
     optionType?: any[]
   } = {}) {
     this.language = options.language || [];
     this.radiostation = options.radiostation || [];
+    this.audienceClass = options.audienceClass || [];
+    this.screenPreference = options.screenPreference || [];
     this.tier = options.tier || [];
     this.zone = options.zone || [];
     this.optionType = options.optionType || [];
