@@ -4,6 +4,8 @@ export class Filters {
   audienceClass: FilterData[];
   screenPreference: any[];
   mediaoption: FilterData[];
+  mediaName: FilterData[];
+  illumination: FilterData[];
   tier: FilterData[];
   zone: any[];
   optionType: any[];
@@ -14,6 +16,8 @@ export class Filters {
     audienceClass?: FilterData[],
     screenPreference?: any[],
     mediaoption?: FilterData[],
+    mediaName?: FilterData[],
+    illumination?: FilterData[],
     tier?: FilterData[],
     zone?: any[]
     optionType?: any[]
@@ -23,6 +27,8 @@ export class Filters {
     this.audienceClass = options.audienceClass || [];
     this.screenPreference = options.screenPreference || [];
     this.mediaoption = options.mediaoption || [];
+    this.mediaName = options.mediaName || [];
+    this.illumination = options.illumination || [];
     this.tier = options.tier || [];
     this.zone = options.zone || [];
     this.optionType = options.optionType || [];

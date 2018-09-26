@@ -4,6 +4,8 @@ export class Filter {
   languages: string[];
   audienceClass?: string[];
   mediaoption?: string[];
+  medianame?: string[];
+  illumination?: string[];
   screenPreference?: string;
   tier: string[];
   zone: string[];
@@ -14,6 +16,8 @@ export class Filter {
     languages?: string[];
     audienceClass?: string[],
     mediaoption?: string[],
+    medianame?: string[],
+    illumination?: string[],
     screenPreference?: string,
     tier?: string[];
     zone?: string[];
@@ -23,6 +27,8 @@ export class Filter {
     this.languages = options.languages || [];
     this.audienceClass = options.audienceClass || [];
     this.mediaoption = options.mediaoption || [];
+    this.medianame = options.medianame || [];
+    this.illumination = options.illumination || [];
     this.screenPreference = options.screenPreference || '';
     this.tier = options.tier || [];
     this.zone = options.zone || [];

@@ -19,6 +19,8 @@ import { CinemaComponent } from './cinema/cinema.component';
 import { CinemaDetailComponent } from './cinema-detail/cinema-detail.component';
 import { TransitComponent } from './transit/transit.component';
 import { TransitDetailComponent } from './transit-detail/transit-detail.component';
+import { OutdoorComponent } from './outdoor/outdoor.component';
+import { OutdoorDetailComponent } from './outdoor-detail/outdoor-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { TransitDetailComponent } from './transit-detail/transit-detail.componen
     CinemaComponent,
     CinemaDetailComponent,
     TransitComponent,
-    TransitDetailComponent
+    TransitDetailComponent,
+    OutdoorComponent,
+    OutdoorDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'excellent-app' }),

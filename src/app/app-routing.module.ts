@@ -13,6 +13,8 @@ import { CinemaComponent } from './cinema/cinema.component';
 import { CinemaDetailComponent } from './cinema-detail/cinema-detail.component';
 import { TransitComponent } from './transit/transit.component';
 import { TransitDetailComponent } from './transit-detail/transit-detail.component';
+import { OutdoorComponent } from './outdoor/outdoor.component';
+import { OutdoorDetailComponent } from './outdoor-detail/outdoor-detail.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'radio', pathMatch: 'full' },
@@ -26,6 +28,8 @@ const appRoutes: Routes = [
   { path: 'cinema/:alias', component: CinemaDetailComponent },
   { path: 'transit', component: TransitComponent },
   { path: 'transit/:alias', component: TransitDetailComponent },
+  { path: 'outdoor', component: OutdoorComponent },
+  { path: 'outdoor/:alias', component: OutdoorDetailComponent },
   { path: 'media', component: MediaPlanComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '**', component: PageNotFoundComponent }
