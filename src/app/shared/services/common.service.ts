@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { isPlatformBrowser } from '@angular/common';
 
 declare var humps;
+declare var $;
 
 @Injectable({
   providedIn: 'root'
@@ -71,5 +72,18 @@ export class CommonService {
 
   isArrayEqual(x, y) {
     return _(x).differenceWith(y, _.isEqual).isEmpty();
+  }
+
+  printToaster(type, message) {
+    if (type === 'error') {
+      $.growl.error({ message: message });
+    } else if (type === 'notice') {
+      $.growl.notice({ message: message });
+    } else if (type === 'warning') {
+      $.growl.warning({ message: message });
+    } else {
+      $.growl({ title: type, message: message });
+
+    }
   }
 }

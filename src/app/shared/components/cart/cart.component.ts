@@ -124,16 +124,19 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getLocalStorageData();
     this.subscription = this.servicesService.getCartData().subscribe(x => {
-      if (!Utilities.isEmptyObj(x.data)) {
+      if (!Utilities.isEmptyObj(x.data) && x.data.every(y => !Utilities.isEmptyObj(y['productOption'][Object.keys(y['productOption'])[0]]))) {
         this.getLocalStorageData();
         this.addToCartDataDefault = _.cloneDeep(x.data);
         this.addToCartData = _.cloneDeep(x.data);
         this.filterProductOptionData();
 
         this.bulkChangeInProductPrice(event);
+        // this.commonService.printToaster(false, 'Cart updated');
+
       } else {
         this.addToCartData = [];
         this.bulkCartData = [];
+        this.commonService.printToaster('warning', 'Current option type have no enough data, please select another one.');
       }
     });
 
@@ -237,6 +240,10 @@ export class CartComponent implements OnInit, OnDestroy {
       let cartdata = this.addToCartData.find(x => x.alias === element.alias)['productOption'];
       element['productOption']['optionPrice'] = cartdata['optPrice'];
       element['productOption']['subTotalPrice'] = cartdata['totalPrice'];
+      element['productOption']['selectedOption'] = {
+        priceUnit:[],
+        variant:[]
+      };
 
       const data = element['productOption'][Object.keys(element['productOption'])[0]];
 
@@ -245,6 +252,7 @@ export class CartComponent implements OnInit, OnDestroy {
           const index = cartdata.priceUnit.findIndex(x => x.name === p.unitName);
           if (index > -1) {
             p['value'] = cartdata.priceUnit[index].value;
+            element['productOption']['selectedOption']['priceUnit'].push({name:cartdata.priceUnit[index].name,value:cartdata.priceUnit[index].value});
           }
         });
       }
@@ -254,6 +262,7 @@ export class CartComponent implements OnInit, OnDestroy {
           const index = cartdata.variant.findIndex(x => x.name === v.name);
           if (index > -1) {
             v.value = cartdata.variant[index].value;
+            element['productOption']['selectedOption']['variant'].push({name:cartdata.variant[index].name,value:cartdata.variant[index].value});
           }
         });
       }

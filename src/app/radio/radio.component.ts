@@ -54,7 +54,7 @@ export class RadioComponent implements OnInit, OnDestroy {
   cols: any[];
   iterableDiffer: any = [];
 
-  displayedColumns: string[] = ['select', 'productName', 'cityName', 'frequency', 'targetAudience', 'price'];
+  displayedColumns: string[] = ['select', 'productName', 'frequency', 'cityName', 'targetAudience', 'price'];
   dataSource: any;
   selection = new SelectionModel<FilteredData>(true, []);
 

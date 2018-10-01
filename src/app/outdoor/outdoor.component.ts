@@ -54,7 +54,7 @@ export class OutdoorComponent implements OnInit, OnDestroy {
   cols: any[];
   iterableDiffer: any = [];
 
-  displayedColumns: string[] = ['select', 'productName', 'cityName', 'media', 'localityName', 'price'];
+  displayedColumns: string[] = ['select', 'uniqueId', 'media', 'localityName', 'landmark', 'size', 'price'];
   dataSource: any;
   selection = new SelectionModel<FilteredData>(true, []);
 

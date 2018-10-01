@@ -26,12 +26,14 @@
               "src/vendor/css/bootstrap.css",
               "src/vendor/css/materialize.css",
               "src/vendor/fonts/font-awesome/css/font-awesome.min.css",
+              "src/vendor/css/jquery.growl.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "src/vendor/js/materialize.js",
-              "src/vendor/js/humps.js"
+              "src/vendor/js/humps.js",
+              "src/vendor/js/jquery.growl.js"
             ]
           },
           "configurations": {

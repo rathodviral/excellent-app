@@ -53,7 +53,7 @@ export class TransitComponent implements OnInit, OnDestroy {
   cols: any[];
   iterableDiffer: any = [];
 
-  displayedColumns: string[] = ['select', 'productName', 'cityName', 'media', 'price'];
+  displayedColumns: string[] = ['select', 'cityName', 'productName', 'mediaoption', 'price'];
   dataSource: any;
   selection = new SelectionModel<FilteredData>(true, []);
 

@@ -54,7 +54,7 @@ export class CinemaComponent implements OnInit, OnDestroy {
   cols: any[];
   iterableDiffer: any = [];
 
-  displayedColumns: string[] = ['select', 'productName', 'cityName', 'cinemachain', 'screen', 'price'];
+  displayedColumns: string[] = ['select', 'cinemachain', 'productName', 'localityName', 'screen', 'seats', 'price'];
   dataSource: any;
   selection = new SelectionModel<FilteredData>(true, []);
 

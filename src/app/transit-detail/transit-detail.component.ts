@@ -218,7 +218,7 @@ export class TransitDetailComponent implements OnInit {
     this.storageCartData.push(this.selectedData);
     this.commonService.clearLocalStorageObject(LocalStorage.CartData);
     this.commonService.setLocalStorageObject(LocalStorage.CartData, this.storageCartData);
-    this.router.navigate(['services/media']);
+    this.router.navigate(['media']);
   }
 
   scrollToElement(elem) {

@@ -1,10 +1,10 @@
 export class Filters {
   language: FilterData[];
   radiostation: FilterData[];
-  audienceClass: FilterData[];
+  audienceclass: FilterData[];
   screenPreference: any[];
   mediaoption: FilterData[];
-  mediaName: FilterData[];
+  medianame: FilterData[];
   illumination: FilterData[];
   tier: FilterData[];
   zone: any[];
@@ -13,10 +13,10 @@ export class Filters {
   constructor(options: {
     language?: FilterData[],
     radiostation?: FilterData[],
-    audienceClass?: FilterData[],
+    audienceclass?: FilterData[],
     screenPreference?: any[],
     mediaoption?: FilterData[],
-    mediaName?: FilterData[],
+    medianame?: FilterData[],
     illumination?: FilterData[],
     tier?: FilterData[],
     zone?: any[]
@@ -24,10 +24,10 @@ export class Filters {
   } = {}) {
     this.language = options.language || [];
     this.radiostation = options.radiostation || [];
-    this.audienceClass = options.audienceClass || [];
+    this.audienceclass = options.audienceclass || [];
     this.screenPreference = options.screenPreference || [];
     this.mediaoption = options.mediaoption || [];
-    this.mediaName = options.mediaName || [];
+    this.medianame = options.medianame || [];
     this.illumination = options.illumination || [];
     this.tier = options.tier || [];
     this.zone = options.zone || [];

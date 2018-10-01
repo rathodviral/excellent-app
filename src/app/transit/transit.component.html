@@ -153,9 +153,9 @@
                           <td mat-cell *matCellDef="let element"> {{element.cityName}} </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="media">
+                        <ng-container matColumnDef="mediaoption">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Media Option </th>
-                          <td mat-cell *matCellDef="let element"> {{element.media}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.mediaoption}} </td>
                         </ng-container>
 
                         <!-- <ng-container matColumnDef="screen">
@@ -163,7 +163,7 @@
                           <td mat-cell *matCellDef="let element"> {{element.screen}} </td>
                         </ng-container> -->
                         <ng-container matColumnDef="price">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
                           <td mat-cell *matCellDef="let element">
                             <p *ngIf="isTokenAvailable(); else tokenNot">{{element?.productOption[priceOption]?.optionPrice?.defaultPrice?.price}}</p>
                             <ng-template #tokenNot>
